@@ -1,0 +1,69 @@
+LTG command line: C:\GP\ltg.bat GTAPV7-EP
+
+[C:\GP\gptask.exe]
+[GPTASK 18/Feb/2020. Parameters: gfortran GTAPV7-EP ]
+
+GNU Fortran (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 6.4.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Running up to 24 compiles at once, with each compile doing up to 3 files.
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c11.for" "gtapv7-ep_c12.for" "gtapv7-ep_c13.for"
+Launched slot 2: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u11.for" "gtapv7-ep_u12.for" "gtapv7-ep_u13.for"
+Launched slot 3: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_v1.for" "gtapv7-ep__39.for" "gtapv7-ep__43.for"
+Launched slot 4: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__48.for" "gtapv7-ep__51.for" "gtapv7-ep__54.for"
+Launched slot 5: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__58.for" "gtapv7-ep__64.for" "gtapv7-ep__67.for"
+Launched slot 6: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__70.for" "gtapv7-ep__73.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c1.for" "gtapv7-ep_c31.for" "gtapv7-ep_c32.for"
+Launched slot 2: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c33.for" "gtapv7-ep_c51.for" "gtapv7-ep_c52.for"
+Launched slot 7: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c53.for" "gtapv7-ep_c61.for" "gtapv7-ep_c62.for"
+Launched slot 8: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c63.for" "gtapv7-ep_u1.for" "gtapv7-ep_u31.for"
+Launched slot 9: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u32.for" "gtapv7-ep_u33.for" "gtapv7-ep_u51.for"
+Launched slot 10: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u52.for" "gtapv7-ep_u53.for" "gtapv7-ep_u61.for"
+Launched slot 11: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u62.for" "gtapv7-ep_u63.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u6.for" "gtapv7-ep_v3.for" "gtapv7-ep_v5.for"
+Launched slot 3: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_v6.for" "gtapv7-ep__77.for" "gtapv7-ep__78.for"
+Launched slot 6: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__79.for" "gtapv7-ep__80.for" "gtapv7-ep__81.for"
+Launched slot 8: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__82.for" "gtapv7-ep__83.for"
+Launched slot 4: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u3.for" "gtapv7-ep_u5.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u0.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c6.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_v0.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c3.for" "gtapv7-ep_c5.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c0.for" "gtapv7-ep__2.for" "gtapv7-ep__3.for"
+Launched slot 2: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__4.for" "gtapv7-ep__5.for" "gtapv7-ep__6.for"
+Launched slot 3: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__7.for" "gtapv7-ep__8.for" "gtapv7-ep__9.for"
+Launched slot 4: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__10.for" "gtapv7-ep__11.for" "gtapv7-ep__12.for"
+Launched slot 5: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__13.for" "gtapv7-ep__14.for" "gtapv7-ep__15.for"
+Launched slot 6: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__16.for" "gtapv7-ep__17.for" "gtapv7-ep__18.for"
+Launched slot 7: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__19.for" "gtapv7-ep__20.for" "gtapv7-ep__21.for"
+Launched slot 8: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__22.for" "gtapv7-ep__23.for" "gtapv7-ep__24.for"
+Launched slot 9: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__25.for" "gtapv7-ep__26.for" "gtapv7-ep__27.for"
+Launched slot 10: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__28.for" "gtapv7-ep__29.for" "gtapv7-ep__30.for"
+Launched slot 11: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__31.for" "gtapv7-ep__32.for" "gtapv7-ep__33.for"
+Launched slot 12: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__34.for" "gtapv7-ep__35.for" "gtapv7-ep__36.for"
+Launched slot 13: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__37.for" "gtapv7-ep__38.for" "gtapv7-ep__40.for"
+Launched slot 14: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__41.for" "gtapv7-ep__42.for" "gtapv7-ep__44.for"
+Launched slot 15: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__45.for" "gtapv7-ep__46.for" "gtapv7-ep__47.for"
+Launched slot 16: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__49.for" "gtapv7-ep__50.for" "gtapv7-ep__52.for"
+Launched slot 17: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__53.for" "gtapv7-ep__55.for" "gtapv7-ep__56.for"
+Launched slot 18: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__57.for" "gtapv7-ep__59.for" "gtapv7-ep__60.for"
+Launched slot 19: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__61.for" "gtapv7-ep__62.for" "gtapv7-ep__63.for"
+Launched slot 20: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__65.for" "gtapv7-ep__66.for" "gtapv7-ep__68.for"
+Launched slot 21: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__69.for" "gtapv7-ep__71.for" "gtapv7-ep__72.for"
+Launched slot 22: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__74.for" "gtapv7-ep__75.for" "gtapv7-ep__76.for"
+Launched slot 23: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__84.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_m0.for"
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__1.for"
+Finished OK 21.3 seconds 47 separate tasks
+
+D:\runGTAP375\gtapepck>gfortran  @optgf_3 @gfortran_link_ltg.fig -Wl,--start-group -lgpa -lgpb -ltbgdum -lmodlib -lgs -Wl,--end-group -L"C:\GP" -L.\ -lopenblas -lgomp -lpthread -o GTAPV7-EP.exe 
+[C:\GP\gptask.exe]
+[GPTASK 18/Feb/2020. Parameters: cleangf GTAPV7-EP deletefor]
+start time = 13:09:39.43       end time = 13:10:05.37             
+
+
+GTAPV7-EP.EXE made successfully
+
+

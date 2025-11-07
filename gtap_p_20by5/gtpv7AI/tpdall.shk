@@ -1,0 +1,132 @@
+
+ ! This file was created at 14:59:45 on 05-OCT-2025 by the program
+ !  <SHOCKSv7.for 09-SEP-2020> [SHOCKSv7.tab]
+ ! which accesses some of the routines in the GEMPACK software release
+ !  <GEMPACK Release 12.1.003   January 2020>
+ 
+ !     -------------------------------------------------------                
+ !    !            GEMPACK Software System Licence            !               
+ !    !  Source Code Licence for the GEMPACK Software System  !               
+ !    !                 Licence No.  GFM-0048                 !               
+ !    !          Licence for Release 12.2 of GEMPACK          !               
+ !    !           Center for Global Trade Analysis            !               
+ !    !         Department of Agricultural Economics          !               
+ !    !                   Krannert Building                   !               
+ !    !                   Purdue University                   !               
+ !     -------------------------------------------------------                
+    
+
+ !
+ ! Values of TPD_HAT(COMM,REG) - a real array of size 20x5
+ !----------------------------
+ !
+
+! Coefficient TPD_HAT(COMM,REG)
+
+ ! (Entries are written one "row" at a time - maximum of 4 per line.)
+
+ 
+ 20 5  real row_order;
+ 
+! The matrix TPD_HAT(%1,%2)  with %1 in COMM and %2 in REG. ++++++++++++++++++
+
+! %2=USA             CHN             EUR             XHY
+ 6.62347972E-02   4.9899726      -8.0179853     -0.60836822    ! %1=Agr
+! %2=ROW
+-0.69955105
+
+! %2=USA             CHN             EUR             XHY
+ -19.250193      -27.455391      -34.884464      0.49710596    ! %1=Coal
+! %2=ROW
+  4.6226373
+
+! %2=USA             CHN             EUR             XHY
+  0.0000000       0.0000000      -18.069862      -11.767917    ! %1=Oil
+! %2=ROW
+ -9.2979603
+
+! %2=USA             CHN             EUR             XHY
+ -2.3013651      -3.5872085      -42.891052      -13.210885    ! %1=Gas
+! %2=ROW
+  38.748234
+
+! %2=USA             CHN             EUR             XHY
+ -29.732195       4.1461320      -66.165695      -40.561417    ! %1=Oil_pcts
+! %2=ROW
+ -5.3331451
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020728      -45.103596      -3.8150153    ! %1=TnD
+! %2=ROW
+  1.6859516
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020657      -34.689133      -11.018048    ! %1=NuclearBL
+! %2=ROW
+  5.7185855
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020728      -45.184830      -10.344356    ! %1=CoalBL
+! %2=ROW
+  2.8035152
+
+! %2=USA             CHN             EUR             XHY
+ -2.1123893       0.0000000      -36.133640       5.4990406    ! %1=GasBL
+! %2=ROW
+  19.367716
+
+! %2=USA             CHN             EUR             XHY
+ -2.1123893       5.5020657      -39.321522      -5.6710124    ! %1=WindBL
+! %2=ROW
+ -7.0756106
+
+! %2=USA             CHN             EUR             XHY
+ -2.1123893       5.5020657      -37.615429      -10.936773    ! %1=HydroBL
+! %2=ROW
+ -2.7716420
+
+! %2=USA             CHN             EUR             XHY
+  0.0000000       0.0000000      -35.390129       39.454002    ! %1=OilBL
+! %2=ROW
+ -6.0390830
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020795      -43.081741      -10.175746    ! %1=OtherBL
+! %2=ROW
+ -2.8119128
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020728      -41.686180      -6.8462696    ! %1=GasP
+! %2=ROW
+ -4.0850320
+
+! %2=USA             CHN             EUR             XHY
+  0.0000000       5.5020728      -41.854095      -7.3626146    ! %1=HydroP
+! %2=ROW
+ -1.7390966
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020728      -39.165977       5.3070440    ! %1=OilP
+! %2=ROW
+  12.784671
+
+! %2=USA             CHN             EUR             XHY
+ -2.1124008       5.5020657      -37.392525      -10.411122    ! %1=SolarP
+! %2=ROW
+  7.4165235
+
+! %2=USA             CHN             EUR             XHY
+ -7.8769393      -10.536516      -21.983318      -3.1933494    ! %1=En_Int_ind
+! %2=ROW
+ -10.792269
+
+! %2=USA             CHN             EUR             XHY
+  2.6478045      -6.7332015      -23.047134      -6.3706536    ! %1=Oth_ind
+! %2=ROW
+ -7.1502414
+
+! %2=USA             CHN             EUR             XHY
+ -2.0834930      -7.1557498      -3.6987979      -1.6996479    ! %1=Services
+! %2=ROW
+ -2.6596880
+

@@ -1,0 +1,1142 @@
+
+ ! This file was created at 14:59:45 on 05-OCT-2025 by the program
+ !  <SHOCKSv7.for 09-SEP-2020> [SHOCKSv7.tab]
+ ! which accesses some of the routines in the GEMPACK software release
+ !  <GEMPACK Release 12.1.003   January 2020>
+ 
+ !     -------------------------------------------------------                
+ !    !            GEMPACK Software System Licence            !               
+ !    !  Source Code Licence for the GEMPACK Software System  !               
+ !    !                 Licence No.  GFM-0048                 !               
+ !    !          Licence for Release 12.2 of GEMPACK          !               
+ !    !           Center for Global Trade Analysis            !               
+ !    !         Department of Agricultural Economics          !               
+ !    !                   Krannert Building                   !               
+ !    !                   Purdue University                   !               
+ !     -------------------------------------------------------                
+    
+
+ !
+ ! Values of TFD_HAT(COMM,ACTS,REG) - a real array of size 20x20x5
+ !---------------------------------
+ !
+
+! Coefficient TFD_HAT(COMM,ACTS,REG)
+
+ ! (Entries are written one "row" at a time - maximum of 4 per line.)
+
+ 
+ 20 20 5  real row_order;
+ 
+! (This array is shown as 5 matrices - each of size 20x20.)
+ 
+! The matrix TFD_HAT(%1,%2,"USA")  with %1 in COMM and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  2.8405056       1.7730620       0.0000000       0.0000000    ! %1=Agr
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-7.36409128E-02   0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      0.16018738     -0.19338806      0.42824370
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000     -7.19506070E-02   0.0000000     -2.38418525E-05! %1=Coal
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000      -19.250185
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -19.013294      -18.666161       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000     -3.26407664E-02! %1=Oil
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -2.2969615     -1.19209271E-05   0.0000000     -1.19209271E-05! %1=Gas
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 5.96046493E-06   0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -6.4671888       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000      -6.4671993       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -3.4238529      -2.2908275      -2.8130727
+
+! %2=Agr             Coal            Oil             Gas
+ -26.221495       0.0000000       0.0000000       0.0000000    ! %1=Oil_pcts
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      -3.6711295       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -3.6711295       0.0000000       0.0000000      -3.6711295
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -26.225010      -25.915695      -26.064356
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122522      -2.1121838    ! %1=TnD
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121724      -2.1122866      -2.1122751
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122637      -2.1121838    ! %1=NuclearBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122866      -2.1122751
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117840      -2.1118867      -2.1122522      -2.1121838    ! %1=CoalBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122866      -2.1122637
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122637      -2.1121838    ! %1=GasBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122866      -2.1122751
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122637      -2.1121724    ! %1=WindBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122980      -2.1122637
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122522      -2.1121724    ! %1=HydroBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122866      -2.1122637
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000       0.0000000    ! %1=OilBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122522      -2.1121838    ! %1=OtherBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122980      -2.1122637
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122522      -2.1121838    ! %1=GasP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122866      -2.1122751
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000       0.0000000    ! %1=HydroP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117954      -2.1118867      -2.1122522      -2.1121953    ! %1=OilP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122980      -2.1122751
+
+! %2=Agr             Coal            Oil             Gas
+ -2.1117840      -2.1118867      -2.1122637      -2.1121838    ! %1=SolarP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.1122866      -2.1121609      -2.1121609      -2.1121609
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.1121609      -2.1121609      -2.1121609       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.1121609      -2.1121609       0.0000000      -2.1121609
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.1121609      -2.1121838      -2.1122980      -2.1122637
+
+! %2=Agr             Coal            Oil             Gas
+  2.6723726      -1.6765927       7.3985214       6.8039079    ! %1=En_Int_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.5064268      -2.6650643      -4.0666699      -1.8717875
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -1.8717875      -1.8717990      -1.8717990       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.8718104      -1.8718104       0.0000000      -1.8718104
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -1.8718104      -3.0945239      -4.4696598      -5.0714731
+
+! %2=Agr             Coal            Oil             Gas
+  2.6636395      -2.6924784      -1.7863680      -2.3713841    ! %1=Oth_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  5.4400244       3.4118316       3.4118252       3.4118252
+! %2=GasBL           WindBL          HydroBL         OilBL
+  3.4118187       3.4118252       3.4118252       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  3.4118252       3.4118252       0.0000000       3.4118569
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  3.4118316     -0.82164985      -2.2480731       1.7364898
+
+! %2=Agr             Coal            Oil             Gas
+  2.7112808     -0.84466237      0.86804199      0.68925369    ! %1=Services
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.98142183     -0.90850908     -0.87452865      -1.5877389
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.87452865     -0.87452865     -0.87452865       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+-0.87452865     -0.87454033       0.0000000     -0.87454033
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.87452865     -0.77336282      -1.7812163     -0.79427421
+
+! The matrix TFD_HAT(%1,%2,"CHN")  with %1 in COMM and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  1.7425669       1.4823049       0.0000000       0.0000000    ! %1=Agr
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       1.0808651       1.0808651       1.0808591
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       1.0808651       1.0808712       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  1.0808591       1.0808651       1.0808651       1.0808651
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  1.0808651       2.8918953       2.9074838       2.6102746
+
+! %2=Agr             Coal            Oil             Gas
+ -13.711128     -1.19209271E-05   0.0000000       0.0000000    ! %1=Coal
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000      -13.727670
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -13.727670      -13.134863      -11.999612
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000     -1.19209271E-05 -2.12981626E-02! %1=Oil
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-1.19209271E-05   0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000      -27.768888
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -18.469666       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000     -6.07963651E-04! %1=Gas
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-3.57627723E-05   0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000      -17.242321       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -15.764520      -3.6180813      -1.8532916
+
+! %2=Agr             Coal            Oil             Gas
+ -11.089084     -2.38418525E-05  1.78813971E-05  1.19209308E-05! %1=Oil_pcts
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-1.19209271E-05  -8.5481844       0.0000000      -8.5481749
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -8.5481749      -8.5481844       0.0000000      -8.5481749
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -11.089084      -10.598919      -11.081601
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63456482      0.63455880      0.63457090      0.63458294    ! %1=TnD
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470239      0.62470841      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470841      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470841      0.62470239      0.62470239      0.62470841
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470239      0.63457692      0.63457090      0.63446224
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63456482      0.63455880      0.63457692      0.63457692    ! %1=NuclearBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470239      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470239      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62469637      0.62469637      0.62470239      0.62470841
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470841      0.63457090      0.63456482      0.63446224
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63457090      0.63455880      0.63458294      0.63457692    ! %1=CoalBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470239      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470239      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470841      0.62470239      0.62470239      0.62470841
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470239      0.63457692      0.63457692      0.63446224
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000       0.0000000    ! %1=GasBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63456482      0.63456482      0.63457692      0.63457692    ! %1=WindBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470841      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470841      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470239      0.62470841      0.62470841      0.62470239
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62469637      0.63457090      0.63457090      0.63446224
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63457090      0.63456482      0.63457090      0.63457692    ! %1=HydroBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470841      0.62470239      0.62470841
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470239      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470239      0.62470239      0.62470239      0.62470841
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470239      0.63457090      0.63457090      0.63446224
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000       0.0000000    ! %1=OilBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63457090      0.63456482      0.63457692      0.63458294    ! %1=OtherBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470239      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470841      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470841      0.62470239      0.62470239      0.62470239
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470841      0.63457090      0.63457090      0.63446826
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63455880      0.63456482      0.63457692      0.63458896    ! %1=GasP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63457090      0.62470239      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470239      0.62469637       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470239      0.62470841      0.62470841      0.62470239
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470841      0.63457090      0.63457692      0.63446826
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63456482      0.63456482      0.63457090      0.63458294    ! %1=HydroP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470841      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470841      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470239      0.62470239      0.62470841      0.62470239
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470239      0.63457090      0.63457090      0.63446826
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63455880      0.63456482      0.63457090      0.63458896    ! %1=OilP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63456482      0.62470239      0.62470239      0.62470239
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470239      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470841      0.62470239      0.62470841      0.62469637
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470841      0.63457090      0.63457090      0.63446826
+
+! %2=Agr             Coal            Oil             Gas
+ 0.63456482      0.63456482      0.63458294      0.63458294    ! %1=SolarP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.63457090      0.62470239      0.62470239      0.62470841
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      0.62470239      0.62470239       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.62470239      0.62470239      0.62470239      0.62470239
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.62470239      0.63457090      0.63457090      0.63446224
+
+! %2=Agr             Coal            Oil             Gas
+  1.5035177      -3.8014812      -4.6176581      -1.7306591    ! %1=En_Int_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -5.0433412      -3.0220971      -2.8610265      -3.0392361
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -3.0392361      -3.0392473       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -3.0392361      -3.0392249      -3.0392473      -3.0392361
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -3.0392361      -5.9859667      -4.0382905      -4.0346017
+
+! %2=Agr             Coal            Oil             Gas
+ 0.73322904      -2.9977288      -3.0385301      -5.1169457    ! %1=Oth_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -6.3131828      -2.9816074      -2.9816074      -2.9816074
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -2.9816074      -2.9816074       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.9816074      -2.9816074      -2.9816074      -2.9816074
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.9816074      -4.4158001      -2.5974905      -3.4342031
+
+! %2=Agr             Coal            Oil             Gas
+ 0.48784223      -3.4136672      -2.4369910      -3.6919541    ! %1=Services
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -3.4451513      -3.8580191      -3.5600967      -3.7716639
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -3.5600967      -3.5600855       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -3.5600855      -3.5600967      -3.5600855      -3.5600967
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -3.5600855      -3.6092436      -3.9350891      -3.3634746
+
+! The matrix TFD_HAT(%1,%2,"EUR")  with %1 in COMM and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  3.6167698     -2.14173216E-02 -0.11001629      -5.2048354    ! %1=Agr
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.12644020      0.12813514      0.21396065      1.99536551E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -1.8743242     -0.67155516     -0.16736345     -0.43298069
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.29044220     -0.65661597      0.56057137     -0.14339359
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.10357487       1.9083903       1.4649544     -0.78995651
+
+! %2=Agr             Coal            Oil             Gas
+ -12.268390     -1.66892729E-04   0.0000000       0.0000000    ! %1=Coal
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000     -7.94018134E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -4.6374359      -16.733324     -4.31232378E-02
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000     -3.57627723E-05 -1.07287208E-03! %1=Oil
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000      0.18541558
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      0.58969253     -1.84978601E-02 -0.17161669
+
+! %2=Agr             Coal            Oil             Gas
+ -16.751347       0.0000000     -7.02093402E-03 -3.57626588E-04! %1=Gas
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      -5.9468179       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -3.1582685       0.0000000       0.0000000      -6.2583756
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.4358222      -2.6055877       0.0000000      -6.2583756
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -11.675099      -11.137280      -12.636376
+
+! %2=Agr             Coal            Oil             Gas
+ -48.730446     -7.98695837E-04 -5.96046084E-05 -2.26497141E-04! %1=Oil_pcts
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      -9.5963211       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -9.8355055       0.0000000       0.0000000      -5.8392706
+! %2=OtherBL         GasP            HydroP          OilP
+ -8.5319109      -20.552479       0.0000000      -8.1328306
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -49.778854      -48.671116      -48.864185
+
+! %2=Agr             Coal            Oil             Gas
+ -20.247652      -8.0632286      -14.907953      -16.424587    ! %1=TnD
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -25.359903      -1.8220589      -2.1722643      -1.6076968
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 0.26819918      -1.4891927      -1.8336400      -4.9685884
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.7185241      -1.4811519      -6.4959745     -0.65383935
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-9.39915404E-02  -24.933189      -24.423107      -22.242350
+
+! %2=Agr             Coal            Oil             Gas
+ -15.396781      -4.4214630      -10.181132      -14.247333    ! %1=NuclearBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -11.872465      -2.1746829      -2.1717167      -4.3476367
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -1.8955200      -1.8269192      -2.4710541       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.2456012      -2.4244850      -3.5441728      -2.0862017
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.0724511      -15.850322      -14.946950      -15.018603
+
+! %2=Agr             Coal            Oil             Gas
+ -19.872593      -6.2669649      -12.182571      -15.366060    ! %1=CoalBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -24.167616      -1.4750192      -4.0017653      -2.5116878
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.31720787      -1.5303825      -2.3418560      -6.0458603
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.0980994      -2.2757566      -2.6672101      -2.3011034
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -1.3358450      -24.654768      -24.495249      -21.760723
+
+! %2=Agr             Coal            Oil             Gas
+ -22.009212      -11.352916      -15.558532      -16.719164    ! %1=GasBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -28.834450     -0.50611532      -1.7055569     -0.48531839
+! %2=GasBL           WindBL          HydroBL         OilBL
+  2.8697639     -9.05765519E-02   3.5822563      -5.2524171
+! %2=OtherBL         GasP            HydroP          OilP
+  3.2984202      0.26700670       0.0000000       1.2074581
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  3.2085721      -25.131702      -26.508802      -23.514448
+
+! %2=Agr             Coal            Oil             Gas
+ -16.665792      -8.4345350      -10.106827      -15.930985    ! %1=WindBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -23.074345      -1.4860691      -1.9080702      -1.1146779
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 0.53097916      -1.1289552     -0.27031350      -6.0256200
+! %2=OtherBL         GasP            HydroP          OilP
+-0.92426193      -1.1533629      -10.266596      0.35694239
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.30384913      -21.279266      -20.868401      -17.965504
+
+! %2=Agr             Coal            Oil             Gas
+ -18.781311      -4.8728170      -15.135294      -14.717877    ! %1=HydroBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -26.729675      -2.9699478      -2.6452959      -2.1884506
+! %2=GasBL           WindBL          HydroBL         OilBL
+  4.6276417      -1.0163029      -1.2902180      -6.2202816
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.0022033      -1.1746500      -5.6312079       1.4363486
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  2.8679473      -18.083088      -21.218586      -18.803764
+
+! %2=Agr             Coal            Oil             Gas
+ -17.526770      -16.514675      -15.944793      -9.5601807    ! %1=OilBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -16.513371      -4.5690565       0.0000000      -6.1859446
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -5.2914081      -5.8544140      -6.2061577      -5.0299459
+! %2=OtherBL         GasP            HydroP          OilP
+ -3.9616497       0.0000000       0.0000000      -5.2043428
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -5.9771786      -17.492659      -16.640228      -17.257847
+
+! %2=Agr             Coal            Oil             Gas
+ -19.537550      -8.1558447      -18.304344      -19.020275    ! %1=OtherBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -26.517912      -3.0696096      -2.5166838      -1.1425877
+! %2=GasBL           WindBL          HydroBL         OilBL
+  2.7611756      -1.9113964      -1.8775840      -4.1551795
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.4346309      -1.1560650      -7.6996951       2.5185370
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  1.9391521      -22.137444      -22.156687      -20.433575
+
+! %2=Agr             Coal            Oil             Gas
+ -19.109732      -6.6619072      -13.728860      -16.780342    ! %1=GasP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -23.311693      -1.2210585      -2.0272627      -1.8107855
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 0.48578385     -0.99997181     -0.76168287       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+-0.78888881      -1.5001931      -2.3961022     -0.13494140
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.10116585      -22.692631      -22.479822      -20.498251
+
+! %2=Agr             Coal            Oil             Gas
+ -10.206485      -6.2348104      -15.622972      -15.520996    ! %1=HydroP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -8.5372562      -8.8030624      -4.7180676      -2.8412025
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -9.6830950      -6.2529068       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -7.7864962      -3.2814922      -9.4448118      -2.9485850
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -1.9154106      -8.4306974      -8.4634104      -9.9762535
+
+! %2=Agr             Coal            Oil             Gas
+ -20.379568      -10.863902      -12.926769      -18.128851    ! %1=OilP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -28.593929      -1.7399828      -1.7512381      -2.3637822
+! %2=GasBL           WindBL          HydroBL         OilBL
+  1.6895448     -0.56016797      0.85537505      -5.2043428
+! %2=OtherBL         GasP            HydroP          OilP
+  3.2008142     -0.15420939      -2.1677577      -1.5094798
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  1.0318339      -23.048101      -25.401991      -21.518890
+
+! %2=Agr             Coal            Oil             Gas
+ -19.304375      -6.9829888      -11.449598      -17.833155    ! %1=SolarP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -27.320074     -0.41910452      -1.7050385      -1.1346301
+! %2=GasBL           WindBL          HydroBL         OilBL
+  2.7675772     -0.37448308       1.9299551      -5.9645414
+! %2=OtherBL         GasP            HydroP          OilP
+  1.9586914     -0.50484085      -2.0076578      0.94979554
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  1.7218029      -22.605165      -23.962841      -20.279955
+
+! %2=Agr             Coal            Oil             Gas
+  6.7219663     -0.38138056     -0.48541284      -6.1599598    ! %1=En_Int_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  1.5447041      1.91904176E-02  0.46086735     -0.33798042
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.11331102      0.10948831      0.10590433      -1.0177979
+! %2=OtherBL         GasP            HydroP          OilP
+ 3.58832837E-03 -8.49240422E-02 -1.34704681E-03  0.21573852
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.31329489      0.22246748     -0.14680499      -2.2068546
+
+! %2=Agr             Coal            Oil             Gas
+  3.8800368     -0.11748561      0.49952599     -0.33080456    ! %1=Oth_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.52654970     -0.30502927     -0.29983947     -0.64350814
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.50536007     -0.19063301     -0.43192887      -1.1073920
+! %2=OtherBL         GasP            HydroP          OilP
+-0.25100726     -0.36985663     -0.54188180     -0.44584873
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.16591394     -0.64088380     -0.41457680      -4.5194278
+
+! %2=Agr             Coal            Oil             Gas
+  4.0246682     -0.31701833     -0.45506349     -0.64876819    ! %1=Services
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.46816203     -0.47280297     -0.50914800     -0.49844435
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.30855995     -0.21709654     -0.37861222     -0.64670897
+! %2=OtherBL         GasP            HydroP          OilP
+-0.28059208     -0.42331269     -0.77041668     -3.77155095E-02
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 9.14694294E-02 -0.33192956     -0.32904005      -2.8083997
+
+! The matrix TFD_HAT(%1,%2,"XHY")  with %1 in COMM and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+ 0.75435376     -0.27069288     -5.99620603E-02 -0.26750341    ! %1=Agr
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-5.38654886E-02 -3.68221067E-02 -2.27161292E-02 -2.03925502E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+-2.68268120E-02 -2.72080768E-02 -3.86327207E-02  -3.7626336
+! %2=OtherBL         GasP            HydroP          OilP
+-1.36118475E-02 -2.57187486E-02 -1.95584185E-02 -0.15058458
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-1.41123878E-02 -9.05765519E-02 -0.19928953     -0.23966670
+
+! %2=Agr             Coal            Oil             Gas
+-0.71495908       0.0000000       0.0000000     -1.19209271E-05! %1=Coal
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000     -4.75622434E-03   0.0000000     -3.57857384E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 3.57628014E-05   0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+-0.44782180      1.78813971E-05   0.0000000     -5.24518138E-04
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -2.6682830      -2.5195160      -3.2786596
+
+! %2=Agr             Coal            Oil             Gas
+  0.0000000       0.0000000       0.0000000      3.57629149E-04! %1=Oil
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      2.00013574E-02   0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 2.14086100E-02   0.0000000       0.0000000      1.74493231E-02
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000      2.14086100E-02   0.0000000      1.72883347E-02
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      1.63343400E-02  4.69845645E-02 -6.63951645E-03
+
+! %2=Agr             Coal            Oil             Gas
+ -4.4748163       0.0000000     -5.96046084E-05 -1.19209271E-05! %1=Gas
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-1.19209271E-05  4.10546474E-02   0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  12.181773       0.0000000       0.0000000      0.22166522
+! %2=OtherBL         GasP            HydroP          OilP
+ 5.75754531E-02 -0.12728444       0.0000000       1.1262012
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       12.180213       13.196114       2.3959315
+
+! %2=Agr             Coal            Oil             Gas
+ -17.680227     -1.19209271E-05   0.0000000     -8.34464299E-05! %1=Oil_pcts
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-1.19209271E-05  -2.7729943       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.36088648       0.0000000       0.0000000       34.850197
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.9210644      -1.6613088       0.0000000       1.5068709
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -7.2154350       4.7784004      -10.189893
+
+! %2=Agr             Coal            Oil             Gas
+ 0.22670047     -0.87894434      -2.3349204      -4.4692249    ! %1=TnD
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  4.0223203       4.5504045      2.72765625E-02 -0.33826458
+! %2=GasBL           WindBL          HydroBL         OilBL
+  8.2983046     -0.20095178     -0.25156474       48.021656
+! %2=OtherBL         GasP            HydroP          OilP
+-0.17236513      0.38353711     -0.28495419       10.169838
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-9.90838557E-02 -0.71018791      -1.6112627       1.1831039
+
+! %2=Agr             Coal            Oil             Gas
+ -5.5506692      -10.805765      -10.819202      -10.614171    ! %1=NuclearBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -3.7974324      8.78053531E-03  4.83150147E-02  6.30657002E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 4.74260561E-02 -0.14618690     -0.18164244       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ 2.51893066E-02 -1.17407367E-02 -0.23627353      5.46455793E-02
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 3.27694491E-02  -4.6803031      -4.0887280      -4.6386285
+
+! %2=Agr             Coal            Oil             Gas
+ -2.6078832     -0.42592490      -8.1326399      -2.9311893    ! %1=CoalBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.8557949     -0.22425316      7.45374784E-02 -0.41880900
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.96013767     -8.84941220E-02 -5.21745123E-02  0.46683511
+! %2=OtherBL         GasP            HydroP          OilP
+-2.26446353E-02 -0.67068475     -0.23627353     -0.13307482
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.25237128      -1.9689628      -2.1330829      -2.0045211
+
+! %2=Agr             Coal            Oil             Gas
+  9.0577192     -1.19209271E-05   55.434170       5.9604297    ! %1=GasBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  11.737873       13.554329      7.00845420E-02 -0.79494292
+! %2=GasBL           WindBL          HydroBL         OilBL
+  11.920751     -0.17015542     -6.07930403E-03   49.868576
+! %2=OtherBL         GasP            HydroP          OilP
+-8.48169327E-02   2.5482643       0.0000000       16.767815
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.14757757       3.8508503      0.89378583       6.4979548
+
+! %2=Agr             Coal            Oil             Gas
+ -3.4483075      -2.3534398      -10.290289      -7.8540087    ! %1=WindBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -3.0735855     -0.31431749     -4.97927554E-02 -5.89023568E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.15264064     -0.38527253     -0.17150977       8.4585314
+! %2=OtherBL         GasP            HydroP          OilP
+-0.26825041     -0.22376660     -0.45651641      0.21048291
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-5.95453270E-02  -3.3110788      -3.1239343      -3.3193698
+
+! %2=Agr             Coal            Oil             Gas
+ -6.6479158      -8.0774326      -10.768593      -10.434730    ! %1=HydroBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -5.1124701     -0.59368098     -0.17148601     -3.73224132E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+-5.53100510E-03 -0.20604506     -0.12665422       3.6579022
+! %2=OtherBL         GasP            HydroP          OilP
+-0.23340219     -0.24440016     -0.27585021      0.25782728
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 1.31743615E-02  -5.7957997      -5.4970737      -5.5865459
+
+! %2=Agr             Coal            Oil             Gas
+  42.747837      -15.170335       63.518391       62.824211    ! %1=OilBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  45.640488       44.249657       0.0000000       1.2936463
+! %2=GasBL           WindBL          HydroBL         OilBL
+  50.234680       8.2162323       1.7179607       43.969780
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.6152092       0.0000000       0.0000000       47.082584
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  34.135925       41.216938       39.211166       40.676857
+
+! %2=Agr             Coal            Oil             Gas
+ -3.3173752      -3.0693743      -10.440859      -8.2812290    ! %1=OtherBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.3993955     -0.20967773      4.93710488E-02 -1.48751065E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.11458366     -0.25804043     -0.18299648     -8.95769969E-02
+! %2=OtherBL         GasP            HydroP          OilP
+-6.92483708E-02 -0.13198100     -0.39939466      2.85514398E-03
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-1.73181109E-02  -2.5037789      -2.4679132      -2.4507303
+
+! %2=Agr             Coal            Oil             Gas
+ -3.5797725      -1.9437071      -10.146209      -6.9965086    ! %1=GasP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.4239969      0.89403462      3.95335034E-02 -0.61325520
+! %2=GasBL           WindBL          HydroBL         OilBL
+  2.4760690     -0.22815743     -0.21137525       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+-0.12324146       1.0878204     -0.23773286      7.01681077E-02
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.31772906      -1.2957698      -2.1031592     -0.79023814
+
+! %2=Agr             Coal            Oil             Gas
+ -9.0056515      -10.820578      -10.821905      -10.821299    ! %1=HydroP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -10.819723     -0.26245198     -0.23627353     -0.23628539
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000     -0.40140501     -0.27594504       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+-0.42326543     -0.23689048     -0.33673713     -0.26876026
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.36601079      -10.327813      -8.9064436      -9.5423727
+
+! %2=Agr             Coal            Oil             Gas
+  8.2085266     -0.78092104       31.322662      5.85421696E-02! %1=OilP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  11.941706       15.046412      7.41912574E-02 -0.12273012
+! %2=GasBL           WindBL          HydroBL         OilBL
+  16.434549      0.21281734      0.25545481       47.082584
+! %2=OtherBL         GasP            HydroP          OilP
+ 1.08481629E-03  5.97774461E-02 -0.24851635       19.209805
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.13310722       1.3992273     -0.21411727       5.8746381
+
+! %2=Agr             Coal            Oil             Gas
+ -2.0038114     -0.59966481      -8.2026491      -3.7626557    ! %1=SolarP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.8582062      9.18754861E-02  5.98251894E-02 -0.17552507
+! %2=GasBL           WindBL          HydroBL         OilBL
+-9.88221169E-02 -7.19029903E-02  2.85528153E-02   35.417103
+! %2=OtherBL         GasP            HydroP          OilP
+-1.64243430E-02 -0.25884688     -0.40974122      0.17269820
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-6.96412176E-02  -1.8060386      -2.0214038      -1.8081765
+
+! %2=Agr             Coal            Oil             Gas
+ 0.92532235     -5.26865758E-02 -0.32179183     -0.30763584    ! %1=En_Int_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.23282078     -0.18740277     -0.11189562     -0.18414856
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.25324896     -0.73052680     -0.20989139      1.38540389E-02
+! %2=OtherBL         GasP            HydroP          OilP
+-0.21276408     -0.20064308     -0.63525808     -0.10544851
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.15172553     -8.30793977E-02 -8.25438499E-02  -1.0550765
+
+! %2=Agr             Coal            Oil             Gas
+ 0.37112969     -0.60890996     -0.14438020      0.44635999    ! %1=Oth_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.13086337     -0.40718731     -0.28804776     -0.23276146
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.28814259      -2.6327641     -0.92343110     -6.56531081E-02
+! %2=OtherBL         GasP            HydroP          OilP
+-0.76094323     -0.39700577      -2.9081125     -0.22012310
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.30737519     -0.20879926     -0.18307962      -1.6188899
+
+! %2=Agr             Coal            Oil             Gas
+ 0.95508647       2.6286721     -6.71769604E-02 -0.31079909    ! %1=Services
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-8.99815783E-02 -0.13194533     -7.54382908E-02 -5.06978370E-02
+! %2=GasBL           WindBL          HydroBL         OilBL
+-3.61550227E-02 -0.33799225     -0.13415673     -1.71393584E-02
+! %2=OtherBL         GasP            HydroP          OilP
+-6.58674017E-02 -0.13476306     -0.52268058     -3.21404114E-02
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-2.45629996E-02  7.95460194E-02 -9.41343233E-02 -0.76134241
+
+! The matrix TFD_HAT(%1,%2,"ROW")  with %1 in COMM and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  3.1440105     -0.55315375     -7.82115981E-02 -2.97219604E-02! %1=Agr
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.15878458     -0.81347626     -0.61827117      -1.0312976
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.37229416     -0.49745294      -1.1394538     -0.31393841
+! %2=OtherBL         GasP            HydroP          OilP
+-0.74473912     -0.75600040      -1.3588283     -0.39139971
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.56405777       1.7101231     -0.43204707     -0.73119640
+
+! %2=Agr             Coal            Oil             Gas
+  7.1678028     -5.96046084E-05   0.0000000     -4.76836940E-05! %1=Coal
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      -2.0802243       0.0000000       1.6788645
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -1.9190689       0.0000000       0.0000000     -0.57841206
+! %2=OtherBL         GasP            HydroP          OilP
+-0.90573484      -1.3359494       0.0000000      -1.6619889
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      0.82055593      -3.1024156      -1.8719597
+
+! %2=Agr             Coal            Oil             Gas
+ 0.29877016     -2.38418525E-05 -1.19209271E-05 -6.74679037E-03! %1=Oil
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      5.79991378E-02   0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+ 1.94314914E-03   0.0000000       0.0000000     -7.83143658E-03
+! %2=OtherBL         GasP            HydroP          OilP
+ 0.10551010      1.11055784E-02   0.0000000     -7.30457380E-02
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -1.7649181     -5.54135181E-02  -1.5699210
+
+! %2=Agr             Coal            Oil             Gas
+  62.709011     -1.29936438E-03 -1.19209271E-05   0.0000000    ! %1=Gas
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000      -7.0029321       0.0000000     -0.90982008
+! %2=GasBL           WindBL          HydroBL         OilBL
+  28.847103       0.0000000       0.0000000     -0.58956969
+! %2=OtherBL         GasP            HydroP          OilP
+-0.39579946       12.626332       0.0000000      -1.9538728
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       22.620310       20.195208       30.153402
+
+! %2=Agr             Coal            Oil             Gas
+ -8.7831802     -1.19209271E-05  4.70878906E-04 -5.36438951E-04! %1=Oil_pcts
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       2.8140488       0.0000000      -3.4372711
+! %2=GasBL           WindBL          HydroBL         OilBL
+  5.1586366       0.0000000       0.0000000       17.235073
+! %2=OtherBL         GasP            HydroP          OilP
+ 2.92326994E-02   3.0252445       0.0000000       44.706482
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      2.15755757E-02   3.9671795      -1.1760354
+
+! %2=Agr             Coal            Oil             Gas
+  6.8291454      0.54340804      -4.1539311       3.7996545    ! %1=TnD
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  3.4762311       7.5624185       9.0633125       4.6485186
+! %2=GasBL           WindBL          HydroBL         OilBL
+  25.287121       4.5948186       5.1997824       1.5834880
+! %2=OtherBL         GasP            HydroP          OilP
+  4.7174225       7.3179650       3.2690828       20.777344
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  5.1809587       3.2422016       3.1248765       4.0123177
+
+! %2=Agr             Coal            Oil             Gas
+  10.100489       7.9269342      -1.8664725       4.4993372    ! %1=NuclearBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  6.7718530       10.561677       11.465638       8.9281569
+! %2=GasBL           WindBL          HydroBL         OilBL
+  17.415684       6.4809556       6.1694965       7.2393527
+! %2=OtherBL         GasP            HydroP          OilP
+  8.4114494       10.118258       4.0647697       18.816547
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  9.4349995       5.5880647       4.4425650       4.5118747
+
+! %2=Agr             Coal            Oil             Gas
+  3.7323825       6.3314538       3.2959588       4.4002876    ! %1=CoalBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  6.9534664       4.8564205       7.9360576       5.0119414
+! %2=GasBL           WindBL          HydroBL         OilBL
+  8.5909004       4.1537099       3.6678815     -0.52765852
+! %2=OtherBL         GasP            HydroP          OilP
+  5.6749825       5.0976958       3.5095689       10.198262
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  4.9137683       5.0015702       3.7651925       4.7541423
+
+! %2=Agr             Coal            Oil             Gas
+  41.819946       4.0932174       6.5721531       5.6830640    ! %1=GasBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  7.9374118       19.931292       12.374492       8.2160301
+! %2=GasBL           WindBL          HydroBL         OilBL
+  27.678097       23.827217       18.885098       5.2937064
+! %2=OtherBL         GasP            HydroP          OilP
+  6.4795294       15.885655       1.3287870       32.603466
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  18.294420       18.103897       17.618601       20.019938
+
+! %2=Agr             Coal            Oil             Gas
+ -4.3914189      0.66741329      -22.153456      -12.592499    ! %1=WindBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.0969551       8.6384001       10.138175       5.8093348
+! %2=GasBL           WindBL          HydroBL         OilBL
+  29.775812       2.7593944       2.1940775      -4.4889011
+! %2=OtherBL         GasP            HydroP          OilP
+-0.41532159       2.8129208       3.1831694       23.686184
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  7.1886449      -4.3920617      -6.6322160      -5.8621688
+
+! %2=Agr             Coal            Oil             Gas
+-0.61506850      -3.0666192      -8.7864628       2.3859081    ! %1=HydroBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.83157784       6.4740019       8.1614876       3.8360736
+! %2=GasBL           WindBL          HydroBL         OilBL
+  22.558081       2.5225966       2.7463613       1.5107279
+! %2=OtherBL         GasP            HydroP          OilP
+  3.1544428       4.2946305     -0.62513489       19.817358
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  7.1323748      -2.5232539      -2.9628203      -1.7887367
+
+! %2=Agr             Coal            Oil             Gas
+  2.4814334      -1.5420209     -4.78515439E-02  -1.2178713    ! %1=OilBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -7.8070893       1.6677674       7.2393527     -0.82528472
+! %2=GasBL           WindBL          HydroBL         OilBL
+  4.3915310      -4.1375456      -2.8235543       1.9957398
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.6697512      -7.5887003       0.0000000       1.4143300
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ 0.75432348      -3.1506433      -2.9083822       3.6799448
+
+! %2=Agr             Coal            Oil             Gas
+ -3.7691140       3.4909375      -1.8482158       4.0742397    ! %1=OtherBL
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  2.1007147       6.0017233       8.1984854       6.3343449
+! %2=GasBL           WindBL          HydroBL         OilBL
+  7.3302684      0.42681295       2.5698938      -2.0006287
+! %2=OtherBL         GasP            HydroP          OilP
+  5.0914154       5.0234785       2.7244434       11.903327
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  5.5590663     -0.99996012      -1.3332223      -1.5794601
+
+! %2=Agr             Coal            Oil             Gas
+ 0.21187158      -1.1250396      -7.2939091       3.4079435    ! %1=GasP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ 0.16071956       8.5091562       8.3918304       4.7064824
+! %2=GasBL           WindBL          HydroBL         OilBL
+  19.387245       2.1622534       2.2803152      -7.5887108
+! %2=OtherBL         GasP            HydroP          OilP
+  3.9182699       7.0938745       3.4920993       23.809244
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  6.2546563      -2.4493237      -2.2772367      -2.4658265
+
+! %2=Agr             Coal            Oil             Gas
+  3.2799599     -0.78404260       3.5220683       3.4983752    ! %1=HydroP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  4.6958842       2.7704668       4.0922937       3.5495045
+! %2=GasBL           WindBL          HydroBL         OilBL
+  1.3259720       3.3569858     -0.95261842       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  2.3291054       3.5176353       2.7414031       2.1255500
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  3.6234193       2.1879213       2.1564431       1.3774637
+
+! %2=Agr             Coal            Oil             Gas
+  26.205069       1.4158686      0.42044723       5.3055038    ! %1=OilP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  11.465187       15.416207       15.245284       8.8502331
+! %2=GasBL           WindBL          HydroBL         OilBL
+  33.909866       14.037901       10.540056       1.4143300
+! %2=OtherBL         GasP            HydroP          OilP
+  9.0119076       18.799089       2.7006803       20.563246
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  11.677694       15.567708       15.555274       16.869286
+
+! %2=Agr             Coal            Oil             Gas
+  7.3838654       10.614439     -0.22236620       6.2172070    ! %1=SolarP
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  10.942556       6.9844575       10.274801       7.5059071
+! %2=GasBL           WindBL          HydroBL         OilBL
+  21.007101       7.4405103       7.3966789       2.0129745
+! %2=OtherBL         GasP            HydroP          OilP
+  5.6727800       6.8599553       3.7778306       17.710390
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  8.3240299       7.2732873       3.3332601       6.1348867
+
+! %2=Agr             Coal            Oil             Gas
+  1.4496709      -1.2998345     -0.86577797     -0.99950445    ! %1=En_Int_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -3.4800580      -1.1631691     -0.60067773      -1.0478401
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.42655134      -1.6013374      -1.7072384     -0.96058202
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.0880237      -2.0110230      -2.2428672     -0.55970824
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.98575068      -1.7333989      -2.3049948      -4.3471022
+
+! %2=Agr             Coal            Oil             Gas
+ 0.77355033      -7.8424578      -3.9673009      -2.2265508    ! %1=Oth_ind
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -8.9722166      -6.0480280      -3.5603185      -11.213538
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.92690641      -5.9435172      -3.4965470      -3.2413640
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.8403471      -4.9392967      -13.073671      -3.7495596
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -6.4588871      -3.6364052      -2.4653957      -4.0988812
+
+! %2=Agr             Coal            Oil             Gas
+  7.9682183      -1.0116308      -1.8569660     -0.51899987    ! %1=Services
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.87486833      -2.0317020      -1.8199791      -1.3407534
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.51072913      -3.4722168      -1.7972332      -1.0866008
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.3459631      -2.4137242     -0.99861646     -0.94631451
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -3.9443073      -1.3333384      -1.2205700      -2.0866818
+

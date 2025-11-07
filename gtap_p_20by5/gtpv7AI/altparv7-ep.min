@@ -1,0 +1,236 @@
+#FILES
+Logical Name         In/Out Ud  Type Actual Name
+GTAPSETS              In     n  HAR
+ File with set specification
+ALTERPAR              Out    n  HAR
+ The file containing new parameters.
+(Display)             Out    n  DIS
+(Solution)            Out    n  SL4
+(Equations)           Out    n  EQ4
+#TABFILE
+altparv7-ep.tab
+#TMDATE
+at 18:54:28 on 01-JUL-2021
+#STIFILE
+TABmate.sif
+#SETS
+   11
+    1 REG                 -1  u regions in the model
+    2 COMM                -1  u commodities
+    3 MARG                -1  u commodities
+    4 ACTS                -1  u activities
+    5 ENDW                -1  u endowments
+    6 ENYP                 5  k inputs into private energy subutility
+coal        
+oil         
+gas         
+oil_pcts    
+electricity 
+    7 NENYP               -1  uinputs into private non-energy subutility
+    8 ENY                  1  k private energy composite
+eny         
+    9 TOPP                -1  u inputs into top of private consumption structure
+   10 ENDWT                3  k endowment types
+mobile      
+sluggish    
+fixed       
+   11 TR_BLOC             -1  u Regions in the model
+#VARIABLES
+         0
+#SUBSETS
+     6
+     1     6     2
+     2     7     2
+     3     8     9
+     4     7     9
+     5     1    11
+     6    11     1
+#COEFFICIENTS
+   28
+    1 ESUBD           2 r n n  Armington CES elast. of subs. for domestic/imported allocation
+    2    1
+    2 ESUBM           2 r n n  Armington CES elast. of subs. for regional allocation of imports
+    2    1
+    3 ESUBVA          2 r n n  CES elast. of subs. for primary factors in production
+    4    1
+    4 ETRAE           2 r n n  CET elast. of transformation bet. sectors for sluggish primary factors
+    5    1
+    5 RORFLEX         1 r n n  Expected rate of return flexibility parameter
+    1
+    6 RORDELTA        0 i n n  Investment allocation binary coefficient
+    7 ESUBC           2 r n n  CES elast. of subs. for intermediate inputs
+    4    1
+    8 ESUBT           2 r n n  CES elast. of subs. between primary factors and intermediate inputs
+    4    1
+    9 ESUBI           1 r n n  Armington CES elast. of subs. for investment commodities
+    1
+   10 ESUBS           1 r n n  CES elast. of subs. for international transport margin services
+    3
+   11 ESUBG           1 r n n  CES elast. of subs. for government demands
+    1
+   12 ETRAQ           2 r n n  CET elast. of transformation for commodities produced by industries
+    4    1
+   13 ESUBQ           2 r n n  1/CES elast. of subs. for commodity sourcing
+    2    1
+   14 SUBPAR          2 r n n  CDE substitution parameter
+    9    1
+   15 INCPAR          2 r n n  CDE expansion parameter
+    9    1
+   16 SUBPAR1         2 r n n  CDE substitution parameter
+    2    1
+   17 INCPAR1         2 r n n  CDE expansion parameter
+    2    1
+   18 ELGENY          1 r n n  Elasticity of substitution in gov. energy subconsumption
+    1
+   19 ELGNENY         1 r n n  Elasticity of substitution in gov. non-energy subconsumption
+    1
+   20 ELGUG           1 r n n  Elasticity of substitution in the top of gov. consumption nest
+    1
+   21 ELPENY          1 r n n  Elasticity of substitution in hh energy subconsumption
+    1
+   22 ELFENY          2 r n n  Elasticity of substitution in energy subproduction
+    4    1
+   23 ELFKEN          2 r n n  Elasticity of substitution in capital-energy subproduction
+    4    1
+   24 ELFNCOAL        2 r n n  Elasticity of substitution in non-coal en. subproduction
+    4    1
+   25 ELFNELY         2 r n n  Elasticity of substitution in non-electr. en. subproduction
+    4    1
+   26 ELFVAEN         2 r n n  Elasticity of substitution in value-added-en. subproduction
+    4    1
+   27 ENDOWFLAG       2 r n n  binary (1,0) flag for endowment mobility
+    5   10
+   28 MAPB            1 i n n
+    1 m    1   11
+#EQUATIONS
+    0
+#READS
+    0
+#READ(EXTRA)
+    5
+    1 el
+ REG          GTAPSETS             REG 
+    2 el
+ COMM         GTAPSETS             COMM
+    3 el
+ MARG         GTAPSETS             MARG
+    4 el
+ ACTS         GTAPSETS             ACTS
+    5 el
+ ENDW         GTAPSETS             ENDW
+#NCVARIABLES
+    0
+#STATEMENTS
+      27   1 fl                                                 27  46    0 n
+      28   1 fl                                                 28  61    0 n
+      34   1 st REG                                             35  50    0 n
+      37   1 st COMM                                            38  51    0 n
+      40   1 st MARG                                            41  51    0 n
+      43   1 st ACTS                                            44  51    0 n
+      46   1 st ENDW                                            47  51    0 n
+      64   1 cs ESUBD                                           66  71    0 n
+      68   1 cs ESUBM                                           70  73    0 n
+      72   1 cs ESUBVA                                          74  62    0 n
+      76   1 cs ETRAE                                           78  79    0 n
+      80   1 cs RORFLEX                                         82  54    0 n
+      88   1 cs RORDELTA                                        90  49    0 n
+      98   1 cs ESUBC                                          100  52    0 n
+     102   1 cs ESUBT                                          104  76    0 n
+     107   1 cs ESUBI                                          109  65    0 n
+     111   1 cs ESUBS                                          113  72    0 n
+     115   1 cs ESUBG                                          117  51    0 n
+     119   1 cs ETRAQ                                          121  76    0 n
+     123   1 cs ESUBQ                                          125  53    0 n
+     141   1 fm                                                142  19    0 n
+     144   1 fm                                                145  19    0 n
+     147   1 fm                                                148  20    0 n
+     150   1 fm                                                151  20    0 n
+     153   1 fm                                                154  19    0 n
+     156   1 fm                                                157  17    0 n
+     159   1 fm                                                160  19    0 n
+     162   1 fm                                                163  19    0 n
+     165   1 fm                                                166  17    0 n
+     168   1 fm                                                169  17    0 n
+     171   1 fm                                                172  17    0 n
+     174   1 fm                                                175  20    0 n
+     177   1 fm                                                178  19    0 n
+     184   1 st ENYP                                           186  44    0 n
+     187   1 ss                                                188  27    0 n
+     189   1 st NENYP                                          191  62    0 n
+     189   1 ss                                                191  62    0 n
+     192   1 st ENY                                            193  43    0 n
+     194   1 st TOPP                                           196  71    0 n
+     194   1 ss                                                196  71    0 n
+     194   1 ss                                                196  71    0 n
+     198   1 cs SUBPAR                                         200  47    0 n
+     201   1 cs INCPAR                                         202  44    0 n
+     203   1 cs SUBPAR1                                        204  48    0 n
+     205   1 cs INCPAR1                                        206  45    0 n
+     207   1 cs ELGENY                                         207  83    0 n
+     208   1 cs ELGNENY                                        208  87    0 n
+     209   1 cs ELGUG                                          209  89    0 n
+     210   1 cs ELPENY                                         210  81    0 n
+     211   1 cs ELFENY                                         212  71    0 n
+     213   1 cs ELFKEN                                         214  79    0 n
+     215   1 cs ELFNCOAL                                       216  79    0 n
+     217   1 cs ELFNELY                                        218  81    0 n
+     219   1 cs ELFVAEN                                        220  81    0 n
+     222   1 fm                                                223  42    0 n
+     224   1 fm                                                224  42    0 n
+     225   1 fm                                                225  43    0 n
+     226   1 fm                                                226  43    0 n
+     227   1 fm                                                227  28    0 n
+     228   1 fm                                                228  28    0 n
+     229   1 fm                                                229  28    0 n
+     230   1 fm                                                230  28    0 n
+     231   1 fm                                                231  42    0 n
+     232   1 fm                                                232  42    0 n
+     233   1 fm                                                233  43    0 n
+     234   1 fm                                                234  43    0 n
+     235   1 fm                                                235  43    0 n
+     241   1 wr SUBPAR               a                         242  42    0 n
+     243   5 wr INCPAR               a                         243  42    0 n
+     244   5 wr ESUBD                a                         244  42    0 n
+     245   5 wr ESUBM                a                         245  42    0 n
+     246   5 wr ESUBVA               a                         246  42    0 n
+     247   5 wr ETRAE                a                         247  42    0 n
+     248   5 wr RORFLEX              a                         248  43    0 n
+     249   5 wr RORDELTA             a                         249  44    0 n
+     250   5 wr ESUBC                a                         250  42    0 n
+     251   5 wr ESUBT                a                         251  42    0 n
+     252   5 wr ESUBI                a                         252  42    0 n
+     253   5 wr ESUBS                a                         253  42    0 n
+     254   5 wr ESUBG                a                         254  42    0 n
+     255   5 wr ETRAQ                a                         255  42    0 n
+     256   5 wr ESUBQ                a                         256  42    0 n
+     258   1 st ENDWT                                          258  56    0 n
+     259   1 cs ENDOWFLAG                                      260  60    0 n
+     261   1 fm                                                261  53    0 n
+     262   2 fm                                                262  40    0 n
+     264   1 wr ENDOWFLAG            a                         264  47    0 n
+     268   1 st TR_BLOC                                        268  44    0 n
+     268   1 ss                                                268  44    0 n
+     268   1 ss                                                268  44    0 n
+     269   1 cs MAPB                                           269  33    0 n
+     270   1 fm                                                270  38    0 n
+     271   1 wr SUBPAR1              a                         272  40    0 n
+     273   2 wr INCPAR1              a                         273  40    0 n
+     274   2 wr ELGENY               a                         274  40    0 n
+     275   2 wr ELGNENY              a                         275  40    0 n
+     276   2 wr ELGUG                a                         276  40    0 n
+     277   2 wr ELPENY               a                         277  40    0 n
+     278   2 wr ELFENY               a                         278  40    0 n
+     279   2 wr ELFKEN               a                         279  40    0 n
+     280   2 wr ELFNCOAL             a                         280  40    0 n
+     281   2 wr ELFNELY              a                         281  40    0 n
+     282   2 wr ELFVAEN              a                         282  40    0 n
+     283   1 wr (TR_BLOC)            a                         284  46    0 n
+     285   2 wr MAPB                 a                         285  51    0 n
+     285   2 en MAPB                 a                         285  51    0 n
+#GPVER
+  121004
+#PRVER
+    7000
+#FINAL_LEVEL
+#CSPSIM
+nnnnnnnnnnnnnnnnnnnnnnnnnnnn

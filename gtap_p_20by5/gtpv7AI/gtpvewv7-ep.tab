@@ -1,0 +1,914 @@
+!<
+    =============================
+    Global Trade Analysis Project
+    The GTAP Modeling Framework  
+    GTAPVIEW.TAB FILE            
+    =============================
+
+    Authored by Thomas Hertel, Melanie Bacou,and Wusheng Yu
+    
+    --------------------
+    History of this file
+    --------------------
+    April 29, 1998: Following features are new:
+        - disposition of output across all uses
+        - full set of tax rates are available now for all transactions
+    Sept, 1998: eliminate unnecessary sets.
+    October, 1998: add code to compute the initial tax rates.
+    May, 2000: Modified by Ken Itakura
+        - added Appendix on elasticities
+        - reformatted 
+    July, 2003: Changed element "prod" of set SALES to "prd"
+                to be compatible with Release 8.0 of GEMPACK
+    May, 2017 and July, 2018: Modified by Erwin Corong 
+        - renamed file to GTPVEWv7 for use with GTAPv7 model 
+        - modified coefficient and set names in line with GTAPv7 model naming 
+          convention
+        - added balance conditions and assertions
+  
+
+    --------------------------------------
+    Overview of the GTAPVIEW.TAB structure
+    --------------------------------------
+    FILE declaration
+    SET declaration
+    READ statements of Base Data
+    Derivatives of the Base Data
+        1. Macro variables ( Reg )
+        2.Trade, Transport and Protection ( Reg x Reg )
+        3. Commodities ( Comm x Reg )
+        4. Sectors ( Comm x Reg )
+    Write statements of the Derivatives
+    Computation of Initial Tax Rates
+    Appendix: Derived Elasticities of demands
+
+>!
+
+!<
+    -----
+    FILES
+    -----
+>!
+
+File
+    GTAPDATA # File containing all base data #;
+File
+    GTAPSETS # File with set specification #;
+File
+    GTAPPARM # File containing behavioral prameters #;
+   ! above not actually used, but must leave in !
+File (new)
+    GTAPVIEW # File with headers for viewing #;
+File (new)
+    TAXRATES # File with headers for viewing initial tax rates #;
+
+!<
+    ----
+    SETS
+    ----
+>!
+
+Set
+    REG # regions #
+    read elements from file GTAPSETS header "REG";
+Set
+    ACTS # activities # 
+    read elements from file GTAPSETS header "ACTS";
+Set
+    COMM # commodities #
+    read elements from file GTAPSETS header "COMM";
+Set
+    MARG # margin commodities #
+    read elements from file GTAPSETS header "MARG";
+Subset
+    MARG is subset of COMM;
+Set
+    NMRG # non-margin commodities # = COMM - MARG;
+Set
+    ENDW # Endowments #
+    read elements from file GTAPSETS header "ENDW";
+Set
+    ENDWC # Capital Endowment Commodity # (capital);
+Subset
+    ENDWC is subset of ENDW;
+Set
+    DEMD # commodities and endowments # = ENDW + COMM;
+
+!<
+    The following are new sets for GTAPVIEW
+    Supplementary sets for "toggles" in VIEWHAR
+>!
+
+Set GDPEXPEND(cons,inv,gov,exp,imp);
+Set GDPSOURCE(fact,tax,depr);
+Set CAPACCT(save,inv);
+Set CURACCT(exp,imp);
+Set MKTVALUE(fob,trans);
+Set OUT(dom,trans,export);
+!
+July 2003.Changed "prod" to "prd" to be compatible with Release 8.0 of GEMPACK
+!
+Set SALES(prd,cons,gov);
+Set PURCHVALUE(basexp,tax);
+Set DIR(domestic,imported);
+Set OUTVALUE(prodrev,outtax);
+Set EXPVALUE(exprev,xtax);
+Set IMPVALUE(impcost,mtax);
+
+!<
+    ----------------------------
+    READ statements of Base Data
+    ----------------------------
+>!
+
+!<
+    base revenues at supplier prices
+    --------------------------------
+>!
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    EVOS(e,a,r) # value of endowment supply in region r, net of direct tax #;
+Read
+    EVOS from file GTAPDATA header "EVOS";
+
+!<
+    base expenditures at producer prices
+    ------------------------------------
+>!
+
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    EVFP(e,a,r) # primary factor purchases, at producer prices #;
+Read
+    EVFP from file GTAPDATA header "EVFP";
+
+Coefficient (all,r,REG)
+    save(r) # expenditure on NET saving in region r #;
+Read
+    save from file GTAPDATA header "SAVE";
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    VMFP(c,a,r) # imported purchases, by firms, at producer prices #;
+Read
+    VMFP from file GTAPDATA header "VMFP";
+
+Coefficient(all,c,COMM)(all,a,ACTS)(all,r,REG)
+    VDFP(c,a,r) # domestic purchases, by firms, at producer prices #;
+Read
+    VDFP from file GTAPDATA header "VDFP";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VMPP(c,r) # import purchases, by households, at producer prices #;
+Read
+    VMPP from file GTAPDATA header "VMPP";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDPP(c,r) # domestic purchases, by households, at producer prices #;
+Read
+    VDPP from file GTAPDATA header "VDPP";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VMGP(c,r) # import purchases, by government, at producer prices #;
+Read
+    VMGP from file GTAPDATA header "VMGP";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDGP(c,r) # domestic purchases, by government, at producer prices #;
+Read
+    VDGP from file GTAPDATA header "VDGP";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VMIP(c,r) # import purchases, by investment agent, at producer prices #;
+Read
+    VMIP from file GTAPDATA header "VMIP";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDIP(c,r) # domestic purchases, by investment agent, at producer prices #;
+Read
+    VDIP from file GTAPDATA header "VDIP";
+
+Coefficient (all, r, REG)
+    VKB(r) # value of beginning-of-period capital stock, in region r #;
+Read
+    VKB from file GTAPDATA header "VKB";
+
+Coefficient (all, r, REG)
+    VDEP(r) # value of capital depreciation in r (exogenous) #;
+Read
+    VDEP from file GTAPDATA header "VDEP";
+
+!<
+    base expenditures at basic prices
+    ---------------------------------
+>!
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)
+    VXSB(c,s,d) 
+    # value of exports of  c from s to d at basic prices (tradeables only) #;
+Read
+    VXSB from file GTAPDATA header "VXSB";
+
+Coefficient (all,m,MARG)(all,r,REG)
+    VST(m,r) 
+    # value of exports of margin m from r for int'l transport at basic prices #;
+Read
+    VST from file GTAPDATA header "VST";
+
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    EVFB(e,a,r) # expenditure on endowment e by act. a in r at basic prices #;
+Read
+    EVFB from file GTAPDATA header "EVFB";
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    VMFB(c,a,r) # expenditure on imported c by act. a in r at basic prices #;
+Read
+    VMFB from file GTAPDATA header "VMFB";
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    VDFB(c,a,r) # expenditure on domestic c by act. a in r at basic prices #;
+Read
+    VDFB from file GTAPDATA header "VDFB";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VMPB(c,r) # private household expenditure on imp. c in r at basic prices #;
+Read
+    VMPB from file GTAPDATA header "VMPB";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDPB(c,r) # private household expenditure on dom. c in r at basic prices #;
+Read
+    VDPB from file GTAPDATA header "VDPB";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VMGB(c,r) # government expenditure on imported c in r at basic prices #;
+Read
+    VMGB from file GTAPDATA header "VMGB";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDGB(c,r) # government expenditure on domestic c in r at basic prices #;
+Read
+    VDGB from file GTAPDATA header "VDGB";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDIB(c,r) # government expenditure on domestic c in r at basic prices #;
+Read
+    VDIB from file GTAPDATA header "VDIB";
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VMIB(c,r) # investment expenditure on imported c in r at basic prices #;
+Read
+    VMIB from file GTAPDATA header "VMIB";
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)
+    VMSB(c,s,d) 
+    # value of imports of c from s to d at domestic (basic) prices #;
+Read
+    VMSB from file GTAPDATA header "VMSB";
+
+!<
+    base revenues and expenditures at world prices
+    ----------------------------------------------
+>!
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)
+    VFOB(c,s,d) 
+    # value of exports of c from s to d at FOB prices (tradeables only) #;
+Read
+    VFOB from file GTAPDATA header "VFOB";
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)
+    VCIF(c,s,d) 
+    # value of imports of c from s to d at CIF prices (tradeables only) #;
+Read
+    VCIF from file GTAPDATA header "VCIF";
+
+!<
+    'make' matrix at supplier and basic prices
+    ------------------------------------------
+>!
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)  
+    MAKEB(c,a,r) # 'make' matrix valued at basic prices #;
+Read   
+    MAKEB from file GTAPDATA header "MAKB";
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    MAKES(c,a,r) # 'make' matrix valued at supplier's prices #;
+Read
+    MAKES from file GTAPDATA header "MAKS";
+
+!<
+    ----------------------------
+    DERIVATIVES OF THE BASE DATA
+    ----------------------------
+
+    1. Macro variables ( Reg )
+    --------------------------
+        GDPEXP
+        GDPSRC
+        CAPITALACCT
+        CURRENTACCT
+
+>!
+
+!< Private consumption expenditure, PRIVEXP >!
+Coefficient (all,c,COMM)(all,r,REG)
+    VPP(c,r) # private household expenditure on c in r at producer prices #;
+Formula (all,c,COMM)(all,r,REG)
+    VPP(c,r) = VDPP(c,r) + VMPP(c,r);
+Coefficient (all,r,REG)
+    PRIVEXP(r) # aggregate private consumption expenditure in region r #;
+Formula (all,r,REG)
+    PRIVEXP(r) = sum{c,COMM, VPP(c,r)};
+
+!< Government consumption expenditure, GOVEXP >!
+Coefficient (all,c,COMM)(all,r,REG)
+    VGP(c,r) # government cons. expenditure on c in r at producer prices #;
+Formula (all,c,COMM)(all,r,REG)
+    VGP(c,r) = VDGP(c,r) + VMGP(c,r);
+Coefficient (all,r,REG)
+    GOVEXP(r) # aggregate government expenditure in region r #;
+Formula (all,r,REG)
+    GOVEXP(r) = sum{c,COMM, VGP(c,r)};
+
+!< Investment consumption expenditure >!
+Coefficient (all,c,COMM)(all,r,REG)
+    VIP(c,r) # expenditure on investment c valued at producer prices #;
+Formula (all,c,COMM)(all,r,REG)
+    VIP(c,r) = VDIP(c,r) + VMIP(c,r);
+!< Regional investment expenditure >!
+Coefficient (all,r,REG)
+    REGINV(r) # regional GROSS investment in r #;
+Formula (all,r,REG)
+    REGINV(r) = sum{c,COMM, VIP(c,r)};
+
+!<  Intermediate and endowment expenditure by firms at producer prices >!
+Coefficient (all,d,DEMD)(all,a,ACTS)(all,r,REG)
+    VFP(d,a,r) # expenditure on d by act. a in r valued at producer prices #;
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    VFP(e,a,r) = EVFP(e,a,r);
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    VFP(c,a,r) = VDFP(c,a,r) + VMFP(c,a,r);
+
+!<  Value of output at supplier's prices >!
+Coefficient (all,a,ACTS)(all,r,REG)
+    VOS(a,r) # output of act. a in r valued at supplier's prices #;
+Formula (all,a,ACTS)(all,r,REG)
+    VOS(a,r) = sum{d,DEMD, VFP(d,a,r)};
+
+!<  Endowments >!
+Coefficient (all,e,ENDW)(all,r,REG)
+    VES(e,r) # endowment supply in region r, at supplier's (after tax) prices #;
+Formula (all,e,ENDW)(all,r,REG)
+    VES(e,r) = sum{a,ACTS, EVOS(e,a,r)};
+
+Coefficient (all,r,REG)
+    VEXPORTS(r)
+    # Value of merchandise and services sales to the world market from r #;
+Formula (all,r,REG)
+    VEXPORTS(r)
+        = sum{n,NMRG, sum{d,REG, VFOB(n,r,d)}}
+        + sum{m,MARG, sum{d,REG, VFOB(m,r,d)} + VST(m,r)};
+
+Coefficient (all,s,REG)
+    VIMPORTS(s)
+    # Value of merchandise and services purchases from world market by s #;
+Formula (all,r,REG)
+    VIMPORTS(r) = sum{c,COMM, sum{s,REG, VCIF(c,s,r)}};
+
+!<
+    Tax revenues
+    ------------
+>!
+
+!< Production tax revenue >!
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    PTAX(c,a,r) # revenue from tax on commodity c produced by activity a in r #;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    PTAX(c,a,r) = MAKEB(c,a,r) - MAKES(c,a,r);
+
+!< Endowment income tax revenue <!
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    INCTAX(e,a,r) # tax revenue from endowment income tax in region r #;
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    INCTAX(e,a,r) = EVFB(e,a,r) - EVOS(e,a,r);
+
+!< Endowment tax revenue >!
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    ETAX(e,a,r) # tax revenue from use of endowment e by act. a in region r #;
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    ETAX(e,a,r) = VFP(e,a,r) - EVFB(e,a,r);
+
+!< Intermediate consumption tax revenue >!
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    DFTAX(c,a,r) # tax revenue from use of dom. intermediate c by act. a in r #;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    DFTAX(c,a,r) = VDFP(c,a,r) - VDFB(c,a,r);
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    MFTAX(c,a,r) # tax revenue from use of imp. intermediate c by act. a in r #;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    MFTAX(c,a,r) = VMFP(C,a,r) - VMFB(c,a,r);
+
+!< Government consumption tax revenue >!
+Coefficient (all,c,COMM)(all,r,REG)
+    DGTAX(c,r) # tax revenue from gov't cons. of domestic c in region r #;
+Formula (all,c,COMM)(all,r,REG)
+    DGTAX(c,r) = VDGP(c,r) - VDGB(c,r);
+Coefficient (all,c,COMM)(all,r,REG)
+    MGTAX(c,r) # tax revenue from gov't consumption of imported c in region r #;
+Formula (all,c,COMM)(all,r,REG)
+    MGTAX(c,r) = VMGP(c,r) - VMGB(c,r);
+
+!< Private household consumption tax revenue >!
+Coefficient (all,c,COMM)(all,r,REG)
+    DPTAX(c,r) # tax revenue from priv. hhld cons. of domestic c in region r #;
+Formula (all,c,COMM)(all,r,REG)
+    DPTAX(c,r) = VDPP(c,r) - VDPB(c,r);
+Coefficient (all,c,COMM)(all,r,REG)
+    MPTAX(c,r) # tax revenue from priv. hhld cons. of imported c in region r #;
+Formula (all,c,COMM)(all,r,REG)
+    MPTAX(c,r) = VMPP(c,r) - VMPB(c,r);
+
+!< Investment consumption tax revenue >!
+Coefficient (all,c,COMM)(all,r,REG)
+    DITAX(c,r) # tax revenue from investment cons. of domestic c in region r #;
+Formula (all,c,COMM)(all,r,REG)
+    DITAX(c,r) = VDIP(c,r) - VDIB(c,r);
+Coefficient (all,c,COMM)(all,r,REG)
+    MITAX(c,r) # tax revenue from investment cons. of imported c in region r #;
+Formula (all,c,COMM)(all,r,REG)
+    MITAX(c,r) = VMIP(c,r) - VMIB(c,r);
+
+!< Exports tax revenue <!
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)
+    XTAXD(c,s,d) # tax rev. from exports of c from source s to destination d #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    XTAXD(c,s,d) = VFOB(c,s,d) - VXSB(c,s,d);
+
+!< Import tariff revenue >!
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)
+    MTAX(c,s,d) # tax rev from imports of c from source s to destination d #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    MTAX(c,s,d) = VMSB(c,s,d) - VCIF(c,s,d);
+
+Coefficient (all,c,COMM)(all,r,REG)
+    VDB(c,r) # domestic sales of c in r at basic prices (tradeables only) #;
+Formula (all,c,COMM)(all,r,REG)
+    VDB(c,r) = VDPB(c,r) + VDGB(c,r) + VDIB(c,r) + sum{a,ACTS, VDFB(c,a,r)};
+
+!<  Commodity supply = Commodity demand >!
+Coefficient (all,c,COMM)(all,r,REG)
+    VCB(c,r) # supply of commodity c in region r valued at basic prices #;
+Formula (all,c,COMM)(all,r,REG)
+    VCB(c,r) = VDB(c,r) + sum{d,REG, VXSB(c,r,d)} + IF[c in MARG, VST(c,r)];
+
+!<  GDP expenditure >!
+Coefficient  (all,r,REG)(all,k,GDPEXPEND)
+    GDPEXP(r,k) # Composition of GDP from the expenditure side #;
+Formula  (all,r,REG)
+    GDPEXP(r,"cons") = PRIVEXP(r);
+Formula  (all,r,REG)
+    GDPEXP(r,"inv") = REGINV(r);
+Formula  (all,r,REG)
+    GDPEXP(r,"gov") = GOVEXP(r);
+Formula  (all,r,REG)
+    GDPEXP(r,"exp") = VEXPORTS(r);
+Formula  (all,r,REG)
+    GDPEXP(r,"imp") = - VIMPORTS(r);
+
+Coefficient (all,r,REG)
+    NETFACTINC(r) # Factor income, net of depreciation #;
+Formula (all,r,REG)
+    NETFACTINC(r) = sum{e,ENDW, VES(e,r)} - VDEP(r);
+
+Coefficient (all,r,REG)
+    NETAXES(r) # Net tax revenues in r #;
+Formula (all,r,REG)
+    NETAXES(r)
+        = sum{c,COMM, sum{a,ACTS, PTAX(c,a,r)}}
+        + sum{e,ENDW, sum{a,ACTS, INCTAX(e,a,r)}} 
+        + sum{e,ENDW, sum{a,ACTS, ETAX(e,a,r)}}
+        + sum{c,COMM, sum{a,ACTS, DFTAX(c,a,r) + MFTAX(c,a,r)}}
+        + sum{c,COMM, DGTAX(c,r) + MGTAX(c,r)}
+        + sum{c,COMM, DPTAX(c,r) + MPTAX(c,r)}
+        + sum{c,COMM, DITAX(c,r) + MITAX(c,r)}
+        + sum{c,COMM, sum{d,REG,  XTAXD(c,r,d)}}
+        + sum{c,COMM, sum{s,REG,  MTAX(c,s,r)}};
+
+Coefficient (all,r,REG)(all,k,GDPSOURCE)
+    GDPSRC(r,k) # Composition of GDP from the sources side #;
+Formula (all,r,REG)
+    GDPSRC(r,"fact") = NETFACTINC(r);
+Formula (all,r,REG)
+    GDPSRC(r,"tax") = NETAXES(r);
+Formula (all,r,REG)
+    GDPSRC(r,"depr") = VDEP(r);
+
+Coefficient (all, r, REG)
+    NETINV(r) # Regional net investment in region r #;
+Formula (all, r, REG)
+    NETINV(r) = REGINV(r) - VDEP(r);
+
+Coefficient (all,r,REG)(all,k,CAPACCT)
+    CAPITALACCT(r,k) # S - I = X - M #;
+Formula (all,r,REG)
+    CAPITALACCT(r,"save") = save(r);
+Formula (all,r,REG)
+    CAPITALACCT(r,"inv") = - NETINV(r);
+
+Coefficient (all,r,REG)(all,k,CURACCT)(all,c,COMM)
+    CURRENTACCT(r,k,c) # X - M = S - I #;
+Formula (all,r,REG)(all,m,MARG)
+    CURRENTACCT(r,"exp",m) = sum{d,REG, VFOB(m,r,d)} + VST(m,r);
+Formula (all,r,REG)(all,c,NMRG)
+    CURRENTACCT(r,"exp",c) = sum{d,REG, VFOB(c,r,d)};
+Formula  (all,r,REG)(all,c,COMM)
+    CURRENTACCT(r,"imp",c) = - sum{s,REG, VCIF(c,s,r)};
+
+!<
+    2.Trade, Transport and Protection ( Reg x Reg )
+    -----------------------------------------------
+        VALEXPORTS
+        VALIMPORTS
+        CIFDECOMP
+
+>!
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)(all,k,EXPVALUE)
+    VALEXPORTS(c,s,d,k) # value of exports at basic prices #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    VALEXPORTS(c,s,d,"exprev") = VXSB(c,s,d);
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    VALEXPORTS(c,s,d,"xtax") = XTAXD(c,s,d);
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)(all,k,IMPVALUE)
+    VALIMPORTS(c,s,d,k) # value of imports at domestic basic prices #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    VALIMPORTS(c,s,d,"impcost") = VCIF(c,s,d);
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    VALIMPORTS(c,s,d,"mtax") = MTAX(c,s,d);
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)(all,j,MKTVALUE)
+    CIFDECOMP(c,s,d,j) # value of tradables from source s to destination d #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    CIFDECOMP(c,s,d,"fob") = VFOB(c,s,d);
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    CIFDECOMP(c,s,d,"trans") = VCIF(c,s,d) - VFOB(c,s,d);
+
+!<
+    3. Commodities ( Comm x Reg )
+    -----------------------------
+        OUTDISP
+        DOMSALESDISP
+        IMPSALESDISP
+        VALOUTPUT
+        SUFFICIENCY
+
+>!
+
+Coefficient (all,c,COMM)(all,o,OUT)(all,r,REG)
+    OUTDISP(c,o,r)
+    # value of sales of comm c to different markets at dom basic market price #;
+Formula (all,c,COMM)(all,o,OUT)(all,r,REG)
+    OUTDISP(c,o,r) = 0.0;
+Formula (all,c,COMM)(all,r,REG)
+    OUTDISP(c,"dom",r) = VDB(c,r);
+Formula (all,m,MARG)(all,r,REG)
+    OUTDISP(m,"trans",r) = VST(m,r);
+Formula (all,c,COMM)(all,r,REG)
+    OUTDISP(c,"export",r) = sum{d, REG, VXSB(c,r,d)};
+
+Coefficient (all,c,COMM)(all,s,SALES)(all,r,REG)
+    DOMSALESDISP(c,s,r)
+    # value of domestic sales of tradables at dom basic price #;
+!
+July 2003.Changed "prod" to "prd" to be compatible with Release 8.0 of GEMPACK
+!
+Formula (all,c,COMM)(all,r,REG)
+    DOMSALESDISP(c,"prd",r) = sum{a,ACTS, VDFB(c,a,r)};
+Formula  (all,c,COMM)(all,r,REG)
+    DOMSALESDISP(c,"cons",r) = VDPB(c,r);
+Formula  (all,c,COMM)(all,r,REG)
+    DOMSALESDISP(c,"gov",r) = VDGB(c,r);
+
+Coefficient (all,c,COMM)(all,s,SALES)(all,r,REG)
+    IMPSALESDISP(c,s,r)
+    # value of sales of tradables to different markets at dom basic price #;
+!
+July 2003.Changed "prod" to "prd" to be compatible with Release 8.0 of GEMPACK
+!
+Formula (all,c,COMM)(all,r,REG)
+    IMPSALESDISP(c,"prd",r) = sum{a,ACTS, VMFB(c,a,r)};
+Formula (all,c,COMM)(all,r,REG)
+    IMPSALESDISP(c,"cons",r) = VMPB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    IMPSALESDISP(c,"gov",r) = VMGB(c,r);
+
+!<
+    Finally, calculate some policy instruments of interest.
+    Note that this approach produces positive taxes,
+    but GROSS tax rates.
+>!
+Coefficient (all,a,ACTS)(all,r,REG)(all,k,OUTVALUE)
+    VALOUTPUT(a,r,k) # value of output at basic prices #;
+Formula (all,a,ACTS)(all,r,REG)
+    VALOUTPUT(a,r,"prodrev") = VOS(a,r);
+Formula (all,a,ACTS)(all,r,REG)
+    VALOUTPUT(a,r,"outtax") = sum{c,COMM, PTAX(c,a,r)};
+
+Zerodivide (zero_by_zero) default 0;
+Zerodivide (NONZERO_BY_ZERO) default 0;
+
+Coefficient (all,c,COMM)(all,r,REG)
+    SUFFICIENCY(c,r) # region r rate of self-sufficiency for commodity c #;
+Formula (all,c,COMM)(all,r,REG)
+    SUFFICIENCY(c,r) = VCB(c,r) / [VDB(c,r) + sum{s,REG, VMSB(c,s,r)}];
+
+Zerodivide (zero_by_zero) off;
+Zerodivide (NONZERO_BY_ZERO) off;
+
+!<
+    4. Sectors ( Comm x Reg )
+    -------------------------
+        NVFP
+        NVPP
+        NVGP
+
+>!
+
+Coefficient (all,de,DEMD)(all,a,ACTS)(all,r,REG)(all,d,DIR)(all,k,PURCHVALUE)
+    NVFP(de,a,r,d,k) # expenditure on d by activity a #;
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    NVFP(e,a,r,"domestic","basexp") = EVFB(e,a,r);
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    NVFP(e,a,r,"imported","basexp") = 0;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    NVFP(c,a,r,"domestic","basexp") = VDFB(c,a,r);
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    NVFP(c,a,r,"imported","basexp") = VMFB(c,a,r);
+
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    NVFP(e,a,r,"domestic","tax") = ETAX(e,a,r);
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG)
+    NVFP(e,a,r,"imported","tax") = 0;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    NVFP(c,a,r,"domestic","tax") = DFTAX(c,a,r);
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG)
+    NVFP(c,a,r,"imported","tax") = MFTAX(c,a,r);
+
+Coefficient (all,c,COMM)(all,r,REG)(all,d,DIR)(all,k,PURCHVALUE)
+    NVPP(c,r,d,k) # consumption expenditure on c #;
+Formula (all,c,COMM)(all,r,REG)
+    NVPP(c,r,"domestic","basexp") = VDPB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVPP(c,r,"imported","basexp") = VMPB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVPP(c,r,"domestic","tax") = DPTAX(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVPP(c,r,"imported","tax") = MPTAX(c,r);
+
+
+Coefficient (all,c,COMM)(all,r,REG)(all,d,DIR)(all,k,PURCHVALUE)
+    NVGP(c,r,d,k) # government expenditure on c #;
+Formula (all,c,COMM)(all,r,REG)
+    NVGP(c,r,"domestic","basexp") = VDGB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVGP(c,r,"imported","basexp") = VMGB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVGP(c,r,"domestic","tax") = DGTAX(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVGP(c,r,"imported","tax") = MGTAX(c,r);
+
+Coefficient (all,c,COMM)(all,r,REG)(all,d,DIR)(all,k,PURCHVALUE)
+    NVIP(c,r,d,k) # investment expenditure on c #;
+Formula (all,c,COMM)(all,r,REG)
+    NVIP(c,r,"domestic","basexp") = VDIB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVIP(c,r,"imported","basexp") = VMIB(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVIP(c,r,"domestic","tax") = DITAX(c,r);
+Formula (all,c,COMM)(all,r,REG)
+    NVIP(c,r,"imported","tax") = MITAX(c,r);
+
+!<
+    -----------------------------------
+    Write statements of the Derivatives
+    -----------------------------------
+
+    1. Macro variables ( Reg )
+    --------------------------
+>!
+Write GDPEXP to file GTAPVIEW header "AG01" longname
+    "GDPEXP = C + I + G + X - M, GDP from the expenditure side";
+Write GDPSRC to file GTAPVIEW header "AG02" longname
+    "GDPSRC = NETFACTINC + NETAXES + VDEP, GDP from the sources side";
+Write EVFP to file GTAPVIEW header "AG03" longname
+    "Sources of factor income (NETFACTINC + VDEP) by sector - EVFA(j,r)";
+Write CAPITALACCT to file GTAPVIEW header "AG04" longname
+    "S - I = X - M: CAPITALACCT";
+Write CURRENTACCT to file GTAPVIEW header "AG05" longname
+    "X - M = S - I: CURRENTACCT";
+Write VKB to file GTAPVIEW header "AG06" longname
+    "Capital stock by region - VKB";
+
+!<
+    2.Trade, Transport and Protection ( Reg x Reg )
+    -----------------------------------------------
+>!
+Write VALEXPORTS to file GTAPVIEW header "BI01" longname
+    "Decomposition of exports at world prices: VFOB=VXSB+XTAXD";
+Write VALIMPORTS to file GTAPVIEW header "BI02" longname
+    "Decomposition of imports at market prices: VMSB=VCIF+MTAX";
+Write CIFDECOMP to file GTAPVIEW header "BI03" longname
+    "Decomposition of cif values - CIFDECOMP";
+
+!<
+    3. Commodities ( Comm x Reg )
+    -----------------------------
+>!
+Write OUTDISP to file GTAPVIEW header "CM01" longname
+    "Disposition of output - OUTDISP";
+Write DOMSALESDISP to file GTAPVIEW header "CM02" longname
+    "Disposition of domestic goods - DOMSALESDISP";
+Write IMPSALESDISP to file GTAPVIEW header "CM03" longname
+    "Disposition of imported goods - IMPSALESDISP";
+Write VALOUTPUT to file GTAPVIEW header "CM04" longname
+    "Value of output at basic prices:  VOB = VFP + OUTTAX ";
+Write SUFFICIENCY to file GTAPVIEW header "CM05" longname
+    "Self-sufficiency or domestic share in total use - SUFFICIENCY";
+
+!<
+    4. Sectors ( Comm x Reg )
+    -------------------------
+>!
+Write NVFP to file GTAPVIEW header "SF01" longname
+    "Cost structure of firms - VFP";
+Write NVPP to file GTAPVIEW header "SF02" longname
+    "Cost structure of consumption - VPP";
+Write NVGP to file GTAPVIEW header "SF03" longname
+    "Cost structure of government - VGP";
+Write NVIP to file GTAPVIEW header "SF04" longname
+    "Cost structure of investment - VIP";
+
+
+!<
+    --------------------------------
+    Computation of Initial Tax Rates
+    --------------------------------
+
+    Calculate initial distortions as percent ad valorem rates
+>!
+Zerodivide default 1;
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG) 
+    rTO(c,a,r) # tax rate on com. c supplied by act. a in region r #;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG) 
+    rTO(c,a,r) = 100*[[MAKEB(c,a,r) / MAKES(c,a,r)] -1];
+
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG) 
+    rTINC(e,a,r) # income tax rate on endowment e supplied to act. a in r #;
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG) 
+    rTINC(e,a,r) = 100*[[EVFB(e,a,r) / EVOS(e,a,r)] -1];
+
+Coefficient (all,e,ENDW)(all,a,ACTS)(all,r,REG) 
+    rTFE(e,a,r) # tax rate on primary factor e used by act. a in region r #;
+Formula (all,e,ENDW)(all,a,ACTS)(all,r,REG) 
+    rTFE(e,a,r) = 100*[[VFP(e,a,r) / EVFB(e,a,r)] -1];
+
+Coefficient (all,c,COMM)(all,r,REG)             
+    rTPD(c,r) # tax rate on domestic c purchased by private hhld in r #;
+Formula (all,c,COMM)(all,r,REG)             
+    rTPD(c,r) = 100*[[VDPP(c,r) / VDPB(c,r)] -1];
+Coefficient (all,c,COMM)(all,r,REG)             
+    rTPM(c,r) # tax rate on imported c purchased by private hhld in r #;
+Formula (all,c,COMM)(all,r,REG)             
+    rTPM(c,r) = 100*[[VMPP(c,r) / VMPB(c,r)] -1];
+
+Coefficient (all,c,COMM)(all,r,REG)             
+    rTGD(c,r) # tax rate on domestic c purchased by government in r #;
+Formula (all,c,COMM)(all,r,REG)             
+    rTGD(c,r) = 100*[[VDGP(c,r) / VDGB(c,r)] -1];
+Coefficient (all,c,COMM)(all,r,REG)             
+    rTGM(c,r) # tax rate on imported c purchased by government in r #;
+Formula (all,c,COMM)(all,r,REG)             
+    rTGM(c,r) = 100*[[VMGP(c,r) / VMGB(c,r)] -1];
+
+Coefficient (all,c,COMM)(all,r,REG)             
+    rTID(c,r) # tax rate on domestic investment c in r #;
+Formula (all,c,COMM)(all,r,REG)             
+    rTID(c,r) = 100*[[VDIP(c,r) / VDIB(c,r)] -1];
+Coefficient (all,c,COMM)(all,r,REG)             
+    rTIM(c,r) # tax rate on imported investment c in r #;
+Formula (all,c,COMM)(all,r,REG)             
+    rTIM(c,r) = 100*[[VMIP(c,r) / VMIB(c,r)] -1];
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG) 
+    rTFD(c,a,r) # tax rate on domestic com. c for use by act. a in r #;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG) 
+    rTFD(c,a,r) = 100*[[VDFP(c,a,r) / VDFB(c,a,r)] -1];
+
+Coefficient (all,c,COMM)(all,a,ACTS)(all,r,REG) 
+    rTFM(c,a,r) # tax rate on imported com. c for use by act. a in r #;
+Formula (all,c,COMM)(all,a,ACTS)(all,r,REG) 
+    rTFM(c,a,r) = 100*[[VMFP(c,a,r) / VMFB(c,a,r)] -1];
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)  
+    rTXS(c,s,d) # dest.-spec. tax/subsidy rate on exports of c from s to d #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)
+    rTXS(c,s,d) = 100*[[VFOB(c,s,d) / VXSB(c,s,d)] -1];
+
+Coefficient (all,c,COMM)(all,s,REG)(all,d,REG)  
+    rTMS(c,s,d) # source-spec. change in tax on imports of c from s to d #;
+Formula (all,c,COMM)(all,s,REG)(all,d,REG)  
+    rTMS(c,s,d) = 100*{[VMSB(c,s,d) / VCIF(c,s,d)]-1};
+
+Zerodivide off;
+
+Write
+    rTO   to file TAXRATES header "rTO";
+    rTINC to file TAXRATES header "rTIN";
+    rTFE  to file TAXRATES header "rTFE";
+    rTPD  to file TAXRATES header "rTPD";
+    rTPM  to file TAXRATES header "rTPM";
+    rTGD  to file TAXRATES header "rTGD";
+    rTGM  to file TAXRATES header "rTGM";
+    rTID  to file TAXRATES header "rTID";
+    rTIM  to file TAXRATES header "rTIM";
+    rTFD  to file TAXRATES header "rTFD";
+    rTFM  to file TAXRATES header "rTFM";
+    rTXS  to file TAXRATES header "rTXS";
+    rTMS  to file TAXRATES header "rTMS";
+
+! addition jmh Mar 2008 / modified by Erwin Corong, May 2017 !
+Set PRODTAX (PRODTAX);
+Set MORECOLS (hou,gov,inv,exp,lessDomTax,lessImpTax,lessTariff,lessImpCIF);
+Set SUMCOLS = ACTS + MORECOLS;
+Set SUMROWS = DEMD + PRODTAX;
+
+Coefficient (all,c,COMM)(all,r,REG) VSTT(c,r) # Margin use #;
+Formula (all,c,COMM)(all,r,REG) VSTT(c,r) = 0;
+Formula (all,m,MARG)(all,r,REG) VSTT(m,r) = VST(m,r);
+
+Coefficient
+(all,q,SUMROWS)(all,j,SUMCOLS)(all,r,REG) SUMMARY(q,j,r)
+ # Summary producer price flows table #;
+Formula
+(all,q,SUMROWS)(all,j,SUMCOLS)(all,r,REG) SUMMARY(q,j,r) = 0;
+(all,c,DEMD)(all,a,ACTS)(all,r,REG) SUMMARY(c,a,r) = VFP(c,a,r);
+(all,a,ACTS)(all,r,REG) SUMMARY("ProdTax",a,r) = sum{c,COMM, PTAX(c,a,r)};
+(all,c,COMM)(all,r,REG) SUMMARY(c,"gov",r) = VGP(c,r);
+(all,c,COMM)(all,r,REG) SUMMARY(c,"hou",r) = VPP(c,r);
+(all,c,COMM)(all,r,REG) SUMMARY(c,"inv",r) = VIP(c,r);
+(all,c,COMM)(all,r,REG) SUMMARY(c,"exp",r)
+              = sum{d,REG, VFOB(c,r,d)} + VSTT(c,r);
+
+(all,c,COMM)(all,r,REG) SUMMARY(c,"lessDomTax",r) =
+-  DPTAX(c,r) ! dom tax on hou !
+-  DGTAX(c,r) ! dom tax on gov !
+-  DITAX(c,r) ! dom tax on inv !
+-  sum{d,REG, XTAXD(c,r,d)} ! exp tax !
+-  sum{a,ACTS, DFTAX(c,a,r)}; ! dom tax on firms !
+
+(all,c,COMM)(all,r,REG) SUMMARY(c,"lessImpTax",r) =
+-  MPTAX(c,r) ! imp tax on hou !
+-  MGTAX(c,r) ! imp tax on gov !
+-  MITAX(c,r) ! imp tax on inv !
+-  sum{a,ACTS, MFTAX(c,a,r)}; ! imp tax on firms !
+
+(all,c,COMM)(all,r,REG) SUMMARY(c,"lessTariff",r) =
+  - sum{s,REG, MTAX(c,s,r)};
+
+(all,c,COMM)(all,r,REG) SUMMARY(c,"lessImpCIF",r) =
+-  VMPB(c,r)  ! imp hou !
+-  VMGB(c,r)  ! imp gov !
+-  VMIB(c,r)  ! imp gov !
+-  sum{a,ACTS,  VMFB(c,a,r)} - SUMMARY(c,"lessTariff",r); ! imp firms !
+
+Write SUMMARY to file GTAPVIEW header "SMRY";
+
+! Added by Erwin!
+Zerodivide (zero_by_zero) default 0.0;
+Zerodivide (nonzero_by_zero) default 0.0;
+Coefficient (all,c,COMM)(all,r,REG) 
+    BALCOMM(c,r) # sales = row sum of MAKE #; 
+Formula (all,c,COMM)(all,r,REG) 
+    BALCOMM(c,r) = sum{a,ACTS, MAKEB(c,a,r)} - sum{a,SUMCOLS, SUMMARY(c,a,r)}; 
+Coefficient (all,a,ACTS)(all,r,REG) 
+    BALACTS(a,r) # costs = column sum of MAKE #; 
+Formula (all,a,ACTS)(all,r,REG) 
+    BALACTS(a,r) = sum{c,COMM, MAKEB(c,a,r)} - sum{c,SUMROWS, SUMMARY(c,a,r)}; 
+Write 
+    BALACTS to file GTAPVIEW header "BALA";
+    BALCOMM to file GTAPVIEW header "BALC";
+
+Formula (all,a,ACTS)(all,r,REG) 
+    BALACTS(a,r) = 100*BALACTS(a,r) / sum{c,COMM, MAKEB(c,a,r)}; 
+Formula (all,c,COMM)(all,r,REG) 
+    BALCOMM(c,r) = 100*BALCOMM(c,r) / sum{a,ACTS, MAKEB(c,a,r)};
+Zerodivide off;
+Write 
+    BALACTS to file GTAPVIEW header "BLAP" longname "BALACTS in %:must be tiny";
+    BALCOMM to file GTAPVIEW header "BLCP" longname "BALCOMM in %:must be tiny";
+!<
+    ------------------------
+    End of GTAPVIEW.TAB file
+    ------------------------
+>!

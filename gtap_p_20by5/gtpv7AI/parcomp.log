@@ -1,0 +1,144 @@
+Running up to 24 compiles at once, with each compile doing up to 3 files.
+Entering event loop, 0 tasks running; delay = 100
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c11.for" "gtapv7-ep_c12.for" "gtapv7-ep_c13.for"
+Launched slot 2: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u11.for" "gtapv7-ep_u12.for" "gtapv7-ep_u13.for"
+Launched slot 3: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_v1.for" "gtapv7-ep__39.for" "gtapv7-ep__43.for"
+Launched slot 4: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__48.for" "gtapv7-ep__51.for" "gtapv7-ep__54.for"
+Launched slot 5: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__58.for" "gtapv7-ep__64.for" "gtapv7-ep__67.for"
+Launched slot 6: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__70.for" "gtapv7-ep__73.for"
+Entering event loop, 6 tasks running; delay = 120
+Task 1 done, created 1 gtapv7-ep_c11.o 2 gtapv7-ep_c12.o 3 gtapv7-ep_c13.o
+Task 2 done, created 4 gtapv7-ep_u11.o 5 gtapv7-ep_u12.o 6 gtapv7-ep_u13.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c1.for" "gtapv7-ep_c31.for" "gtapv7-ep_c32.for"
+Launched slot 2: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c33.for" "gtapv7-ep_c51.for" "gtapv7-ep_c52.for"
+Launched slot 7: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c53.for" "gtapv7-ep_c61.for" "gtapv7-ep_c62.for"
+Launched slot 8: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c63.for" "gtapv7-ep_u1.for" "gtapv7-ep_u31.for"
+Launched slot 9: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u32.for" "gtapv7-ep_u33.for" "gtapv7-ep_u51.for"
+Launched slot 10: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u52.for" "gtapv7-ep_u53.for" "gtapv7-ep_u61.for"
+Launched slot 11: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u62.for" "gtapv7-ep_u63.for"
+Entering event loop, 11 tasks running; delay = 100
+Task 1 done, created 7 gtapv7-ep_c1.o 8 gtapv7-ep_c31.o 9 gtapv7-ep_c32.o
+Task 3 done, created 10 gtapv7-ep_v1.o 11 gtapv7-ep__39.o 12 gtapv7-ep__43.o
+Task 6 done, created 13 gtapv7-ep__70.o 14 gtapv7-ep__73.o
+Task 8 done, created 15 gtapv7-ep_c63.o 16 gtapv7-ep_u1.o 17 gtapv7-ep_u31.o
+Task 10 done, created 18 gtapv7-ep_u52.o 19 gtapv7-ep_u53.o 20 gtapv7-ep_u61.o
+Task 11 done, created 21 gtapv7-ep_u62.o 22 gtapv7-ep_u63.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u6.for" "gtapv7-ep_v3.for" "gtapv7-ep_v5.for"
+Launched slot 3: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_v6.for" "gtapv7-ep__77.for" "gtapv7-ep__78.for"
+Launched slot 6: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__79.for" "gtapv7-ep__80.for" "gtapv7-ep__81.for"
+Launched slot 8: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__82.for" "gtapv7-ep__83.for"
+Entering event loop, 9 tasks running; delay = 100
+Task 4 done, created 23 gtapv7-ep__48.o 24 gtapv7-ep__51.o 25 gtapv7-ep__54.o
+Task 5 done, created 26 gtapv7-ep__58.o 27 gtapv7-ep__64.o 28 gtapv7-ep__67.o
+Task 9 done, created 29 gtapv7-ep_u32.o 30 gtapv7-ep_u33.o 31 gtapv7-ep_u51.o
+Launched slot 4: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u3.for" "gtapv7-ep_u5.for"
+Entering event loop, 7 tasks running; delay = 100
+Task 4 done, created 32 gtapv7-ep_u3.o 33 gtapv7-ep_u5.o
+Entering event loop, 6 tasks running; delay = 100
+Entering event loop, 6 tasks running; delay = 120
+Task 1 done, created 34 gtapv7-ep_u6.o 35 gtapv7-ep_v3.o 36 gtapv7-ep_v5.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_u0.for"
+Entering event loop, 6 tasks running; delay = 120
+Task 1 done, created 37 gtapv7-ep_u0.o
+Entering event loop, 5 tasks running; delay = 120
+Task 7 done, created 38 gtapv7-ep_c53.o 39 gtapv7-ep_c61.o 40 gtapv7-ep_c62.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c6.for"
+Entering event loop, 5 tasks running; delay = 120
+Task 1 done, created 41 gtapv7-ep_c6.o
+Task 3 done, created 42 gtapv7-ep_v6.o 43 gtapv7-ep__77.o 44 gtapv7-ep__78.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_v0.for"
+Entering event loop, 4 tasks running; delay = 100
+Task 1 done, created 45 gtapv7-ep_v0.o
+Task 8 done, created 46 gtapv7-ep__82.o 47 gtapv7-ep__83.o
+Entering event loop, 2 tasks running; delay = 100
+Entering event loop, 2 tasks running; delay = 120
+Task 6 done, created 48 gtapv7-ep__79.o 49 gtapv7-ep__80.o 50 gtapv7-ep__81.o
+Entering event loop, 1 tasks running; delay = 120
+Entering event loop, 1 tasks running; delay = 144
+Entering event loop, 1 tasks running; delay = 173
+Entering event loop, 1 tasks running; delay = 208
+Entering event loop, 1 tasks running; delay = 250
+Entering event loop, 1 tasks running; delay = 300
+Entering event loop, 1 tasks running; delay = 360
+Entering event loop, 1 tasks running; delay = 432
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Entering event loop, 1 tasks running; delay = 500
+Task 2 done, created 51 gtapv7-ep_c33.o 52 gtapv7-ep_c51.o 53 gtapv7-ep_c52.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c3.for" "gtapv7-ep_c5.for"
+Entering event loop, 1 tasks running; delay = 500
+Task 1 done, created 54 gtapv7-ep_c3.o 55 gtapv7-ep_c5.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_c0.for" "gtapv7-ep__2.for" "gtapv7-ep__3.for"
+Launched slot 2: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__4.for" "gtapv7-ep__5.for" "gtapv7-ep__6.for"
+Launched slot 3: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__7.for" "gtapv7-ep__8.for" "gtapv7-ep__9.for"
+Launched slot 4: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__10.for" "gtapv7-ep__11.for" "gtapv7-ep__12.for"
+Launched slot 5: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__13.for" "gtapv7-ep__14.for" "gtapv7-ep__15.for"
+Launched slot 6: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__16.for" "gtapv7-ep__17.for" "gtapv7-ep__18.for"
+Launched slot 7: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__19.for" "gtapv7-ep__20.for" "gtapv7-ep__21.for"
+Launched slot 8: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__22.for" "gtapv7-ep__23.for" "gtapv7-ep__24.for"
+Launched slot 9: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__25.for" "gtapv7-ep__26.for" "gtapv7-ep__27.for"
+Launched slot 10: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__28.for" "gtapv7-ep__29.for" "gtapv7-ep__30.for"
+Launched slot 11: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__31.for" "gtapv7-ep__32.for" "gtapv7-ep__33.for"
+Launched slot 12: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__34.for" "gtapv7-ep__35.for" "gtapv7-ep__36.for"
+Launched slot 13: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__37.for" "gtapv7-ep__38.for" "gtapv7-ep__40.for"
+Launched slot 14: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__41.for" "gtapv7-ep__42.for" "gtapv7-ep__44.for"
+Launched slot 15: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__45.for" "gtapv7-ep__46.for" "gtapv7-ep__47.for"
+Launched slot 16: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__49.for" "gtapv7-ep__50.for" "gtapv7-ep__52.for"
+Launched slot 17: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__53.for" "gtapv7-ep__55.for" "gtapv7-ep__56.for"
+Launched slot 18: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__57.for" "gtapv7-ep__59.for" "gtapv7-ep__60.for"
+Launched slot 19: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__61.for" "gtapv7-ep__62.for" "gtapv7-ep__63.for"
+Launched slot 20: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__65.for" "gtapv7-ep__66.for" "gtapv7-ep__68.for"
+Launched slot 21: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__69.for" "gtapv7-ep__71.for" "gtapv7-ep__72.for"
+Launched slot 22: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__74.for" "gtapv7-ep__75.for" "gtapv7-ep__76.for"
+Launched slot 23: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__84.for"
+Entering event loop, 23 tasks running; delay = 500
+Task 1 done, created 56 gtapv7-ep_c0.o 57 gtapv7-ep__2.o 58 gtapv7-ep__3.o
+Task 2 done, created 59 gtapv7-ep__4.o 60 gtapv7-ep__5.o 61 gtapv7-ep__6.o
+Task 3 done, created 62 gtapv7-ep__7.o 63 gtapv7-ep__8.o 64 gtapv7-ep__9.o
+Task 4 done, created 65 gtapv7-ep__10.o 66 gtapv7-ep__11.o 67 gtapv7-ep__12.o
+Task 5 done, created 68 gtapv7-ep__13.o 69 gtapv7-ep__14.o 70 gtapv7-ep__15.o
+Task 6 done, created 71 gtapv7-ep__16.o 72 gtapv7-ep__17.o 73 gtapv7-ep__18.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep_m0.for"
+Entering event loop, 18 tasks running; delay = 400
+Task 1 done, created 74 gtapv7-ep_m0.o
+Task 7 done, created 75 gtapv7-ep__19.o 76 gtapv7-ep__20.o 77 gtapv7-ep__21.o
+Task 8 done, created 78 gtapv7-ep__22.o 79 gtapv7-ep__23.o 80 gtapv7-ep__24.o
+Launched slot 1: gfortran -I "C:\GP\includes" -I "C:\GP\modules" @optin_1 "gtapv7-ep__1.for"
+Entering event loop, 16 tasks running; delay = 320
+Task 10 done, created 81 gtapv7-ep__28.o 82 gtapv7-ep__29.o 83 gtapv7-ep__30.o
+Task 11 done, created 84 gtapv7-ep__31.o 85 gtapv7-ep__32.o 86 gtapv7-ep__33.o
+Task 15 done, created 87 gtapv7-ep__45.o 88 gtapv7-ep__46.o 89 gtapv7-ep__47.o
+Task 23 done, created 90 gtapv7-ep__84.o
+Entering event loop, 12 tasks running; delay = 256
+Task 12 done, created 91 gtapv7-ep__34.o 92 gtapv7-ep__35.o 93 gtapv7-ep__36.o
+Task 13 done, created 94 gtapv7-ep__37.o 95 gtapv7-ep__38.o 96 gtapv7-ep__40.o
+Task 16 done, created 97 gtapv7-ep__49.o 98 gtapv7-ep__50.o 99 gtapv7-ep__52.o
+Entering event loop, 9 tasks running; delay = 205
+Task 9 done, created 100 gtapv7-ep__25.o 101 gtapv7-ep__26.o 102 gtapv7-ep__27.o
+Task 14 done, created 103 gtapv7-ep__41.o 104 gtapv7-ep__42.o 105 gtapv7-ep__44.o
+Task 17 done, created 106 gtapv7-ep__53.o 107 gtapv7-ep__55.o 108 gtapv7-ep__56.o
+Task 19 done, created 109 gtapv7-ep__61.o 110 gtapv7-ep__62.o 111 gtapv7-ep__63.o
+Entering event loop, 5 tasks running; delay = 164
+Task 18 done, created 112 gtapv7-ep__57.o 113 gtapv7-ep__59.o 114 gtapv7-ep__60.o
+Entering event loop, 4 tasks running; delay = 164
+Task 20 done, created 115 gtapv7-ep__65.o 116 gtapv7-ep__66.o 117 gtapv7-ep__68.o
+Task 21 done, created 118 gtapv7-ep__69.o 119 gtapv7-ep__71.o 120 gtapv7-ep__72.o
+Entering event loop, 2 tasks running; delay = 131
+Task 22 done, created 121 gtapv7-ep__74.o 122 gtapv7-ep__75.o 123 gtapv7-ep__76.o
+Entering event loop, 1 tasks running; delay = 131
+Entering event loop, 1 tasks running; delay = 157
+Entering event loop, 1 tasks running; delay = 188
+Entering event loop, 1 tasks running; delay = 226
+Entering event loop, 1 tasks running; delay = 271
+Entering event loop, 1 tasks running; delay = 325
+Entering event loop, 1 tasks running; delay = 390
+Entering event loop, 1 tasks running; delay = 468
+Task 1 done, created 124 gtapv7-ep__1.o
+Finished OK 21.3 seconds 47 separate tasks

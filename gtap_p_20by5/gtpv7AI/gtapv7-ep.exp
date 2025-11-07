@@ -1,0 +1,41 @@
+file gtapPARM = default.prm;
+Verbal Description =
+Numeraire shock;
+Method = Johansen;
+Steps = 1;
+automatic accuracy = no;
+
+! basic closure
+Exogenous
+          pop
+          psaveslack pfactwld
+          profitslack incomeslack endwslack
+          cgdslack 
+          tradslack
+          ams atm atf ats atd
+          aosec aoreg 
+          afcom afsec afreg afecom afesec afereg
+          aoall afall afeall
+          au dppriv dpgov dpsave
+          to tinc 
+          tpreg tm tms tx txs
+          qe
+          qesf
+! Additional exogenous variables for GTAP-E
+          del_ctgshr del_rctaxb pemp
+          ;  
+Rest endogenous;
+
+Shock pfactwld = uniform 10;
+
+!@ contents of CMFStart when this EXP file was last saved
+!@ below is a record only....not read by RunGTAP
+!@ RunGTAP reads from the actual CMFSTART file
+!@ ! If a version has no CMFSTART file of its own
+!@ ! RunGTAP creates one by copying the supplied file CMFSTART.DEF
+!@ CPU = yes;  ! log show simulation times
+!@ NDS = yes;  ! no displays
+!@ Extrapolation accuracy file = NO ; ! No XAC file
+!@ !servants=1; ! use 2 processors at once, if possible
+!@ 
+!@ end of CMFSTART part

@@ -1,0 +1,651 @@
+The TABmate Closure analysis assumes that your TAB file
+ follows a naming convention for equations:
+ the equation which explains variable "p1", say, should be named "E_p1" (prefix E_).
+ See the online help for more details (menu item Tools...Help on Tools).
+
+ Search this report for the characters "!?" to find problems.
+
+Report is divided into the following sections:
+Section 1. Directly matching equations and variables
+Section 2. Matching equations and variables (many equations to 1 variable)
+Section 3. Unmatched equations (should be none)
+Section 4. Unmatched variables (potential exogenous list)
+Section 5. Backsolved, substituted and omitted variables
+Section 6. Condensation suggestions
+Section 7. Tally of variables and equations
+Section 8. Strangely named variables (possible error)
+
+
+Section 1. Directly matching equations and variables
+****************************************************
+
+Following variables and equations are paired:
+
+       Variable              Size       Equation                Size
+
+           c1_r               REG         E_c1_r                 REG
+           c2_r               REG         E_c2_r                 REG
+           c3_r               REG         E_c3_r                 REG
+      CNTco2trd               REG    E_CNTco2trd                 REG
+        CNTdpar               REG      E_CNTdpar                 REG
+       CNTendwr               REG     E_CNTendwr                 REG
+          CNTkb               REG        E_CNTkb                 REG
+        CNTpinv               REG      E_CNTpinv                 REG
+         CNTpop               REG       E_CNTpop                 REG
+        CNTqfer               REG      E_CNTqfer                 REG
+        CNTqmsr               REG      E_CNTqmsr                 REG
+         CNTqor               REG       E_CNTqor                 REG
+        CNTqxsr               REG      E_CNTqxsr                 REG
+        CNTtotr               REG      E_CNTtotr                 REG
+     del_balcar               REG   E_del_balcar                 REG
+      del_ctaxr               REG    E_del_ctaxr                 REG
+   del_dvco2tra               REG E_del_dvco2tra                 REG
+    del_indtaxr               REG  E_del_indtaxr                 REG
+     del_nctaxb              BLOC   E_del_nctaxb                BLOC
+      del_rctax               REG    E_del_rctax                 REG
+    del_taxrexp               REG  E_del_taxrexp                 REG
+     del_taxrfu               REG   E_del_taxrfu                 REG
+     del_taxrgc               REG   E_del_taxrgc                 REG
+     del_taxric               REG   E_del_taxric                 REG
+    del_taxrimp               REG  E_del_taxrimp                 REG
+    del_taxrinc               REG  E_del_taxrinc                 REG
+     del_taxriu               REG   E_del_taxriu                 REG
+    del_taxrout               REG  E_del_taxrout                 REG
+     del_taxrpc               REG   E_del_taxrpc                 REG
+       del_tbal               REG     E_del_tbal                 REG
+   del_tbalctra               REG E_del_tbalctra                 REG
+     del_tbalry               REG   E_del_tbalry                 REG
+      del_ttaxr               REG    E_del_ttaxr                 REG
+           dpav               REG         E_dpav                 REG
+         dpavev               REG       E_dpavev                 REG
+          dpsum               REG        E_dpsum                 REG
+             EV               REG           E_EV                 REG
+         EV_ALT               REG       E_EV_ALT                 REG
+        fincome               REG      E_fincome                 REG
+          gco2q               REG        E_gco2q                 REG
+         gco2qb              BLOC       E_gco2qb                BLOC
+          gco2t               REG        E_gco2t                 REG
+         gco2tb              BLOC       E_gco2tb                BLOC
+         gco2tw                 1       E_gco2tw                   1  Size 1
+     globalcgds                 1   E_globalcgds                   1  Size 1
+             kb               REG           E_kb                 REG
+             ke               REG           E_ke                 REG
+              p               REG            E_p                 REG
+       pcgdswld                 1     E_pcgdswld                   1  Size 1
+            pdw               REG          E_pdw                 REG
+            peb     ENDW*ACTS*REG          E_peb       ENDW*ACTS*REG
+    pebfactreal        ENDWMS*REG  E_pebfactreal          ENDWMS*REG
+     pefactreal        ENDWMS*REG   E_pefactreal          ENDWMS*REG
+          pempb              BLOC        E_pempb                BLOC
+        pfactor               REG      E_pfactor                 REG
+           pgdp               REG         E_pgdp                 REG
+           pgov               REG         E_pgov                 REG
+           pinv               REG         E_pinv                 REG
+            pms          COMM*REG          E_pms            COMM*REG
+         pmwcom              COMM       E_pmwcom                COMM
+         pmwreg               REG       E_pmwreg                 REG
+          ppriv               REG        E_ppriv                 REG
+          psave               REG        E_psave                 REG
+            psw               REG          E_psw                 REG
+             pt              MARG           E_pt                MARG
+             pw              COMM           E_pw                COMM
+            pwu              COMM          E_pwu                COMM
+         pxwcom              COMM       E_pxwcom                COMM
+         pxwreg               REG       E_pxwreg                 REG
+         pxwwld                 1       E_pxwwld                   1  Size 1
+            pyb              BLOC          E_pyb                BLOC
+             qc          COMM*REG           E_qc            COMM*REG
+            qca     COMM*ACTS*REG          E_qca       COMM*ACTS*REG
+            qds          COMM*REG          E_qds            COMM*REG
+           qgdp               REG         E_qgdp                 REG
+           qinv               REG         E_qinv                 REG
+            qms          COMM*REG          E_qms            COMM*REG
+         qmwcom              COMM       E_qmwcom                COMM
+         qmwreg               REG       E_qmwreg                 REG
+             qo          ACTS*REG           E_qo            ACTS*REG
+            qow              COMM          E_qow                COMM
+           qowu              COMM         E_qowu                COMM
+          qsave               REG        E_qsave                 REG
+        qsaveev               REG      E_qsaveev                 REG
+            qtm              MARG          E_qtm                MARG
+         qxwcom              COMM       E_qxwcom                COMM
+         qxwreg               REG       E_qxwreg                 REG
+         qxwwld                 1       E_qxwwld                   1  Size 1
+         rental               REG       E_rental                 REG
+           rorc               REG         E_rorc                 REG
+           rore               REG         E_rore                 REG
+           rorg                 1         E_rorg                   1  Size 1
+            tot               REG          E_tot                 REG
+           tot2               REG         E_tot2                 REG
+              u               REG            E_u                 REG
+          uelas               REG        E_uelas                 REG
+        uelasev               REG      E_uelasev                 REG
+         uepriv               REG       E_uepriv                 REG
+       ueprivev               REG     E_ueprivev                 REG
+             ug               REG           E_ug                 REG
+           ugev               REG         E_ugev                 REG
+             up               REG           E_up                 REG
+           upev               REG         E_upev                 REG
+         valuew              COMM       E_valuew                COMM
+        valuewu              COMM      E_valuewu                COMM
+           vgdp               REG         E_vgdp                 REG
+         vmwcom              COMM       E_vmwcom                COMM
+         vmwreg               REG       E_vmwreg                 REG
+         vxwcom              COMM       E_vxwcom                COMM
+         vxwreg               REG       E_vxwreg                 REG
+         vxwwld                 1       E_vxwwld                   1  Size 1
+     walraslack                 1   E_walraslack                   1  Size 1
+     walras_dem                 1   E_walras_dem                   1  Size 1
+     walras_sup                 1   E_walras_sup                   1  Size 1
+            WEV                 1          E_WEV                   1  Size 1
+        WEV_ALT                 1      E_WEV_ALT                   1  Size 1
+              y               REG            E_y                 REG
+            yev               REG          E_yev                 REG
+             yg               REG           E_yg                 REG
+           ygev               REG         E_ygev                 REG
+             yp               REG           E_yp                 REG
+           ypev               REG         E_ypev                 REG
+        ysaveev               REG      E_ysaveev                 REG
+           ywld                 1         E_ywld                   1  Size 1
+
+
+Section 2. Matching equations and variables (many equations to 1 variable)
+**************************************************************************
+
+Following variables are possibly matched to one or more equations:
+
+       Variable              Size       Equation              Size
+
+           ppat          COMM*REG        E_ppat1          COMM*REG
+                                         E_ppat2          COMM*REG
+
+           ppac          ELEP*REG        E_ppac1               REG
+                                         E_ppac2               REG
+                                         E_ppac3               REG
+                                         E_ppac4               REG
+
+           piat          COMM*REG        E_piat1          COMM*REG
+                                         E_piat2          COMM*REG
+
+           piac          ELEG*REG        E_piac1               REG
+                                         E_piac2               REG
+                                         E_piac3               REG
+                                         E_piac4               REG
+
+           pgat          COMM*REG        E_pgat1          COMM*REG
+                                         E_pgat2          COMM*REG
+
+           pgac          ELEG*REG        E_pgac1               REG
+                                         E_pgac2               REG
+                                         E_pgac3               REG
+                                         E_pgac4               REG
+
+           pfac     ELEF*ACTS*REG        E_pfac1          ACTS*REG
+                                         E_pfac2          ACTS*REG
+                                         E_pfac3          ACTS*REG
+                                         E_pfac4          ACTS*REG
+
+            qpa          ALLP*REG         E_qpa1          TOPP*REG
+                                          E_qpa2          ENYP*REG
+                                          E_qpa3          ELYP*REG
+                                          E_qpa4         EGENP*REG
+                                          E_qpa5          EBLP*REG
+                                          E_qpa6          EPLP*REG
+
+            qia          ALLI*REG         E_qia1          ENYI*REG
+                                          E_qia2         NENYI*REG
+                                          E_qia3          TOPI*REG
+                                          E_qia4          ELYI*REG
+                                          E_qia5         EGENI*REG
+                                          E_qia6          EBLI*REG
+                                          E_qia7          EPLI*REG
+
+            qga          ALLG*REG         E_qga1          ENYG*REG
+                                          E_qga2         NENYG*REG
+                                          E_qga3          TOPG*REG
+                                          E_qga4          ELYG*REG
+                                          E_qga5         EGENG*REG
+                                          E_qga6          EBLG*REG
+                                          E_qga7          EPLG*REG
+
+            qfa     ALLF*ACTS*REG         E_qfa1   NCOALF*ACTS*REG
+                                          E_qfa2    NELYF*ACTS*REG
+                                          E_qfa3     ENYF*ACTS*REG
+                                          E_qfa4     KENF*ACTS*REG
+                                          E_qfa5    VAENF*ACTS*REG
+                                          E_qfa6     TOPF*ACTS*REG
+                                          E_qfa7     ELYF*ACTS*REG
+                                          E_qfa8    EGENF*ACTS*REG
+                                          E_qfa9     EBLF*ACTS*REG
+                                         E_qfa10     EPLF*ACTS*REG
+
+            qes     ENDW*ACTS*REG         E_qes1    ENDWM*ACTS*REG
+                                          E_qes2    ENDWS*ACTS*REG
+                                          E_qes3    ENDWF*ACTS*REG
+
+            ppa          ALLP*REG         E_ppa1               REG
+                                          E_ppa2               REG
+                                          E_ppa3               REG
+                                          E_ppa4               REG
+                                          E_ppa5               REG
+
+            pia          ALLI*REG         E_pia1               REG
+                                          E_pia2               REG
+                                          E_pia3               REG
+                                          E_pia4               REG
+                                          E_pia5               REG
+                                          E_pia6               REG
+
+            pga          ALLG*REG         E_pga1               REG
+                                          E_pga2               REG
+                                          E_pga3               REG
+                                          E_pga4               REG
+                                          E_pga5               REG
+                                          E_pga6               REG
+
+            pfa     ALLF*ACTS*REG         E_pfa1     ENDW*ACTS*REG
+                                          E_pfa2     COMM*ACTS*REG
+                                          E_pfa3          ACTS*REG
+                                          E_pfa4          ACTS*REG
+                                          E_pfa5          ACTS*REG
+                                          E_pfa6          ACTS*REG
+                                          E_pfa7          ACTS*REG
+                                          E_pfa8          ACTS*REG
+                                          E_pfa9          ACTS*REG
+                                         E_pfa10          ACTS*REG
+                                         E_pfa11          ACTS*REG
+
+            pds          COMM*REG         E_pds1          COMM*REG
+
+             pe        ENDWMS*REG          E_pe1         ENDWM*REG
+                                           E_pe2         ENDWS*REG
+
+
+Section 3. Unmatched equations (should be none)
+***********************************************
+
+NO equations are unmatched.
+
+
+Section 4. Unmatched variables (potential exogenous list)
+*********************************************************
+
+Following variables are unmatched - probably exogenous
+(text below is formatted so you can paste straight into the CMF file):
+
+! Automatic closure generated by TABmate Tools...Closure command
+!  Please do not edit -- instead, add swap statements underneath.
+!                Variable     Size 
+Exogenous           afall ; ! ALLF*ACTS*REG   intermediate input c augmenting tech change by act. a in r
+Exogenous           afcom ; ! ALLF   intermediate tech change of input c, worldwide
+Exogenous          afeall ; ! ENDW*ACTS*REG   primary factor e augmenting tech change for act. a in r
+Exogenous          afecom ; ! ENDW   factor input tech change of endowwment e, worldwide
+Exogenous          afereg ; ! REG   factor input tech change in region r
+Exogenous          afesec ; ! ACTS   factor input tech change of act. a, worldwide
+Exogenous           afreg ; ! REG   intermediate tech change in region r
+Exogenous           afsec ; ! ACTS   intermediate tech change of act. a, worldwide
+Exogenous             ams ; ! COMM*REG*REG   commodity c augmenting tech change from s to d
+Exogenous           aoall ; ! ACTS*REG   output augmenting technical change in act. a of r
+Exogenous           aoreg ; ! REG   specific output tech change in region r
+Exogenous           aosec ; ! ACTS   output tech change for act. a, worldwide
+Exogenous             atd ; ! REG   tech change shipping to d
+Exogenous             atf ; ! COMM   tech change shipping of c, worldwide
+Exogenous             atm ; ! COMM   tech change in mode m, worldwide
+Exogenous             ats ; ! REG   tech change shipping from region r
+Exogenous              au ; ! REG   input-neutral shift in utility function
+Exogenous        cgdslack ; ! REG   slack variable for qinv(r)
+Exogenous      del_ctgshr ; ! REG   government share of carbon tax payments/permits revenue
+Exogenous      del_rctaxb ; ! BLOC   real carbon tax rate (1997 USD per tonne of CO2)
+Exogenous           dpgov ; ! REG   government consumption distribution parameter
+Exogenous          dppriv ; ! REG   private consumption distribution parameter
+Exogenous          dpsave ; ! REG   saving distribution parameter
+Exogenous       endwslack ; ! ENDW*REG   slack variable in endowment market clearing condition
+Exogenous     incomeslack ; ! REG   slack variable in the expression for regional income
+Exogenous            pemp ; ! REG   power of emissions purchases
+Exogenous        pfactwld ; ! 1   world price index of primary factors
+Exogenous             pop ; ! REG   regional population
+Exogenous     profitslack ; ! ACTS*REG   slack variable in the zero profit equation
+Exogenous      psaveslack ; ! REG   slack variable for the saving price equation
+Exogenous              qe ; ! ENDWMS*REG   supply of mobile and sluggish endowment e in region r
+Exogenous            qesf ; ! ENDWF*ACTS*REG   supply of fixed (natural resource) endowment e in a in r
+Exogenous            tinc ; ! ENDW*ACTS*REG   power of income tax on endowment e supplied to act. a in r
+Exogenous              tm ; ! COMM*REG   source-gen. change in tax on imports of c into r
+Exogenous             tms ; ! COMM*REG*REG   source-spec. change in tax on imports of c from s to d
+Exogenous              to ; ! COMM*ACTS*REG   power of tax on com. c supplied by act. a in region r
+Exogenous           tpreg ; ! REG   source-generic tax shifter on private cons.
+Exogenous       tradslack ; ! COMM*REG   slack variable in tradeables market clearing condition
+Exogenous              tx ; ! COMM*REG   dest.-gen. change in subsidy on exports of c from r
+Exogenous             txs ; ! COMM*REG*REG   dest.-spec. change in subsidy on exports of c from s to d
+Rest endogenous; ! end of TABmate automatic closure
+
+
+Below is a second version of the exogenous list, tab-delimited for pasting into Excel or Word tables:
+
+Variable	Size	Description
+afall	ALLF*ACTS*REG	intermediate input c augmenting tech change by act. a in r
+afcom	ALLF	intermediate tech change of input c, worldwide
+afeall	ENDW*ACTS*REG	primary factor e augmenting tech change for act. a in r
+afecom	ENDW	factor input tech change of endowwment e, worldwide
+afereg	REG	factor input tech change in region r
+afesec	ACTS	factor input tech change of act. a, worldwide
+afreg	REG	intermediate tech change in region r
+afsec	ACTS	intermediate tech change of act. a, worldwide
+ams	COMM*REG*REG	commodity c augmenting tech change from s to d
+aoall	ACTS*REG	output augmenting technical change in act. a of r
+aoreg	REG	specific output tech change in region r
+aosec	ACTS	output tech change for act. a, worldwide
+atd	REG	tech change shipping to d
+atf	COMM	tech change shipping of c, worldwide
+atm	COMM	tech change in mode m, worldwide
+ats	REG	tech change shipping from region r
+au	REG	input-neutral shift in utility function
+cgdslack	REG	slack variable for qinv(r)
+del_ctgshr	REG	government share of carbon tax payments/permits revenue
+del_rctaxb	BLOC	real carbon tax rate (1997 USD per tonne of CO2)
+dpgov	REG	government consumption distribution parameter
+dppriv	REG	private consumption distribution parameter
+dpsave	REG	saving distribution parameter
+endwslack	ENDW*REG	slack variable in endowment market clearing condition
+incomeslack	REG	slack variable in the expression for regional income
+pemp	REG	power of emissions purchases
+pfactwld	1	world price index of primary factors
+pop	REG	regional population
+profitslack	ACTS*REG	slack variable in the zero profit equation
+psaveslack	REG	slack variable for the saving price equation
+qe	ENDWMS*REG	supply of mobile and sluggish endowment e in region r
+qesf	ENDWF*ACTS*REG	supply of fixed (natural resource) endowment e in a in r
+tinc	ENDW*ACTS*REG	power of income tax on endowment e supplied to act. a in r
+tm	COMM*REG	source-gen. change in tax on imports of c into r
+tms	COMM*REG*REG	source-spec. change in tax on imports of c from s to d
+to	COMM*ACTS*REG	power of tax on com. c supplied by act. a in region r
+tpreg	REG	source-generic tax shifter on private cons.
+tradslack	COMM*REG	slack variable in tradeables market clearing condition
+tx	COMM*REG	dest.-gen. change in subsidy on exports of c from r
+txs	COMM*REG*REG	dest.-spec. change in subsidy on exports of c from s to d
+
+
+Section 5. Backsolved, substituted and omitted variables
+********************************************************
+
+Following variables are backsolved - cannot be exogenous:
+
+      Variable              Size 
+
+            afa  ALLF*ACTS*REG   composite interm. input c augmenting tech ch. by act. a in r
+            afe  ENDW*ACTS*REG   primary factor e augmenting tech change by act. a in r
+             ao  ACTS*REG   output augmenting technical change by activity a in region r
+           apen  EGY*REG   real energy price index
+         atmfsd  MARG*COMM*REG*REG   tech change in ms shipping of c from region s to d
+          c1_cr  COMM*REG   contribution of world price, px_c, to ToT
+          c2_cr  COMM*REG   contribution of regional export price, px_cr, to ToT
+          c3_cr  COMM*REG   contribution of regional import price, pm_cr, to ToT
+    CNTalleffcr  COMM*REG   total contribution to regional EV of allocative effects
+     CNTalleffr  REG*ALLTAX   total contribution to regional EV of allocative effects
+        CNTendw  ENDW*REG   contribution to regional EV of changes in ENDW e in r
+         CNTqca  COMM*ACTS*REG   contribution to EV of changes in output c of act. a in region r
+          CNTqe  ENDW*REG   contribution to EV of changes in supply of ENDW e in reg. r
+         CNTqea  ENDW*ACTS*REG   contribution to EV of changes in supply of ENDW e to act. a in reg. r
+         CNTqfd  COMM*ACTS*REG   cont. to EV of changes in use of domestic intermediates by a in r
+         CNTqfe  ENDW*ACTS*REG   contribution to EV of changes in use of ENDW e in a in r
+       CNTqfeer  ENDW*REG   contribution to EV of changes in use of ENDW e in all firms in r
+         CNTqfm  COMM*ACTS*REG   cont. to EV of changes in use of imported intermediates by a in r
+         CNTqfr  REG*DIR   cont. to EV of changes in use of dom. and imp. intermediates in r
+         CNTqgd  COMM*REG   contribution to EV of changes in govt consumption of domestic good c in r
+         CNTqgm  COMM*REG   contribution to EV of changes in govt consumption of import c in r
+         CNTqgr  REG*DIR   cont. to EV of changes in govt consumption of dom. and imp. goods in r
+         CNTqia  REG*DIR   contribution to EV of changes in dom. and imp. investment goods in r
+         CNTqid  COMM*REG   contribution. to EV of changes in domestic investment good c in r
+         CNTqim  COMM*REG   contribution to EV of changes in imported investment good c in r
+         CNTqms  COMM*REG*REG   contribution to EV of changes in imports of c from SRCE s to DEST d
+          CNTqo  ACTS*REG   contribution to EV of changes in industry output of act. a in region r
+         CNTqpd  COMM*REG   contribution to EV of changes in consumption of domestic good c in r
+         CNTqpm  COMM*REG   contribution to EV of changes in consumption of imported good c in r
+         CNTqpr  REG*DIR   cont. to EV of changes in consumption of dom. and imp. goods in r
+         CNTqxs  COMM*REG*REG   contribution to EV of changes in exports of c from SRCE s to DEST d
+       CNTtechr  TECHTYPE*REG   contribution to regional EV of all technical change
+     CNTtech_af  COMM*ACTS*REG   cont. to EV of composite c input augmenting tech change in act. a
+    CNTtech_afe  ENDW*ACTS*REG   cont. to EV of primary factor e augmenting tech change in a
+    CNTtech_ams  COMM*REG*REG   cont. to EV of bilateral import augmenting tech change for COMM c
+     CNTtech_ao  ACTS*REG   cont. to regional EV of output augmenting tech change in a
+ CNTtech_atmfsd  MARG*COMM*REG*REG   cont. to EV of tech change in transportation efficiency
+      compvalad  ACTS*REG   composition of value added for good c and region r
+         expand  ENDWC*REG   change in investment relative to endowment stock
+           gco2  REG*CTAX   carbon dioxide emissions
+         gco2fd  COMM*ACTS*REG   CO2 emissions from firms use of domestic c in region r
+         gco2fm  COMM*ACTS*REG   CO2 emissions from firms use of imported c in region r
+         gco2gd  COMM*REG   CO2 emissions from govts use of domestic c in region r
+         gco2gm  COMM*REG   CO2 emissions from govts use of imported c in region r
+         gco2id  COMM*REG   CO2 emissions from investment demand for domestic c in region r
+         gco2im  COMM*REG   CO2 emissions from investment demand for imported c in region r
+         gco2pd  COMM*REG   CO2 emissions from private hhlds use of domestic c in region r
+         gco2pm  COMM*REG   CO2 emissions from private hhlds use of imported c in region r
+             pb  ACTS*REG   price index: basic (tax-inclusive) price of output of act. a
+            pca  COMM*ACTS*REG   basic price of commodity c produced by activity a in r
+           pcif  COMM*REG*REG   CIF world price of imported com. c from source s to dest. d
+            pes  ENDW*ACTS*REG   supply (after income tax) price of e for use by a in r
+      pfactreal  ENDW*ACTS*REG   ratio of return to primary factor e to CPI in r
+           pfat  COMM*ACTS*REG   firms price for commodity c for use by act. a in r
+            pfd  COMM*ACTS*REG   price of domestic com. c purchased by act. a in region r
+            pfe  ENDW*ACTS*REG   price of endowment e purchased by activity a region r
+            pfm  COMM*ACTS*REG   price of imported com. c purchased by act. a in region r
+           pfob  COMM*REG*REG   FOB world price of com. c from source s to destination d
+            pgd  COMM*REG   price of domestic com. c purchased by government in region r
+            pgm  COMM*REG   price of imported com. c purchased by government in region r
+            pid  COMM*REG   price of domestic com. c purchased by investment agent in r
+            pim  COMM*REG   price of imported com. c purchased by investment agent in r
+           pmds  COMM*REG*REG   price of imported c supplied by source region s to dest. d
+            pmw  COMM*REG   world price of composite import c in region r
+          pm_cr  COMM*REG   imports price index for good c and importing region d
+             po  ACTS*REG   unit cost/revenue of activity a in region r
+            ppd  COMM*REG   price of domestic com. c purchased by private household in r
+            ppm  COMM*REG   price of imported com. c purchased by private household in r
+             pr  COMM*REG   ratio of domestic to imported prices in r
+             ps  COMM*ACTS*REG   supply price of commodity c produced by activity a in r
+         ptrans  COMM*REG*REG   cost index for international transport of c from s to d
+            pxw  COMM*REG   aggregate exports price index of c from region r
+           qdem  EGY*REG   producer-prices-weighted energy usage quantity index
+           qfat  COMM*ACTS*REG   demand for commodity c for use by act. a in region r
+            qfd  COMM*ACTS*REG   demand for domestic commodity c by activity a in region r
+            qfe  ENDW*ACTS*REG   demand for endowment e by act. a in region r
+            qfm  COMM*ACTS*REG   imported commodity c for use by activity a in region r
+           qgat  COMM*REG   government hhld demand for commodity c in region r
+            qgd  COMM*REG   government demand for domestic commodity c in region r
+            qgm  COMM*REG   government demand for imported commodity c in region r
+           qiat  COMM*REG   investment hhld demand for commodity c in region r
+            qid  COMM*REG   investment demand for domestic commodity c in region r
+            qim  COMM*REG   investment demand for imported commodity c in region r
+            qmw  COMM*REG   aggregate imports of c into region s, CIF weights
+           qpat  COMM*REG   private hhld demand for commodity c in region r
+            qpd  COMM*REG   private household demand for domestic commodity c in region r
+           qpev  TOPP*REG   private hhld demand for commodity c in region r, for EV calc.
+            qpm  COMM*REG   private household demand for imported commodity c in region r
+            qst  MARG*REG   supply of margin m from region r for international transport
+         qtmfsd  MARG*COMM*REG*REG   international usage margin m on c from s to d
+            qxs  COMM*REG*REG   export sales of commodity c from source s to destination d
+            qxw  COMM*REG   aggregate exports of c from region r, FOB weights
+            tpd  COMM*REG   power of tax on domestic c purchased by private hhld in r
+            tpm  COMM*REG   power of tax on imported c purchased by private hhld in r
+           vdem  EGY*REG   money value of energy usage at producers prices
+         vmwcif  COMM*REG   value of merchandise regional imports, by commodity, CIF
+         vxwfob  COMM*REG   value of merchandise regional exports, by commodity, FOB
+
+Following variables are substituted - cannot be exogenous, and results are not visible:
+
+      Variable              Size 
+
+      del_tbalc  COMM*REG   change in trade balance by c and by r, $ US million
+
+No variables are system-initiated backsolved
+
+Following variables are omitted - are exogenous and zero and omitted from CMF file:
+
+      Variable              Size 
+
+          atall  MARG*COMM*REG*REG   tech change in ms shipping of c from region s to d
+            tfd  COMM*ACTS*REG   tax on domestic c purchased by act. a in r
+            tfe  ENDW*ACTS*REG   tax on primary factor e used by act. a in region r
+            tfm  COMM*ACTS*REG   tax on imported c purchased by act. a in r
+            tgd  COMM*REG   power of tax on domestic c purchased by government in r
+            tgm  COMM*REG   power of tax on domestic c purchased by government in r
+            tid  COMM*REG   power of tax on domestic invesment commodity c in region r
+            tim  COMM*REG   power of tax on imported invesment commodity c in region r
+         tpdall  COMM*REG   comm.-, source-spec. shifter in private cons. tax of dom. c
+         tpmall  COMM*REG   comm.-, source-spec. shifter in private cons. tax of imp. c
+
+
+
+Section 6. Condensation suggestions
+***********************************
+
+You might consider either backsolving or substituting
+  the following variables and equations, if they have more than 5000 components.
+Include in your CMF file a statement like:
+  Condensation information file = cond.txt ;
+to generate a report identifying the largest equations (which usually ought to be backsolved or substituted).
+Very large variables should be substituted, not backsolved.
+Text below is formatted so you can paste straight into the STI file:
+
+! Variable       Size
+
+B   !  backsolve
+peb ! ENDW*ACTS*REG
+E_peb
+B   !  backsolve
+pebfactreal ! ENDWMS*REG
+E_pebfactreal
+B   !  backsolve
+pefactreal ! ENDWMS*REG
+E_pefactreal
+B   !  backsolve
+pms ! COMM*REG
+E_pms
+B   !  backsolve
+qc ! COMM*REG
+E_qc
+B   !  backsolve
+qca ! COMM*ACTS*REG
+E_qca
+B   !  backsolve
+qds ! COMM*REG
+E_qds
+B   !  backsolve
+qms ! COMM*REG
+E_qms
+B   !  backsolve
+qo ! ACTS*REG
+E_qo
+
+GEMPACK 8.0 and later allows you to specify backsolves
+  directly in the TAB file, in the following format:
+
+Backsolve peb using E_peb;                 ! ENDW*ACTS*REG !
+Backsolve pebfactreal using E_pebfactreal; ! ENDWMS*REG !
+Backsolve pefactreal using E_pefactreal;   ! ENDWMS*REG !
+Backsolve pms using E_pms;                 ! COMM*REG !
+Backsolve qc using E_qc;                   ! COMM*REG !
+Backsolve qca using E_qca;                 ! COMM*ACTS*REG !
+Backsolve qds using E_qds;                 ! COMM*REG !
+Backsolve qms using E_qms;                 ! COMM*REG !
+Backsolve qo using E_qo;                   ! ACTS*REG !
+
+You might consider omitting the following variables.
+Omitting a variable is equivalent to assuming that it is exogenous and unshocked.
+Text below is formatted so you can paste straight into the STI file:
+
+o          ! omit following variables
+afall            ! ALLF*ACTS*REG
+afeall           ! ENDW*ACTS*REG
+ams              ! COMM*REG*REG
+aoall            ! ACTS*REG
+endwslack        ! ENDW*REG
+profitslack      ! ACTS*REG
+qe               ! ENDWMS*REG
+qesf             ! ENDWF*ACTS*REG
+tinc             ! ENDW*ACTS*REG
+tm               ! COMM*REG
+tms              ! COMM*REG*REG
+to               ! COMM*ACTS*REG
+tradslack        ! COMM*REG
+tx               ! COMM*REG
+txs              ! COMM*REG*REG
+                  ! empty line signals end of omissions list
+
+GEMPACK 8.0 and later allows you to specify omissions
+  directly in the TAB file, in the following format:
+
+Omit afall;       ! ALLF*ACTS*REG !
+Omit afeall;      ! ENDW*ACTS*REG !
+Omit ams;         ! COMM*REG*REG !
+Omit aoall;       ! ACTS*REG !
+Omit endwslack;   ! ENDW*REG !
+Omit profitslack; ! ACTS*REG !
+Omit qe;          ! ENDWMS*REG !
+Omit qesf;        ! ENDWF*ACTS*REG !
+Omit tinc;        ! ENDW*ACTS*REG !
+Omit tm;          ! COMM*REG !
+Omit tms;         ! COMM*REG*REG !
+Omit to;          ! COMM*ACTS*REG !
+Omit tradslack;   ! COMM*REG !
+Omit tx;          ! COMM*REG !
+Omit txs;         ! COMM*REG*REG !
+
+
+Section 7. Tally of variables and equations
+*******************************************
+
+        Dimensions    Size     Var     Equ     Exo   Unexplained
+            Scalar       1      14      13       1   pfactwld
+              ALLF       ?       1       0       1   afcom
+              ENDW       ?       1       0       1   afecom
+               REG       ?      99      83      16   afereg afreg aoreg atd ats au cgdslack del_ctgshr dpgov dppriv dpsave incomeslack pemp pop psaveslack tpreg
+              ACTS       ?       3       0       3   afesec afsec aosec
+              COMM       ?      14      12       2   atf atm
+              BLOC       ?       6       5       1   del_rctaxb
+              MARG       ?       2       2       0  
+          ACTS*REG       ?       9       7       2   aoall profitslack
+           EGY*REG       ?       3       3       0  
+          COMM*REG       ?      59      56       3   tm tradslack tx
+        REG*ALLTAX       ?       1       1       0  
+          ENDW*REG       ?       4       3       1   endwslack
+           REG*DIR       ?       4       4       0  
+      TECHTYPE*REG       ?       1       1       0  
+         ENDWC*REG       ?       1       1       0  
+          REG*CTAX       ?       1       1       0  
+        ENDWMS*REG       ?       4       3       1   qe
+          ALLG*REG       ?       2       2       0  
+          ELEG*REG       ?       2       2       0  
+          ALLI*REG       ?       2       2       0  
+          ALLP*REG       ?       2       2       0  
+          ELEP*REG       ?       1       1       0  
+          TOPP*REG       ?       1       1       0  
+          MARG*REG       ?       1       1       0  
+     ALLF*ACTS*REG       ?       4       3       1   afall
+     ENDW*ACTS*REG       ?      13      11       2   afeall tinc
+      COMM*REG*REG       ?      11       8       3   ams tms txs
+     COMM*ACTS*REG       ?      18      17       1   to
+     ELEF*ACTS*REG       ?       1       1       0  
+    ENDWF*ACTS*REG       ?       1       0       1   qesf
+ MARG*COMM*REG*REG       ?       4       4       0  
+Total number of variables: 290
+Total number of equations: 250
+Total size of all variables with known size: 14
+Total size of all equations with known size: 13
+
+
+Section 8. Strangely named variables (possible error)
+*****************************************************
+
+By convention, names of ordinary change variables are usually uppercase,
+or begin with "D" or "c_" or "cont" or "cnt".
+Following variables do NOT follow this convention:
+
+      Variable 
+
+           dpav  is a percent change variable named like an ordinary change variable
+         dpavev  is a percent change variable named like an ordinary change variable
+          dpgov  is a percent change variable named like an ordinary change variable
+         dppriv  is a percent change variable named like an ordinary change variable
+         dpsave  is a percent change variable named like an ordinary change variable
+          dpsum  is a percent change variable named like an ordinary change variable
+
+< End of closure report file D:\runGTAP375\gtapepck\gtapv7-ep.CLO >

@@ -1,0 +1,48 @@
+GTAPv7-EP (Energy+Power) model
+
+*********************************************************************************************************
+Version: GTAPv7-EP (Energy+Power) model
+Model: Standard GTAPv7 model 
+Data: GTAP Data Base version 11A
+Note: This model version addressess inconsistency and accounting isssues in the initial GTAP-Power model
+Date: Aug 2023
+Comments: ecorong@purdue.edu
+*********************************************************************************************************
+
+GTAP-E-POWER: extension of the GTAP-E model. GTAP-Power splits electricity sector into 11 generation technologies as well as electricity transmission and distribution.
+
+1.	THEORETICAL STRUCTURE
+GTAP-E-Power model is documented in Peters, J., 2016. GTAP-E-Power: An Electricity-detailed Economy-wide Model. Journal of Global Economic Analysis, Vol. 1, No. 2, pp. 156-187. DOI: http://dx.doi.org/10.21642/JGEA.010204AF
+
+2.	DATA BASE
+Default.agg from GTAP11A\GTAP-Power\2017
+
+2.2.	Sectoral Aggregation
+
+No.	Sector code	Sector description			GTAP-E-Power sector
+1	Agriculture	Grains and crops, 			pdr wht gro v_f osd c_b pfb ocr	
+			livestock, forestry, fishing		ctl oap rmk wol frs fsh 
+2	Coal		Coal				coa 
+3	Oil		Oil				gas gdt 
+5	Oil_Pcts	Petroleum and coal				p_c 
+6	TnD		Electricity transmission		TnD 
+7	NuclearBL	Nuclear power			NuclearBL 
+8	CoalBL		Coal-fired power			CoalBL 
+9	GasBL		Gas-fired power in base load		GasBL 
+10	WindBL		Wind power			WindBL 
+11	HydroBL		Hydro power in base load		HydroBL 
+12	OilBL		Oil-fired power in base load		OilBL 
+13	OthBL		Other power in base load		OtherBL 
+14	GasP		Gas-fired power in peak load		GasP 
+15	HydroP		Hydro power in peak load		HydroP 
+16	OilP		Oil-fired power in peak load		OilP 
+17	SolarP		Solar power			SolarP 
+18	En_Int_Ind	Energy intensive industries		omn crp nmm i_s nfm 
+19	Oth_Ind		Other industries			cmt omt vol mil pcr sgr ofd b_t tex wap 
+							lea lum ppp fmp mvh otn ele ome omf 
+20	Services		Transport and communication, 		trd otp wtp atp cmn wtr cns
+			other services			ofi isr obs ros osg dwe 
+
+3.	EXPERIMENTS
+
+gtapv7-ep		numeraire shock

@@ -1,0 +1,317 @@
+
+ ! This file was created at 14:59:45 on 05-OCT-2025 by the program
+ !  <SHOCKSv7.for 09-SEP-2020> [SHOCKSv7.tab]
+ ! which accesses some of the routines in the GEMPACK software release
+ !  <GEMPACK Release 12.1.003   January 2020>
+ 
+ !     -------------------------------------------------------                
+ !    !            GEMPACK Software System Licence            !               
+ !    !  Source Code Licence for the GEMPACK Software System  !               
+ !    !                 Licence No.  GFM-0048                 !               
+ !    !          Licence for Release 12.2 of GEMPACK          !               
+ !    !           Center for Global Trade Analysis            !               
+ !    !         Department of Agricultural Economics          !               
+ !    !                   Krannert Building                   !               
+ !    !                   Purdue University                   !               
+ !     -------------------------------------------------------                
+    
+
+ !
+ ! Values of TFE_HAT(ENDW,ACTS,REG) - a real array of size 5x20x5
+ !---------------------------------
+ !
+
+! Coefficient TFE_HAT(ENDW,ACTS,REG)
+
+ ! (Entries are written one "row" at a time - maximum of 4 per line.)
+
+ 
+ 5 20 5  real row_order;
+ 
+! (This array is shown as 5 matrices - each of size 5x20.)
+ 
+! The matrix TFE_HAT(%1,%2,"USA")  with %1 in ENDW and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  21.362226       0.0000000       0.0000000       0.0000000    ! %1=Land
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -12.340549      -16.924982      -16.924990      -16.924990    ! %1=UnSkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -16.924990      -16.924982      -16.924990      -16.924982
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -16.924973      -16.924990      -16.924982       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -16.924982      -16.924982       0.0000000      -16.924982
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -16.924973      -16.924982      -16.924982      -16.924990
+
+! %2=Agr             Coal            Oil             Gas
+ -12.378959      -16.924982      -16.924990      -16.924982    ! %1=SkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -16.924982      -16.924982      -16.924990      -16.924982
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -16.924982      -16.924973      -16.924990       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -16.924982      -16.924982       0.0000000      -16.924990
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -16.924982      -16.924990      -16.924990      -16.924982
+
+! %2=Agr             Coal            Oil             Gas
+ -1.0875454      -4.7689714      -4.7689605      -4.7689605    ! %1=Capital
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -4.7689714      -6.4378119      -6.4378119      -6.4378119
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -6.4378119      -6.4378119      -6.4378119       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -6.4378119      -6.4378018       0.0000000      -6.4378119
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  33.660267      -4.7689605      -4.7689714      -4.7689714
+
+! %2=Agr             Coal            Oil             Gas
+ -4.7689605      -4.7689605      -4.7689714      -4.7689605    ! %1=NatRes
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -4.7689605       0.0000000       0.0000000
+
+! The matrix TFE_HAT(%1,%2,"CHN")  with %1 in ENDW and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  9.9690371       0.0000000       0.0000000       0.0000000    ! %1=Land
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ 0.65133059      -1.6531692      -1.6531807      -1.6531692    ! %1=UnSkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.6531692      -1.6531692      -1.6531807      -1.6531692
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -1.6531692      -1.6531807       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.6531807      -1.6531807      -1.6531692      -1.6531807
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -1.6531692      -1.6531692      -1.6531692      -1.6531692
+
+! %2=Agr             Coal            Oil             Gas
+ 0.66355371      -1.6531692      -1.6531692      -1.6531692    ! %1=SkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.6531807      -1.6531807      -1.6531692      -1.6531807
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -1.6531692      -1.6531692       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.6531807      -1.6531807      -1.6531692      -1.6531692
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -1.6531807      -1.6531692      -1.6531807      -1.6531807
+
+! %2=Agr             Coal            Oil             Gas
+  5.2489748      -1.6531692      -1.6531692      -1.6531692    ! %1=Capital
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.6531692      -1.6531692      -1.6531807      -1.6531692
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000      -1.6531807      -1.6531692       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.6531692      -1.6531692      -1.6531692      -1.6531692
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -1.6531692      -1.6531692      -1.6531692      -1.6531692
+
+! %2=Agr             Coal            Oil             Gas
+ -1.6531807      -1.6531692      -1.6531807      -1.6531692    ! %1=NatRes
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -1.6531807       0.0000000       0.0000000
+
+! The matrix TFE_HAT(%1,%2,"EUR")  with %1 in ENDW and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  50.845188       0.0000000       0.0000000       0.0000000    ! %1=Land
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -18.649258      -34.673813      -24.656813      -24.533173    ! %1=UnSkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -30.552944      -30.729807      -33.214470      -30.495443
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -27.955555      -25.564714      -27.495914      -27.386572
+! %2=OtherBL         GasP            HydroP          OilP
+ -26.136560      -32.099079      -27.453850      -32.294449
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -29.319902      -30.005154      -30.806051      -29.012522
+
+! %2=Agr             Coal            Oil             Gas
+ -14.760175      -33.424164      -21.932289      -22.644104    ! %1=SkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -28.070347      -29.671272      -32.828907      -31.410580
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -30.618547      -27.252527      -27.450661      -25.621864
+! %2=OtherBL         GasP            HydroP          OilP
+ -26.015703      -34.363998      -26.884548      -33.469147
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -30.536566      -29.134384      -29.772156      -29.260704
+
+! %2=Agr             Coal            Oil             Gas
+  16.188322      -1.4433370      -2.4152453      -2.0043037    ! %1=Capital
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -2.4370139      -2.7066424      -4.2332611      -1.9359581
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -2.8995261      -3.2606122      -3.4425285      -1.3217318
+! %2=OtherBL         GasP            HydroP          OilP
+ -3.4215178      -3.3750176      -5.3579345      -3.0966957
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.9520433      -2.7607546      -2.7535739      -3.1510234
+
+! %2=Agr             Coal            Oil             Gas
+ -2.9955640      -1.4665247      -2.5811567      -1.7209651    ! %1=NatRes
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -3.0498483       0.0000000       0.0000000
+
+! The matrix TFE_HAT(%1,%2,"XHY")  with %1 in ENDW and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+  9.1204443       0.0000000       0.0000000       0.0000000    ! %1=Land
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -13.828301      -6.9480624      -2.4021435      -6.5039783    ! %1=UnSkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -7.6096158      -16.203993      -20.120295      -21.756454
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -15.489395      -18.834749      -19.237616     -0.45864260
+! %2=OtherBL         GasP            HydroP          OilP
+ -25.672607      -16.011631      -14.106539      -18.012297
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -26.168221      -18.321423      -20.643511      -18.789293
+
+! %2=Agr             Coal            Oil             Gas
+ -6.1371326      -6.6691146      -2.1265628      -6.3063498    ! %1=SkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -9.9093208      -16.004457      -21.093542      -23.715412
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -18.603117      -20.459286      -19.784639     -0.40680894
+! %2=OtherBL         GasP            HydroP          OilP
+ -26.777061      -17.635481      -13.903530      -20.835527
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -27.958075      -16.362574      -18.595613      -16.799873
+
+! %2=Agr             Coal            Oil             Gas
+  1.7093707      -4.7172127     -0.76815122      -2.5076203    ! %1=Capital
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -1.6743568      -2.5073144      -3.7256107      -3.0147195
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -1.6965722      -3.2077253      -3.8561568     -2.44438481E-02
+! %2=OtherBL         GasP            HydroP          OilP
+ -2.9424090      -3.3821735      -4.8281035      -1.9148372
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -2.7707741      -2.2753012      -2.6763909      -2.8588216
+
+! %2=Agr             Coal            Oil             Gas
+ -3.1030421      -4.7190413     -0.96538764      -2.5959752    ! %1=NatRes
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000      -3.2424576       0.0000000       0.0000000
+
+! The matrix TFE_HAT(%1,%2,"ROW")  with %1 in ENDW and %2 in ACTS. +++++++++++
+
+! %2=Agr             Coal            Oil             Gas
+ 4.96455021E-02   0.0000000       0.0000000       0.0000000    ! %1=Land
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000       0.0000000       0.0000000       0.0000000
+
+! %2=Agr             Coal            Oil             Gas
+ -5.2405262      -5.1081443      -9.5876102      -11.287855    ! %1=UnSkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -7.6522527      -8.7997513      -14.447617      -5.3364034
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -16.468128      -11.071675      -12.241644      -3.4825678
+! %2=OtherBL         GasP            HydroP          OilP
+ -16.991446      -16.565252      -1.6488452      -11.764185
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -4.7456679      -7.7518368      -6.7052469      -9.1817732
+
+! %2=Agr             Coal            Oil             Gas
+ -8.6240530      -10.873439      -10.793483      -11.293324    ! %1=SkLab
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+ -10.364607      -6.5076981      -13.003644      -1.9424691
+! %2=GasBL           WindBL          HydroBL         OilBL
+ -15.381906      -9.8317833      -9.9268208      -3.5270565
+! %2=OtherBL         GasP            HydroP          OilP
+ -15.594420      -12.879773     -0.89031571      -9.8613539
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+ -4.2873816      -11.418722      -10.644611      -8.9723158
+
+! %2=Agr             Coal            Oil             Gas
+ 0.94075793     -0.66969681     -0.85212767     -0.57338023    ! %1=Capital
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+-0.80220461     -0.76245773      -1.1059346     -0.96778440
+! %2=GasBL           WindBL          HydroBL         OilBL
+-0.82372528      -1.3384676      -1.0960821     -0.82785243
+! %2=OtherBL         GasP            HydroP          OilP
+ -1.1740445      -1.3998142     -0.42314720     -0.73197174
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+-0.91700643     -0.79525971     -0.69814044     -0.95175302
+
+! %2=Agr             Coal            Oil             Gas
+-0.38446814     -0.77152002     -0.92932844     -0.67567146    ! %1=NatRes
+! %2=Oil_pcts        TnD             NuclearBL       CoalBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=GasBL           WindBL          HydroBL         OilBL
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=OtherBL         GasP            HydroP          OilP
+  0.0000000       0.0000000       0.0000000       0.0000000
+! %2=SolarP          En_Int_ind      Oth_ind         Services
+  0.0000000     -0.99129003       0.0000000       0.0000000
+

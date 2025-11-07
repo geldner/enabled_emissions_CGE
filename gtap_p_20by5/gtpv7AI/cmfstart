@@ -1,0 +1,9 @@
+! If a version has no CMFSTART file of its own
+! RunGTAP creates one by copying the supplied file CMFSTART.DEF
+CPU = yes;  ! log show simulation times
+NDS = yes;  ! no displays
+Extrapolation accuracy file = YES ; ! XAC file
+!servants=1; ! use 2 processors at once, if possible
+file GTAPSUM = SUMMARY.har;
+file WELVIEW = DECOMP.har;
+file GTAPVOL = GTAPVOL.har;

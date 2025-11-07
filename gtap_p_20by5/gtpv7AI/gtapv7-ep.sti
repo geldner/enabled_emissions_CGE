@@ -1,0 +1,330 @@
+!   gtapv7-ep.sti
+!   =============
+!
+!   TABLO sti file for GTAPv7 model
+!
+bat         ! Run in batch.
+
+gtapv7-ep   ! name of TABLO input file
+gtapv7-ep   ! name of information file
+c           ! Perform condensation
+o           ! Omit one or more variables
+atall 
+tfe 
+tfd 
+tfm 
+tgd 
+tgm 
+tid 
+tim 
+tpdall 
+tpmall
+!condoptbegin
+
+b                   
+pfactreal           
+E_pfactreal         
+b                   
+CNTqpm              
+E_CNTqpm            
+b                   
+CNTqfd              !mustsub
+E_CNTqfd            
+b                   
+CNTqfr              
+E_CNTqfr            
+b                   
+CNTtechr            
+E_CNTtechr          
+b                   
+CNTqfm              !mustsub
+E_CNTqfm            
+b                   
+qfe                 
+E_qfe               
+b                   
+CNTalleffr          
+E_CNTalleffr        
+b                   
+CNTqim              
+E_CNTqim            
+b                   
+pfd                 !mustsub
+E_pfd               
+b                   
+qtmfsd              !mustsub
+E_qtmfsd            
+b                   
+qfd                 
+E_qfd               
+b                   
+CNTqfe              
+E_CNTqfe            
+b                   
+CNTqgr              
+E_CNTqgr            
+b                   
+c2_cr               
+E_c2_cr             
+b                   
+ptrans              !mustsub
+E_ptrans            
+b                   
+atmfsd              !mustsub
+E_atmfsd            
+b                   
+afa                 !mustsub
+E_afa               
+!b                   
+!qca                 !mustsub
+!E_qca               
+b                   
+qfat                !mustsub
+E_qfat               
+b                   
+pca                 !mustsub
+E_pca               
+b                   
+qfm                 !mustsub
+E_qfm               
+b                   
+compvalad           
+E_compvalad         
+b                   
+qgd                 
+E_qgd               
+b                   
+pfat                !mustsub
+E_pfat               
+b                   
+pes                 
+E_pes               
+b                   
+pgd                 
+E_pgd               
+b                   
+ps                  !mustsub
+E_ps                
+b                   
+CNTendw             
+E_CNTendw           
+b                   
+CNTqe               
+E_CNTqe             
+b                   
+pmds                !mustsub
+E_pmds              
+b                   
+pcif                !mustsub
+E_pcif              
+b                   
+qpd                 
+E_qpd               
+b                   
+CNTqpd              
+E_CNTqpd            
+b                   
+CNTqid              
+E_CNTqid            
+b                   
+c3_cr               
+E_c3_cr             
+b                   
+CNTqms              !mustsub
+E_CNTqms            
+b                   
+qim                 
+E_qim               
+b                   
+CNTtech_ao          
+E_CNTtech_ao        
+b                   
+CNTqca              !mustsub
+E_CNTqca            
+b                   
+qxs                 !mustsub
+E_qxs               
+b                   
+c1_cr               
+E_c1_cr             
+b                   
+CNTqfeer            
+E_CNTqfeer          
+b                   
+qmw                 
+E_qmw               
+b                   
+ppm                 
+E_ppm               
+b                   
+qpm                 
+E_qpm 
+b              
+CNTtech_ams         !mustsub
+E_CNTtech_ams       
+b                   
+CNTqgd              
+E_CNTqgd            
+b                   
+pfm                 !mustsub
+E_pfm               
+b                   
+pfob                !mustsub
+E_pfob              
+b                   
+pfe                 
+E_pfe               
+b                   
+CNTalleffcr         
+E_CNTalleffcr       
+b                   
+CNTtech_af          !mustsub
+E_CNTtech_af        
+b                   
+CNTtech_afe         
+E_CNTtech_afe
+b	
+afe
+E_afe	
+b	
+qid
+E_qid	
+b	
+qgm
+E_qgm	
+b                   
+CNTqo               
+E_CNTqo             
+b                   
+CNTtech_atmfsd      !mustsub
+E_CNTtech_atmfsd    
+b                   
+CNTqgm              
+E_CNTqgm            
+b                   
+ppd                 
+E_ppd               
+b                   
+pgm                 
+E_pgm               
+b                   
+CNTqxs              !mustsub
+E_CNTqxs            
+b                   
+qpev                
+E_qpev              
+b                   
+expand                
+E_expand              
+b                   
+CNTqia                
+E_CNTqia              
+b                   
+CNTqpr                
+E_CNTqpr              
+b                   
+qxw                
+E_qxw              
+b                   
+vmwcif                
+E_vmwcif              
+b                   
+vxwfob                
+E_vxwfob              
+b                   
+pmw                
+E_pmw              
+b                   
+pm_cr                
+E_pm_cr              
+b                   
+qgat                
+E_qgat              
+b                   
+qiat                
+E_qiat              
+b                   
+qpat                
+E_qpat              
+b                   
+qdem                
+E_qdem              
+b                   
+vdem                
+E_vdem              
+b                   
+apen                
+E_apen
+b                   
+pb                
+E_pb              
+b                   
+pid                
+E_pid              
+b                   
+pim                
+E_pim              
+b                   
+po                
+E_po              
+b                   
+qst                
+E_qst              
+b                   
+tpd                
+E_tpd              
+b                   
+tpm                
+E_tpm              
+b                   
+ao                
+E_ao              
+b                   
+pr                
+E_pr              
+b                   
+pxw                
+E_pxw              
+b                   
+gco2                
+E_gco2              
+b                   
+gco2fd                
+E_gco2fd              
+b                   
+gco2fm                
+E_gco2fm              
+b                   
+gco2gd                
+E_gco2gd              
+b                   
+gco2gm                
+E_gco2gm              
+b                   
+gco2id                
+E_gco2id             
+b                   
+gco2im                
+E_gco2im              
+b                   
+gco2pd                
+E_gco2pd              
+b                   
+gco2pm                
+E_gco2pm
+b
+CNTqea 
+E_CNTqea
+s
+del_tbalc      
+E_del_tbalc
+!condoptend
+e           ! Exit condensation.
+a           ! Proceed to automatic code generation.
+wfp         ! Write a Fortran program.
+
+gtapv7-ep ! name of Fortran program file
+!
+!
+!   end of stored input
+!   -------------------

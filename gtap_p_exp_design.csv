@@ -1,0 +1,52 @@
+SI Reference,param,description,low,baseline treatment,high,renewable,fuel_neutral,fossil_commodity
+§1.2,"afeall(""UnSkLab"",""Oil"",REG)",oil commodity unskilled labor efficiency gain,2,5,10,FALSE,FALSE,TRUE
+§1.2,"afeall(""UnSkLab"",""Coal"",REG)",coal commodity unskilled labor efficiency gain,2,5,10,FALSE,FALSE,TRUE
+§1.2,"afeall(""UnSkLab"",""Gas"",REG)",gas commodity unskilled labor efficiency gain,2,5,10,FALSE,FALSE,TRUE
+§3.2,"afeall(""UnSkLab"",""OilBL"",REG)",oil baseload unskilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""UnSkLab"",""GasBL"",REG)",gas baseload unskilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""UnSkLab"",""OilP"",REG)",oil peak unskilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""UnSkLab"",""GasP"",REG)",gas peak unskilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""UnSkLab"",""CoalBL"",REG)",coal baseload unskilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§2.3,"afeall(""UnSkLab"",""Oil_pcts"",REG)",Labor-augmenting (AI-driven automation → fewer workers per output),2,5,10,FALSE,FALSE,TRUE
+§2.3,"afeall(""SkLab"",""Oil_pcts"",REG)",Labor-augmenting (AI-driven automation → fewer workers per output),2,5,10,FALSE,FALSE,TRUE
+§1.2,"afeall(""SkLab"",""Oil"",REG)",oil commodity skilled labor efficiency gain,2,5,10,FALSE,FALSE,TRUE
+§1.2,"afeall(""SkLab"",""Gas"",REG)",gas commodity skilled labor efficiency gain,2,5,10,FALSE,FALSE,TRUE
+§1.2,"afeall(""SkLab"",""Coal"",REG)",coal commodity skilled labor efficiency gain,2,5,10,FALSE,FALSE,TRUE
+§1.2,"afeall(""SkLab"",""OilBL"",REG)",oil baseload skilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""SkLab"",""OilP"",REG)",oil peak skilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""SkLab"",""GasBL"",REG)",gas baseload skilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""SkLab"",""GasP"",REG)",gas peak skilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§3.2,"afeall(""SkLab"",""CoalBL"",REG)",coal baseload skilled labor efficiency gain,2,5,10,FALSE,FALSE,FALSE
+§2.1,"afall(""OilBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""OilP"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""GasBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""GasP"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""CoalBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""NuclearBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""WindBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""HydroBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""OtherBL"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""HydroP"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""SolarP"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.1,"afall(""TnD"",""Oil_pcts"",REG) ",Energy-augmenting technical change (reduces energy input required per unit output),4,9,15,FALSE,FALSE,TRUE
+§2.2,"afeall(""Capital"",""Oil_pcts"",REG)",Capital-augmenting technical change (less capital needed per output).,3,7,12,FALSE,FALSE,TRUE
+§5,"aoall(""TnD"",REG)",Grid transmission & distribution output efficiency gains,2,5,10,FALSE,TRUE,FALSE
+§6,ats(REG),shipping & logistics efficiency gain,5,10,15,FALSE,TRUE,FALSE
+§7,"aoall(""En_Int_ind"",REG)",output augmenting technical change in energy intensive industry,2,4,6,FALSE,TRUE,FALSE
+§1.3,"afeall(""NatRes"",""Oil"",REG)",oil commodity exploitable reserve and yield change,5,10,20,FALSE,FALSE,TRUE
+§1.3,"afeall(""NatRes"",""Gas"",REG)",gas commodity exploitable reserve and yield change,5,10,20,FALSE,FALSE,TRUE
+§1.3,"afeall(""NatRes"",""Coal"",REG)",coal commodity exploitable reserve and yield change,0,0,0,FALSE,FALSE,TRUE
+§3.1,"afeall(""Capital"",""OilBL"",REG)",oil baseload capex efficiency gain,2,4,7,FALSE,FALSE,FALSE
+§3.1,"afeall(""Capital"",""OilP"",REG)",oil peak capex efficiency gain,2,4,7,FALSE,FALSE,FALSE
+§3.1,"afeall(""Capital"",""GasBL"",REG)",gas baseload capex efficiency gain,2,4,7,FALSE,FALSE,FALSE
+§3.1,"afeall(""Capital"",""GasP"",REG)",gas peak capex efficiency gain,2,4,7,FALSE,FALSE,FALSE
+§3.1,"afeall(""Capital"",""CoalBL"",REG)",coal baseload capex efficiency gain,2,4,7,FALSE,FALSE,FALSE
+§4.3,"aoall(""NuclearBL"",REG)",nuclear baseload capital efficiency gain,2,5,10,TRUE,FALSE,FALSE
+§4.2,"aoall(""WindBL"",REG)",wind baseload capital efficiency gain,5,10,20,TRUE,FALSE,FALSE
+§4.4,"aoall(""HydroBL"",REG)",hydro baseload capital efficiency gain,2,5,10,TRUE,FALSE,FALSE
+§4.4,"aoall(""HydroP"",REG)",hydro peak capital efficiency gain,2,5,10,TRUE,FALSE,FALSE
+§4.5,"aoall(""OtherBL"",REG)",other baseload capital efficiency gain,10,20,30,TRUE,FALSE,FALSE
+§4.1,"aoall(""SolarP"",REG)",solar peak capital efficiency gain,5,10,20,TRUE,FALSE,FALSE
+§1.1,"afeall(""Capital"",""Oil"",REG)",oil commodity capex efficiency gain,5,10,20,FALSE,FALSE,TRUE
+§1.1,"afeall(""Capital"",""Gas"",REG)",gas commodity capex efficiency gain,5,10,20,FALSE,FALSE,TRUE
+§1.1,"afeall(""Capital"",""Coal"",REG)",coal commodity capex efficiency gain,5,10,20,FALSE,FALSE,TRUE

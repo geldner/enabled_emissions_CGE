@@ -1,0 +1,720 @@
+
+    TTTTTTTTTT  AAAAAAAAAA   BBBBBBB      LLLL        OOOOOOOOOO
+    TTTTTTTTTT  AAA    AAA   BBBBBBBBB    LLLL        OOOOOOOOOO
+       TTT      AAA    AAA   BBB    BBB   LLLL        OOO    OOO
+       TTT      AAA    AAA   BBB  BBB     LLLL        OOO    OOO
+       TTT      AAAAAAAAAA   BBBBBBB      LLLL        OOO    OOO
+       TTT      AAAAAAAAAA   BBB  BBB     LLLL        OOO    OOO
+       TTT      AAA    AAA   BBB    BBB   LLLL        OOO    OOO
+       TTT      AAA    AAA   BBBBBBBBB    LLLLLLLLL   OOOOOOOOOO
+       TTT      AAA    AAA   BBBBBBB      LLLLLLLLL   OOOOOOOOOO
+
+ <TABLO  Version 7.0   August 2018>                                    
+
+
+
+
+
+                     GEMPACK SOFTWARE
+     << COPYRIGHT 1987-2018:  The Impact Project and KPSOFT >>
+   
+   
+
+    +++  INFORMATION ABOUT THIS PRINT FILE  +++
+   
+
+ ! This file was created at 18:54:27 on 01-JUL-2021 by the program
+ !  <TABLO  Version 7.0   August 2018>
+ ! which accesses some of the routines in the GEMPACK software release
+ !  <GEMPACK Release 12.1.004   January 2020>
+ 
+ !     -------------------------------------------------------                
+ !    !            GEMPACK Software System Licence            !               
+ !    !  Source Code Licence for the GEMPACK Software System  !               
+ !    !                 Licence No.  GFM-0048                 !               
+ !    !          Licence for Release 12.1 of GEMPACK          !               
+ !    !           Center for Global Trade Analysis            !               
+ !    !         Department of Agricultural Economics          !               
+ !    !                   Krannert Building                   !               
+ !    !                   Purdue University                   !               
+ !     -------------------------------------------------------                
+    
+
+    +++  END OF INFORMATION ABOUT THIS PRINT FILE  +++
+
+ ======================================================
+           TABLO PORTABLE   
+ ++> TABLO OPTIONS   ( --> indicates those in effect )
+ ======================================================
+
+
+
+      -----------                   ----------
+  --> F1 CHECK                      L1 CHECK
+      F2 CONDENSATION               L2 CONDENSATION
+      F3 CODE GENERATION        --> L3 CODE GENERATION
+      Mode
+      ----
+      INTERACTIVE
+      BATCH
+  --> UNSPECIFIED
+
+
+ ==================================================
+ ++> TABLO Input file is 'altparv7-ep.tab'
+ ++> This Information file is 'altparv7-ep'
+ ==================================================
+
+
+
+ ******************************************************************************
+ -1-
+ -->                     Starting CHECK stage
+
+ ******************************************************************************
+
+
+      1   !----------------------------------------------------------------------------!
+      2   !                        Global Trade Analysis Project                       !
+      3   !                         The GTAP Modeling Framework                        !
+      4   !                     GTAP Altertax Params Modification Facility             !
+      5   !----------------------------------------------------------------------------!
+      6   !----------------------------------------------------------------------------!
+      7   ! HISTORY of this file                                                       !
+      8   !----------------------------------------------------------------------------!
+      9   ! updated by:                                                                !
+     10   ! Erwin Corong (EC) June 2017 for GTAPv7                                     !
+     11   ! Erwin Corong (EC) Aug  2020 for GTAPv7-e                                     !
+     12   ! J. Mark Horridge (JMH) March 2000 for GTAP 5                               !
+     13   !----------------------------------------------------------------------------!
+     14   ! Version 1.0 September 1998: This file writes a new GTAP parameter          !
+     15   ! file to:                                                                   !
+     16   !	- make all endowments mobile                                             !
+     17   !	- make production and preferences Cobb Douglas                           !
+     18   ! 	- set RORDELTA = 0                                                       !
+     19   ! It can only be run in conjunction with GTAP.TAB version 4.1 or higher as it!
+     20   ! includes the switch for sluggish factors and ESUBT.                        !
+     21   ! It is also typically run in conjunction with a particular closure.         !
+     22   ! For more details, the reader is referred to GTAP technical paper No. 12.   !
+     23   !----------------------------------------------------------------------------!
+     24   !                                   FILES                                    !
+     25   !----------------------------------------------------------------------------!
+     26    
+     27   FILE GTAPSETS # File with set specification #;
+     28   FILE (NEW) ALTERPAR # The file containing new parameters. # ;
+     29    
+     30   !----------------------------------------------------------------------------!
+     31   !                                    SETS                                    !
+     32   !----------------------------------------------------------------------------!
+     33    
+     34   Set REG # regions in the model #
+     35       read elements from file GTAPSETS header "REG";
+     36    
+     37   Set COMM # commodities #
+     38       read elements from file GTAPSETS header "COMM";
+     39    
+     40   Set MARG # commodities #
+     41       read elements from file GTAPSETS header "MARG";
+     42    
+     43   Set ACTS # activities #
+     44       read elements from file GTAPSETS header "ACTS";
+     45    
+     46   Set ENDW # endowments #
+     47       read elements from file GTAPSETS header "ENDW";
+     48    
+     49   !----------------------------------------------------------------------------!
+     50   !                      technology and preference parameters                  !
+     51   !----------------------------------------------------------------------------!
+     52   !< ## GTAP-E: begin ## >!
+     53   ![[!
+     54   Coefficient (all,c,COMM)(all,r,REG)
+     55       SUBPAR(c,r)
+     56       # the substitution parameter in the CDE minimum expenditure function #;
+     57    
+     58   Coefficient (all,c,COMM)(all,r,REG)
+     59       INCPAR(c,r)
+     60       # expansion parameter in the CDE minimum expenditure function  #;
+     61   !]]!
+     62   !< ## GTAP-E: End ## >!
+     63    
+     64   Coefficient (all,c,COMM)(all,r,REG)
+     65       ESUBD(c,r)
+     66       # Armington CES elast. of subs. for domestic/imported allocation #;
+     67    
+     68   Coefficient (all,c,COMM)(all,r,REG)
+     69       ESUBM(c,r)
+     70       # Armington CES elast. of subs. for regional allocation of imports #;
+     71    
+     72   Coefficient (all,c,ACTS)(all,r,REG)
+     73       ESUBVA(c,r)
+     74       # CES elast. of subs. for primary factors in production #;
+     75    
+     76   Coefficient (all,e,ENDW)(all,r,REG)
+     77       ETRAE(e,r)
+     78       # CET elast. of transformation bet. sectors for sluggish primary factors #;
+     79    
+     80   Coefficient (all, r, REG)
+     81       RORFLEX(r)
+     82       # Expected rate of return flexibility parameter #;
+     83         ! RORFLEX is the flexibility of expected net rate of return on capital
+     84           stock, in region r, with respect to investment. If a region's capital
+     85           stock increases by 1%, then it is expected that the net rate of return
+     86           on capital will decline by RORFLEX % !
+     87    
+     88   Coefficient (Integer)
+     89       RORDELTA
+     90       # Investment allocation binary coefficient #;
+     91        !  RORDELTA is a binary Coefficient which determines the mechanism of
+     92           allocating investment funds across regions. When RORDELTA = 1,
+     93           investment funds are allocated across regions to equate the change
+     94           in the expected rates of return (i.e., rore(r)).  When RORDELTA = 0,
+     95           investment funds are allocated across regions to maintain the existing
+     96           composition of capital stocks !
+     97    
+     98   Coefficient (all,a,ACTS)(all,r,REG)
+     99       ESUBC(a,r)
+    100       # CES elast. of subs. for intermediate inputs #;
+    101    
+    102   Coefficient (all,a,ACTS)(all,r,REG)
+    103       ESUBT(a,r)
+    104       # CES elast. of subs. between primary factors and intermediate inputs #;
+    105    
+    106   ! Added by EC for GTAPv7 !
+    107   Coefficient (all,r,REG)
+    108       ESUBI(r)
+    109       # Armington CES elast. of subs. for investment commodities #;
+    110    
+    111   Coefficient (all,m,MARG)
+    112       ESUBS(m)
+    113       # CES elast. of subs. for international transport margin services #;
+    114    
+    115   Coefficient (all,r,REG)
+    116       ESUBG(r)
+    117       # CES elast. of subs. for government demands #;
+    118    
+    119   Coefficient (all,a,ACTS)(all,r,REG)
+    120       ETRAQ(a,r)
+    121       # CET elast. of transformation for commodities produced by industries #;
+    122    
+    123   Coefficient (all,c,COMM)(all,r,REG)
+    124       ESUBQ(c,r)
+    125       # 1/CES elast. of subs. for commodity sourcing #;
+    126    
+    127    
+    128   !----------------------------------------------------------------------------!
+    129    
+    130   !----------------------------------------------------------------------------!
+    131   !                   Setting new model parameters                             !
+    132   !----------------------------------------------------------------------------!
+    133    
+    134   !
+    135   Formula (all,c,COMM)(all,r,REG)
+    136       SUBPAR(c,r) = 0 ;
+    137    
+    138   Formula (all,c,COMM)(all,r,REG)
+    139       INCPAR(c,r) = 1 ;
+    140   !
+    141   Formula (all,c,COMM)(all,r,REG)
+    142       ESUBD(c,r) = 1;
+    143    
+    144   Formula (all,c,COMM)(all,r,REG)
+    145       ESUBM(c,r) = 1;
+    146    
+    147   Formula (all,c,ACTS)(all,r,REG)
+    148       ESUBVA(c,r) = 1;
+    149    
+    150   Formula (all,e,ENDW)(all,r,REG)
+    151       ETRAE(e,r) = -1;
+    152    
+    153   Formula (all,i,REG)
+    154       RORFLEX(i)= 10;
+    155    
+    156   Formula
+    157       RORDELTA = 1;
+    158    
+    159   Formula (all,a,ACTS)(all,r,REG)
+    160       ESUBC(a,r) = 1;
+    161    
+    162   Formula (all,a,ACTS)(all,r,REG)
+    163       ESUBT(a,r) = 1;
+    164    
+    165   Formula (all,r,REG)
+    166       ESUBI(r) = 1;
+    167    
+    168   Formula (all,m,MARG)
+    169       ESUBS(m) = 1;
+    170    
+    171   Formula (all,r,REG)
+    172       ESUBG(r) = 1;
+    173    
+    174   Formula (all,a,ACTS)(all,r,REG)
+    175       ETRAQ(a,r) = -1;
+    176    
+    177   Formula (all,c,COMM)(all,r,REG)
+    178       ESUBQ(c,r) = 1;
+    179    
+    180   !----------------------------------------------------------------------------!
+    181   !                   GTAP-E  model parameters (EC-Aug2020)                    !
+    182   !----------------------------------------------------------------------------!
+    183    
+    184   Set
+    185       ENYP # inputs into private energy subutility #
+    186       (coal, oil, gas, oil_pcts, electricity);
+    187   Subset
+    188       ENYP is subset of COMM;
+    189   Set
+    190       NENYP
+    191       #inputs into private non-energy subutility# = COMM - ENYP;
+    192   Set
+    193       ENY # private energy composite # (eny);
+    194   Set
+    195       TOPP
+    196       # inputs into top of private consumption structure # = ENY + NENYP;
+    197    
+    198   Coefficient
+    199   (all,u,TOPP)(all,r,REG)
+    200       SUBPAR(u,r) # CDE substitution parameter #;
+    201   (all,u,TOPP)(all,r,REG)
+    202       INCPAR(u,r) # CDE expansion parameter #;
+    203   (all,t,COMM)(all,r,REG)
+    204       SUBPAR1(t,r) # CDE substitution parameter #;
+    205   (all,t,COMM)(all,r,REG)
+    206       INCPAR1(t,r) # CDE expansion parameter #;
+    207   (all,r,REG) ELGENY(r) # Elasticity of substitution in gov. energy subconsumption #;
+    208   (all,r,REG) ELGNENY(r)# Elasticity of substitution in gov. non-energy subconsumption #;
+    209   (all,r,REG) ELGUG(r)  # Elasticity of substitution in the top of gov. consumption nest #;
+    210   (all,r,REG) ELPENY(r) # Elasticity of substitution in hh energy subconsumption #;
+    211   (all,p,ACTS)(all,r,REG)
+    212       ELFENY(p,r) # Elasticity of substitution in energy subproduction #;
+    213   (all,p,ACTS)(all,r,REG)
+    214       ELFKEN(p,r) # Elasticity of substitution in capital-energy subproduction #;
+    215   (all,p,ACTS)(all,r,REG)
+    216       ELFNCOAL(p,r) # Elasticity of substitution in non-coal en. subproduction #;
+    217   (all,p,ACTS)(all,r,REG)
+    218       ELFNELY(p,r) # Elasticity of substitution in non-electr. en. subproduction #;
+    219   (all,p,ACTS)(all,r,REG)
+    220       ELFVAEN(p,r) # Elasticity of substitution in value-added-en. subproduction #;
+    221    
+    222   Formula
+    223   (all,u,TOPP)(all,r,REG) SUBPAR(u,r) = 0.0;
+    224   (all,u,TOPP)(all,r,REG) INCPAR(u,r) = 1.0;
+    225   (all,t,COMM)(all,r,REG) SUBPAR1(t,r) = 1.0;
+    226   (all,t,COMM)(all,r,REG) INCPAR1(t,r) = 1.0;
+    227   (all,r,REG) ELGENY(r) = 1.0;
+    228   (all,r,REG) ELGNENY(r)= 1.0;
+    229   (all,r,REG) ELGUG(r)  = 1.0;
+    230   (all,r,REG) ELPENY(r) = 1.0;
+    231   (all,p,ACTS)(all,r,REG) ELFENY(p,r) = 1.0;
+    232   (all,p,ACTS)(all,r,REG) ELFKEN(p,r) = 1.0;
+    233   (all,p,ACTS)(all,r,REG) ELFNCOAL(p,r)= 1.0;
+    234   (all,p,ACTS)(all,r,REG) ELFNELY(p,r) = 1.0;
+    235   (all,p,ACTS)(all,r,REG) ELFVAEN(p,r) = 1.0;
+    236    
+    237   !----------------------------------------------------------------------------!
+    238   !                   Writing model parameters                                 !
+    239   !----------------------------------------------------------------------------!
+    240    
+    241   Write
+    242       SUBPAR to file ALTERPAR header "SUBP";
+    243       INCPAR to file ALTERPAR header "INCP";
+    244       ESUBD  to file ALTERPAR header "ESBD";
+    245       ESUBM  to file ALTERPAR header "ESBM";
+    246       ESUBVA to file ALTERPAR header "ESBV";
+    247       ETRAE  to file ALTERPAR header "ETRE";   !jmh mod!
+    248       RORFLEX to file ALTERPAR header "RFLX";  !jmh mod!
+    249       RORDELTA to file ALTERPAR header "RDLT"; !jmh mod!
+    250       ESUBC  to file ALTERPAR header "ESBC"; ! EC !
+    251       ESUBT  to file ALTERPAR header "ESBT"; ! EC !
+    252       ESUBI  to file ALTERPAR header "ESBI"; ! EC !
+    253       ESUBS  to file ALTERPAR header "ESBS"; ! EC !
+    254       ESUBG  to file ALTERPAR header "ESBG"; ! EC !
+    255       ETRAQ  to file ALTERPAR header "ETRQ"; ! EC !
+    256       ESUBQ  to file ALTERPAR header "ESBQ"; ! EC !
+    257    
+    258   Set ENDWT # endowment types # (mobile, sluggish, fixed);
+    259   Coefficient (all,e,ENDW)(all,t,ENDWT)
+    260   ENDOWFLAG(e,t) # binary (1,0) flag for endowment mobility #;
+    261   Formula (all,e,ENDW)(all,t,ENDWT) ENDOWFLAG(e,t) = 0;
+    262    (all,e,ENDW) ENDOWFLAG(e,"mobile") = 1;
+    263   ! NB all factors set mobile here. User may wish to edit this setting !
+    264   Write ENDOWFLAG to file ALTERPAR header "EFLG";
+    265    
+    266   !< ## GTAP-E: begin ## >!
+    267   ! Add GTAP-E  model parameters (EC-Aug2020)  !
+    268   SET  TR_BLOC # Regions in the model # = REG;
+    269   Mapping MAPB from REG to TR_BLOC;
+    270   Formula (all,r,REG) MAPB(r) = $POS(r);
+    271   Write
+    272    SUBPAR1  to file ALTERPAR header"SUB1";
+    273    INCPAR1  to file ALTERPAR header"INC1";
+    274    ELGENY   to file ALTERPAR header"EGEN";
+    275    ELGNENY  to file ALTERPAR header"EGNN";
+    276    ELGUG    to file ALTERPAR header"EGUG";
+    277    ELPENY   to file ALTERPAR header"EPEN";
+    278    ELFENY   to file ALTERPAR header"EFEN";
+    279    ELFKEN   to file ALTERPAR header"EFKE";
+    280    ELFNCOAL to file ALTERPAR header"EFNC";
+    281    ELFNELY  to file ALTERPAR header"EFNL";
+    282    ELFVAEN  to file ALTERPAR header"EFVE";
+    283   Write
+    284    (set) TR_BLOC to file ALTERPAR header "TRBL";
+    285    (by_elements) MAPB to file ALTERPAR header "MAPB";
+    286   !< ## GTAP-E: End ## >!
+    287    
+
+
+
+
+ ========================
+ ++ INPUT STATEMENT TABLE
+ ========================
+
+          Starts   Syntax  Semantic
+  Number  at line  Error?   Error?            Description
+  ------------------------------------------------------------
+     1        27     no       no      FILE 'GTAPSETS'                         
+     2        28     no       no      FILE 'ALTERPAR'                         
+     3        34     no       no      SET 'REG'                               
+     4        37     no       no      SET 'COMM'                              
+     5        40     no       no      SET 'MARG'                              
+     6        43     no       no      SET 'ACTS'                              
+     7        46     no       no      SET 'ENDW'                              
+     8        64     no       no      COEFFICIENT 'ESUBD'                     
+     9        68     no       no      COEFFICIENT 'ESUBM'                     
+    10        72     no       no      COEFFICIENT 'ESUBVA'                    
+    11        76     no       no      COEFFICIENT 'ETRAE'                     
+    12        80     no       no      COEFFICIENT 'RORFLEX'                   
+    13        88     no       no      COEFFICIENT 'RORDELTA'                  
+    14        98     no       no      COEFFICIENT 'ESUBC'                     
+    15       102     no       no      COEFFICIENT 'ESUBT'                     
+    16       107     no       no      COEFFICIENT 'ESUBI'                     
+    17       111     no       no      COEFFICIENT 'ESUBS'                     
+    18       115     no       no      COEFFICIENT 'ESUBG'                     
+    19       119     no       no      COEFFICIENT 'ETRAQ'                     
+    20       123     no       no      COEFFICIENT 'ESUBQ'                     
+    21       141     no       no      Formula for 'ESUBD'                     
+    22       144     no       no      Formula for 'ESUBM'                     
+    23       147     no       no      Formula for 'ESUBVA'                    
+    24       150     no       no      Formula for 'ETRAE'                     
+    25       153     no       no      Formula for 'RORFLEX'                   
+    26       156     no       no      Formula for 'RORDELTA'                  
+    27       159     no       no      Formula for 'ESUBC'                     
+    28       162     no       no      Formula for 'ESUBT'                     
+    29       165     no       no      Formula for 'ESUBI'                     
+    30       168     no       no      Formula for 'ESUBS'                     
+    31       171     no       no      Formula for 'ESUBG'                     
+    32       174     no       no      Formula for 'ETRAQ'                     
+    33       177     no       no      Formula for 'ESUBQ'                     
+    34       184     no       no      SET 'ENYP'                              
+    35       187     no       no      SUBSET 1 'ENYP' of 'COMM'               
+    36       189     no       no      SET 'NENYP'                             
+    37       189     no       no      SUBSET 2 'NENYP' of 'COMM'              
+    38       192     no       no      SET 'ENY'                               
+    39       194     no       no      SET 'TOPP'                              
+    40       194     no       no      SUBSET 3 'ENY' of 'TOPP'                
+    41       194     no       no      SUBSET 4 'NENYP' of 'TOPP'              
+    42       198     no       no      COEFFICIENT 'SUBPAR'                    
+    43       201     no       no      COEFFICIENT 'INCPAR'                    
+    44       203     no       no      COEFFICIENT 'SUBPAR1'                   
+    45       205     no       no      COEFFICIENT 'INCPAR1'                   
+    46       207     no       no      COEFFICIENT 'ELGENY'                    
+    47       208     no       no      COEFFICIENT 'ELGNENY'                   
+    48       209     no       no      COEFFICIENT 'ELGUG'                     
+    49       210     no       no      COEFFICIENT 'ELPENY'                    
+    50       211     no       no      COEFFICIENT 'ELFENY'                    
+    51       213     no       no      COEFFICIENT 'ELFKEN'                    
+    52       215     no       no      COEFFICIENT 'ELFNCOAL'                  
+    53       217     no       no      COEFFICIENT 'ELFNELY'                   
+    54       219     no       no      COEFFICIENT 'ELFVAEN'                   
+    55       222     no       no      Formula for 'SUBPAR'                    
+    56       224     no       no      Formula for 'INCPAR'                    
+    57       225     no       no      Formula for 'SUBPAR1'                   
+    58       226     no       no      Formula for 'INCPAR1'                   
+    59       227     no       no      Formula for 'ELGENY'                    
+    60       228     no       no      Formula for 'ELGNENY'                   
+    61       229     no       no      Formula for 'ELGUG'                     
+    62       230     no       no      Formula for 'ELPENY'                    
+    63       231     no       no      Formula for 'ELFENY'                    
+    64       232     no       no      Formula for 'ELFKEN'                    
+    65       233     no       no      Formula for 'ELFNCOAL'                  
+    66       234     no       no      Formula for 'ELFNELY'                   
+    67       235     no       no      Formula for 'ELFVAEN'                   
+    68       241     no       no      WRITE from 'SUBPAR'                     
+    69       243     no       no      WRITE from 'INCPAR'                     
+    70       244     no       no      WRITE from 'ESUBD'                      
+    71       245     no       no      WRITE from 'ESUBM'                      
+    72       246     no       no      WRITE from 'ESUBVA'                     
+    73       247     no       no      WRITE from 'ETRAE'                      
+    74       248     no       no      WRITE from 'RORFLEX'                    
+    75       249     no       no      WRITE from 'RORDELTA'                   
+    76       250     no       no      WRITE from 'ESUBC'                      
+    77       251     no       no      WRITE from 'ESUBT'                      
+    78       252     no       no      WRITE from 'ESUBI'                      
+    79       253     no       no      WRITE from 'ESUBS'                      
+    80       254     no       no      WRITE from 'ESUBG'                      
+    81       255     no       no      WRITE from 'ETRAQ'                      
+    82       256     no       no      WRITE from 'ESUBQ'                      
+    83       258     no       no      SET 'ENDWT'                             
+    84       259     no       no      COEFFICIENT 'ENDOWFLAG'                 
+    85       261     no       no      Formula for 'ENDOWFLAG'                 
+    86       262     no       no      Formula for 'ENDOWFLAG'                 
+    87       264     no       no      WRITE from 'ENDOWFLAG'                  
+    88       268     no       no      SET 'TR_BLOC'                           
+    89       268     no       no      SUBSET 5 'REG' of 'TR_BLOC'             
+    90       268     no       no      SUBSET 6 'TR_BLOC' of 'REG'             
+    91       269     no       no      MAPPING 'MAPB'                          
+    92       270     no       no      Formula for 'MAPB'                      
+    93       271     no       no      WRITE from 'SUBPAR1'                    
+    94       273     no       no      WRITE from 'INCPAR1'                    
+    95       274     no       no      WRITE from 'ELGENY'                     
+    96       275     no       no      WRITE from 'ELGNENY'                    
+    97       276     no       no      WRITE from 'ELGUG'                      
+    98       277     no       no      WRITE from 'ELPENY'                     
+    99       278     no       no      WRITE from 'ELFENY'                     
+   100       279     no       no      WRITE from 'ELFKEN'                     
+   101       280     no       no      WRITE from 'ELFNCOAL'                   
+   102       281     no       no      WRITE from 'ELFNELY'                    
+   103       282     no       no      WRITE from 'ELFVAEN'                    
+   104       283     no       no      WRITE of set 'TR_BLOC'                  
+   105       285     no       no      WRITE from 'MAPB'                       
+
+
+
+
+ ============
+ ++ SET TABLE
+ ============
+
+                    Defined   [Max] Inter             Set numbers this
+  Number    Name    at line    Size temp? Elements    is subset of
+  ---------------------------------------------------------------------
+     1  REG            34 [       0]  no   read     11
+     2  COMM           37 [       0]  no   read 
+     3  MARG           40 [       0]  no   read 
+     4  ACTS           43 [       0]  no   read 
+     5  ENDW           46 [       0]  no   read 
+     6  ENYP          184         5   no   fixed     2
+     7  NENYP         189 [       0]  no   other     2     9
+     8  ENY           192         1   no   fixed     9
+     9  TOPP          194 [       0]  no   other
+    10  ENDWT         258         3   no   fixed
+    11  TR_BLOC       268 [       0]  no   other     1
+
+
+
+
+ ===============
+ ++ SUBSET TABLE
+ ===============
+
+  Number  Lt Set  Lt Set        Big set  Big set
+          number  name          number   name   
+  ---------------------------------------------------
+       1       6  ENYP                2  COMM        
+       2       7  NENYP               2  COMM        
+       3       8  ENY                 9  TOPP        
+       4       7  NENYP               9  TOPP        
+       5       1  REG                11  TR_BLOC     
+       6      11  TR_BLOC             1  REG         
+
+
+
+
+ =============
+ ++ FILE TABLE
+ =============
+
+         Logical            Defined  File  File
+  Number  Name              at line  Type  Form  Actual name (if given)
+  --------------------------------------------------------------------
+     1  GTAPSETS                27    old  head
+     2  ALTERPAR                28    new  head
+
+
+
+
+ ====================
+ ++ COEFFICIENT TABLE
+ ====================
+
+                        Defined  No            Arguments range
+  Number    Name        at line  Args Type     over sets numbered
+  ------------------------------------------------------------
+     1    ESUBD             64     2  real       2     1
+     2    ESUBM             68     2  real       2     1
+     3    ESUBVA            72     2  real       4     1
+     4    ETRAE             76     2  real       5     1
+     5    RORFLEX           80     1  real       1
+     6    RORDELTA          88     0  int 
+     7    ESUBC             98     2  real       4     1
+     8    ESUBT            102     2  real       4     1
+     9    ESUBI            107     1  real       1
+    10    ESUBS            111     1  real       3
+    11    ESUBG            115     1  real       1
+    12    ETRAQ            119     2  real       4     1
+    13    ESUBQ            123     2  real       2     1
+    14    SUBPAR           198     2  real       9     1
+    15    INCPAR           201     2  real       9     1
+    16    SUBPAR1          203     2  real       2     1
+    17    INCPAR1          205     2  real       2     1
+    18    ELGENY           207     1  real       1
+    19    ELGNENY          208     1  real       1
+    20    ELGUG            209     1  real       1
+    21    ELPENY           210     1  real       1
+    22    ELFENY           211     2  real       4     1
+    23    ELFKEN           213     2  real       4     1
+    24    ELFNCOAL         215     2  real       4     1
+    25    ELFNELY          217     2  real       4     1
+    26    ELFVAEN          219     2  real       4     1
+    27    ENDOWFLAG        259     2  real       5    10
+    28    MAPB             269     1  int        1
+
+
+
+
+ ================
+ ++ FORMULA TABLE
+ ================
+
+           Defined   Semantic      LHS                RHS
+  Number   at line    Error?    coefficient       coefficient numbers
+  -------------------------------------------------------------------
+     1         141     no      ESUBD       
+     2         144     no      ESUBM       
+     3         147     no      ESUBVA      
+     4         150     no      ETRAE       
+     5         153     no      RORFLEX     
+     6         156     no      RORDELTA    
+     7         159     no      ESUBC       
+     8         162     no      ESUBT       
+     9         165     no      ESUBI       
+    10         168     no      ESUBS       
+    11         171     no      ESUBG       
+    12         174     no      ETRAQ       
+    13         177     no      ESUBQ       
+    14         222     no      SUBPAR      
+    15         224     no      INCPAR      
+    16         225     no      SUBPAR1     
+    17         226     no      INCPAR1     
+    18         227     no      ELGENY      
+    19         228     no      ELGNENY     
+    20         229     no      ELGUG       
+    21         230     no      ELPENY      
+    22         231     no      ELFENY      
+    23         232     no      ELFKEN      
+    24         233     no      ELFNCOAL    
+    25         234     no      ELFNELY     
+    26         235     no      ELFVAEN     
+    27         261     no      ENDOWFLAG   
+    28         262     no      ENDOWFLAG   
+    29         270     no      MAPB        
+
+
+
+
+ ==============
+ ++ WRITE TABLE
+ ==============
+
+        Defined   Sem     Coeff/Var     Write
+ Number at line  Error?   written       file   Header     Long Name
+ --------------------------------------------------------------------------------
+     1      241   no      SUBPAR            2  SUBP    Not defined by the user
+     2      243   no      INCPAR            2  INCP    Not defined by the user
+     3      244   no      ESUBD             2  ESBD    Not defined by the user
+     4      245   no      ESUBM             2  ESBM    Not defined by the user
+     5      246   no      ESUBVA            2  ESBV    Not defined by the user
+     6      247   no      ETRAE             2  ETRE    Not defined by the user
+     7      248   no      RORFLEX           2  RFLX    Not defined by the user
+     8      249   no      RORDELTA          2  RDLT    Not defined by the user
+     9      250   no      ESUBC             2  ESBC    Not defined by the user
+    10      251   no      ESUBT             2  ESBT    Not defined by the user
+    11      252   no      ESUBI             2  ESBI    Not defined by the user
+    12      253   no      ESUBS             2  ESBS    Not defined by the user
+    13      254   no      ESUBG             2  ESBG    Not defined by the user
+    14      255   no      ETRAQ             2  ETRQ    Not defined by the user
+    15      256   no      ESUBQ             2  ESBQ    Not defined by the user
+    16      264   no      ENDOWFLAG         2  EFLG    Not defined by the user
+    17      271   no      SUBPAR1           2  SUB1    Not defined by the user
+    18      273   no      INCPAR1           2  INC1    Not defined by the user
+    19      274   no      ELGENY            2  EGEN    Not defined by the user
+    20      275   no      ELGNENY           2  EGNN    Not defined by the user
+    21      276   no      ELGUG             2  EGUG    Not defined by the user
+    22      277   no      ELPENY            2  EPEN    Not defined by the user
+    23      278   no      ELFENY            2  EFEN    Not defined by the user
+    24      279   no      ELFKEN            2  EFKE    Not defined by the user
+    25      280   no      ELFNCOAL          2  EFNC    Not defined by the user
+    26      281   no      ELFNELY           2  EFNL    Not defined by the user
+    27      282   no      ELFVAEN           2  EFVE    Not defined by the user
+    28      283   no      TR_BLOC           2  TRBL    Not defined by the user
+    29      285   no      MAPB              2  MAPB    Not defined by the user
+
+
+   
+ ======================
+ ++ INPUT CHECK SUMMARY
+ ======================
+
+ Total number of statements is 105.
+ There are NO syntax errors or semantic problems.
+
+
+ ******************************************************************************
+ -3-
+ -->                     Starting CODE GENERATION
+
+ ******************************************************************************
+
+
+
+  CODE OPTIONS CHOSEN
+  -------------------
+
+
+                         TABLO PORTABLE
+               CODE OPTIONS   ( --> indicates those in effect )
+
+      NEQ Do no equations           PGS Prepare output for GEMSIM
+      NDS Do no displays        --> WFP Write a Fortran Program
+      NWR Do no writes                    (i.e. a TABLO-generated program)
+                                --> FC5 Fast Compile TG-prog under LF95
+      ACC All comment lines in      DMS Allow simulations even
+             code                         though are no UPDATEs
+                                    CIN Code file name same as
+                                          Information file name
+                                    CDM Old option. Has no effect.
+                                    NRZ No run-time reports re use of
+                                           ZERODIVIDE default values
+                                    NXS No "extra" statements allowed
+
+  Select an option   :  <opt>      Deselect an option      : -<opt>
+  Help for an option : ?<opt>      Help on all options     : ??
+  Redisplay options  : /           Finish option selection : Carriage return
+
+  END OF CODE OPTIONS CHOSEN
+  --------------------------
+  
+! ( Program is 'altparv7-ep.for'.)
+ (Total number of lines of code is 5773.)
+
+ This program
+     o can carry out 29 WRITEs
+
+ MXGSRS = 0, MXGSIS = 0.
+ MXGSLG = 0, MXGSIC = 0.
+
+ MXGSOP = 0, MXGSIN = 0.
+ MXGSRC = 0, MXGSNS=0.
+! (Model Information file is 'altparv7-ep.min'.)
+
+ (Total number of programs written is 1.)
+
+ *******************************************************************
+ Successful completion of TABLO.
+ The program is
+   'altparv7-ep.for'.
+
+ This program
+     o can carry out 29 WRITEs
+
+ *******************************************************************

@@ -1,0 +1,287 @@
+!----------------------------------------------------------------------------!
+!                        Global Trade Analysis Project                       !
+!                         The GTAP Modeling Framework                        !
+!                     GTAP Altertax Params Modification Facility             !
+!----------------------------------------------------------------------------!
+!----------------------------------------------------------------------------!
+! HISTORY of this file                                                       !
+!----------------------------------------------------------------------------!
+! updated by:                                                                !       
+! Erwin Corong (EC) June 2017 for GTAPv7                                     !
+! Erwin Corong (EC) Aug  2020 for GTAPv7-e                                     !
+! J. Mark Horridge (JMH) March 2000 for GTAP 5                               !
+!----------------------------------------------------------------------------!
+! Version 1.0 September 1998: This file writes a new GTAP parameter          !
+! file to:                                                                   !
+!	- make all endowments mobile                                             !
+!	- make production and preferences Cobb Douglas                           !
+! 	- set RORDELTA = 0                                                       !
+! It can only be run in conjunction with GTAP.TAB version 4.1 or higher as it!
+! includes the switch for sluggish factors and ESUBT.                        !
+! It is also typically run in conjunction with a particular closure.         !
+! For more details, the reader is referred to GTAP technical paper No. 12.   !
+!----------------------------------------------------------------------------!
+!                                   FILES                                    !
+!----------------------------------------------------------------------------!
+
+FILE GTAPSETS # File with set specification #;
+FILE (NEW) ALTERPAR # The file containing new parameters. # ;
+
+!----------------------------------------------------------------------------!
+!                                    SETS                                    !
+!----------------------------------------------------------------------------!
+
+Set REG # regions in the model #
+    read elements from file GTAPSETS header "REG";
+
+Set COMM # commodities #
+    read elements from file GTAPSETS header "COMM";
+
+Set MARG # commodities #
+    read elements from file GTAPSETS header "MARG";
+
+Set ACTS # activities #
+    read elements from file GTAPSETS header "ACTS";
+
+Set ENDW # endowments #
+    read elements from file GTAPSETS header "ENDW";
+
+!----------------------------------------------------------------------------!
+!                      technology and preference parameters                  !
+!----------------------------------------------------------------------------!
+!< ## GTAP-E: begin ## >!
+![[!
+Coefficient (all,c,COMM)(all,r,REG) 
+    SUBPAR(c,r)
+    # the substitution parameter in the CDE minimum expenditure function #;
+
+Coefficient (all,c,COMM)(all,r,REG)                          
+    INCPAR(c,r)
+    # expansion parameter in the CDE minimum expenditure function  #;
+!]]!
+!< ## GTAP-E: End ## >!
+
+Coefficient (all,c,COMM)(all,r,REG)                           
+    ESUBD(c,r)
+    # Armington CES elast. of subs. for domestic/imported allocation #;
+
+Coefficient (all,c,COMM)(all,r,REG)                           
+    ESUBM(c,r)
+    # Armington CES elast. of subs. for regional allocation of imports #;
+
+Coefficient (all,c,ACTS)(all,r,REG)                           
+    ESUBVA(c,r)
+    # CES elast. of subs. for primary factors in production #;
+
+Coefficient (all,e,ENDW)(all,r,REG)                           
+    ETRAE(e,r)
+    # CET elast. of transformation bet. sectors for sluggish primary factors #;
+
+Coefficient (all, r, REG)                                     
+    RORFLEX(r)
+    # Expected rate of return flexibility parameter #;
+      ! RORFLEX is the flexibility of expected net rate of return on capital 
+        stock, in region r, with respect to investment. If a region's capital 
+        stock increases by 1%, then it is expected that the net rate of return 
+        on capital will decline by RORFLEX % !
+
+Coefficient (Integer)                                            
+    RORDELTA
+    # Investment allocation binary coefficient #;
+     !  RORDELTA is a binary Coefficient which determines the mechanism of 
+        allocating investment funds across regions. When RORDELTA = 1, 
+        investment funds are allocated across regions to equate the change 
+        in the expected rates of return (i.e., rore(r)).  When RORDELTA = 0, 
+        investment funds are allocated across regions to maintain the existing
+        composition of capital stocks ! 
+
+Coefficient (all,a,ACTS)(all,r,REG) 
+    ESUBC(a,r)
+    # CES elast. of subs. for intermediate inputs #;
+ 
+Coefficient (all,a,ACTS)(all,r,REG)                             
+    ESUBT(a,r)
+    # CES elast. of subs. between primary factors and intermediate inputs #;
+
+! Added by EC for GTAPv7 !
+Coefficient (all,r,REG) 
+    ESUBI(r)
+    # Armington CES elast. of subs. for investment commodities #;
+
+Coefficient (all,m,MARG) 
+    ESUBS(m)
+    # CES elast. of subs. for international transport margin services #;
+
+Coefficient (all,r,REG) 
+    ESUBG(r) 
+    # CES elast. of subs. for government demands #;
+
+Coefficient (all,a,ACTS)(all,r,REG) 
+    ETRAQ(a,r)
+    # CET elast. of transformation for commodities produced by industries #;
+
+Coefficient (all,c,COMM)(all,r,REG) 
+    ESUBQ(c,r)
+    # 1/CES elast. of subs. for commodity sourcing #;
+
+
+!----------------------------------------------------------------------------!
+
+!----------------------------------------------------------------------------!
+!                   Setting new model parameters                             !
+!----------------------------------------------------------------------------!
+
+!
+Formula (all,c,COMM)(all,r,REG)
+    SUBPAR(c,r) = 0 ;
+
+Formula (all,c,COMM)(all,r,REG)
+    INCPAR(c,r) = 1 ;
+!
+Formula (all,c,COMM)(all,r,REG)                           
+    ESUBD(c,r) = 1;
+
+Formula (all,c,COMM)(all,r,REG)                           
+    ESUBM(c,r) = 1;
+
+Formula (all,c,ACTS)(all,r,REG)                           
+    ESUBVA(c,r) = 1;
+
+Formula (all,e,ENDW)(all,r,REG)                           
+    ETRAE(e,r) = -1;
+
+Formula (all,i,REG)
+    RORFLEX(i)= 10;
+
+Formula
+    RORDELTA = 1;
+
+Formula (all,a,ACTS)(all,r,REG)  
+    ESUBC(a,r) = 1;
+ 
+Formula (all,a,ACTS)(all,r,REG)                             
+    ESUBT(a,r) = 1;
+
+Formula (all,r,REG) 
+    ESUBI(r) = 1;
+
+Formula (all,m,MARG) 
+    ESUBS(m) = 1;
+
+Formula (all,r,REG) 
+    ESUBG(r) = 1;
+
+Formula (all,a,ACTS)(all,r,REG) 
+    ETRAQ(a,r) = -1;
+
+Formula (all,c,COMM)(all,r,REG) 
+    ESUBQ(c,r) = 1;
+
+!----------------------------------------------------------------------------!
+!                   GTAP-E  model parameters (EC-Aug2020)                    !
+!----------------------------------------------------------------------------!
+
+Set
+    ENYP # inputs into private energy subutility #
+    (coal, oil, gas, oil_pcts, electricity);
+Subset 
+    ENYP is subset of COMM;
+Set 
+    NENYP 
+    #inputs into private non-energy subutility# = COMM - ENYP;
+Set 
+    ENY # private energy composite # (eny);
+Set
+    TOPP 
+    # inputs into top of private consumption structure # = ENY + NENYP;
+
+Coefficient 
+(all,u,TOPP)(all,r,REG) 
+    SUBPAR(u,r) # CDE substitution parameter #;
+(all,u,TOPP)(all,r,REG) 
+    INCPAR(u,r) # CDE expansion parameter #;
+(all,t,COMM)(all,r,REG) 
+    SUBPAR1(t,r) # CDE substitution parameter #;
+(all,t,COMM)(all,r,REG) 
+    INCPAR1(t,r) # CDE expansion parameter #;
+(all,r,REG) ELGENY(r) # Elasticity of substitution in gov. energy subconsumption #;
+(all,r,REG) ELGNENY(r)# Elasticity of substitution in gov. non-energy subconsumption #;
+(all,r,REG) ELGUG(r)  # Elasticity of substitution in the top of gov. consumption nest #;
+(all,r,REG) ELPENY(r) # Elasticity of substitution in hh energy subconsumption #;
+(all,p,ACTS)(all,r,REG) 
+    ELFENY(p,r) # Elasticity of substitution in energy subproduction #;
+(all,p,ACTS)(all,r,REG) 
+    ELFKEN(p,r) # Elasticity of substitution in capital-energy subproduction #;
+(all,p,ACTS)(all,r,REG) 
+    ELFNCOAL(p,r) # Elasticity of substitution in non-coal en. subproduction #;
+(all,p,ACTS)(all,r,REG) 
+    ELFNELY(p,r) # Elasticity of substitution in non-electr. en. subproduction #;
+(all,p,ACTS)(all,r,REG) 
+    ELFVAEN(p,r) # Elasticity of substitution in value-added-en. subproduction #;
+
+Formula
+(all,u,TOPP)(all,r,REG) SUBPAR(u,r) = 0.0;
+(all,u,TOPP)(all,r,REG) INCPAR(u,r) = 1.0;
+(all,t,COMM)(all,r,REG) SUBPAR1(t,r) = 1.0;
+(all,t,COMM)(all,r,REG) INCPAR1(t,r) = 1.0;
+(all,r,REG) ELGENY(r) = 1.0;
+(all,r,REG) ELGNENY(r)= 1.0;
+(all,r,REG) ELGUG(r)  = 1.0;
+(all,r,REG) ELPENY(r) = 1.0;
+(all,p,ACTS)(all,r,REG) ELFENY(p,r) = 1.0;
+(all,p,ACTS)(all,r,REG) ELFKEN(p,r) = 1.0;
+(all,p,ACTS)(all,r,REG) ELFNCOAL(p,r)= 1.0;
+(all,p,ACTS)(all,r,REG) ELFNELY(p,r) = 1.0;
+(all,p,ACTS)(all,r,REG) ELFVAEN(p,r) = 1.0;
+
+!----------------------------------------------------------------------------!
+!                   Writing model parameters                                 !
+!----------------------------------------------------------------------------!
+
+Write 
+    SUBPAR to file ALTERPAR header "SUBP";
+    INCPAR to file ALTERPAR header "INCP";
+    ESUBD  to file ALTERPAR header "ESBD";
+    ESUBM  to file ALTERPAR header "ESBM";
+    ESUBVA to file ALTERPAR header "ESBV";
+    ETRAE  to file ALTERPAR header "ETRE";   !jmh mod!
+    RORFLEX to file ALTERPAR header "RFLX";  !jmh mod!
+    RORDELTA to file ALTERPAR header "RDLT"; !jmh mod!
+    ESUBC  to file ALTERPAR header "ESBC"; ! EC !
+    ESUBT  to file ALTERPAR header "ESBT"; ! EC !
+    ESUBI  to file ALTERPAR header "ESBI"; ! EC !
+    ESUBS  to file ALTERPAR header "ESBS"; ! EC !
+    ESUBG  to file ALTERPAR header "ESBG"; ! EC !
+    ETRAQ  to file ALTERPAR header "ETRQ"; ! EC !
+    ESUBQ  to file ALTERPAR header "ESBQ"; ! EC !
+
+Set ENDWT # endowment types # (mobile, sluggish, fixed);
+Coefficient (all,e,ENDW)(all,t,ENDWT) 
+ENDOWFLAG(e,t) # binary (1,0) flag for endowment mobility #;
+Formula (all,e,ENDW)(all,t,ENDWT) ENDOWFLAG(e,t) = 0;
+ (all,e,ENDW) ENDOWFLAG(e,"mobile") = 1;
+! NB all factors set mobile here. User may wish to edit this setting !
+Write ENDOWFLAG to file ALTERPAR header "EFLG";
+
+!< ## GTAP-E: begin ## >!
+! Add GTAP-E  model parameters (EC-Aug2020)  !
+SET  TR_BLOC # Regions in the model # = REG;
+Mapping MAPB from REG to TR_BLOC;
+Formula (all,r,REG) MAPB(r) = $POS(r);
+Write
+ SUBPAR1  to file ALTERPAR header"SUB1";
+ INCPAR1  to file ALTERPAR header"INC1";
+ ELGENY   to file ALTERPAR header"EGEN";
+ ELGNENY  to file ALTERPAR header"EGNN";
+ ELGUG    to file ALTERPAR header"EGUG";
+ ELPENY   to file ALTERPAR header"EPEN";
+ ELFENY   to file ALTERPAR header"EFEN";
+ ELFKEN   to file ALTERPAR header"EFKE";
+ ELFNCOAL to file ALTERPAR header"EFNC";
+ ELFNELY  to file ALTERPAR header"EFNL";
+ ELFVAEN  to file ALTERPAR header"EFVE";
+Write 
+ (set) TR_BLOC to file ALTERPAR header "TRBL";
+ (by_elements) MAPB to file ALTERPAR header "MAPB";
+!< ## GTAP-E: End ## >!
+
