@@ -12,10 +12,10 @@ library(data.table)
 setwd("C:/Users/natha/Documents/Two Brothers/enabled emissions/gtap_p_20by5/gtpv7AI/")
 
 # Extract CO2Q array from GTAPDATA
-system("har2csv basedata_2024.har ../../baseline_co2.csv CO2Q", ignore.stdout = FALSE)
+system("har2csv basedata_ctax_102.har ../../baseline_co2_ctax_102.csv CO2Q", ignore.stdout = FALSE)
 
 # Read and format the baseline CO2 data
-baseline_co2 <- fread("../../baseline_co2.csv")
+baseline_co2 <- fread("../../baseline_co2_ctax_102.csv")
 
 
 cat("Baseline CO2 emissions extracted successfully!\n")

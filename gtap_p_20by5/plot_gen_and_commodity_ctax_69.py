@@ -5,8 +5,8 @@ import matplotlib.cm as cm
 import matplotlib.colors as colors
 
 # Load the results and baseline emissions
-df = pd.read_csv('results_final/experiment_gen_and_commodity_results.csv')
-baseline_df = pd.read_csv('baseline_co2.csv')
+df = pd.read_csv('results_final/experiment_gen_and_commodity_results_ctax_69.csv')
+baseline_df = pd.read_csv('baseline_co2_ctax_69.csv')
 
 # Merge with baseline emissions
 df = df.merge(baseline_df, left_on='REG', right_on='REG', how='left', suffixes=('', '_baseline'))
@@ -45,7 +45,7 @@ plot_axes = [
 for idx, roe_level in enumerate(roe_levels):
     ax = plot_axes[idx]
 
-    # Filter data for this ROE level
+    # Filter data for this fuel-neutral level
     roe_data = sim_totals[sim_totals['fuel_neutral_level'] == roe_level].copy()
 
     # Map categorical levels to numeric positions
@@ -102,10 +102,10 @@ scatter = plot_axes[0].scatter([], [], c=[], cmap='RdYlGn_r', vmin=-max_abs_valu
 cbar = fig.colorbar(scatter, cax=cbar_ax, orientation='vertical')
 cbar.set_label('Change in CO₂ Emissions (Gt)', rotation=270, labelpad=20, fontsize=15)
 
-fig.suptitle('Change in CO₂ Emissions - Fossil (Generation and Extraction) and Renewables (Generation)\n(4×4 Grid for each Fuel-Neutral Adoption Level)',
+fig.suptitle('Change in CO₂ Emissions - Fossil (Generation and Extraction) and Renewables (Generation)\n(Carbon Tax $80/tCO₂)',
              fontsize=20, y=0.98)
 
-plt.savefig('experiment_gen_and_commodity_emissions.png', dpi=300, bbox_inches='tight')
+plt.savefig('experiment_gen_and_commodity_ctax_69_emissions.png', dpi=300, bbox_inches='tight')
 
 # Print summary statistics
 print(f"Total simulations: {len(sim_totals)}")

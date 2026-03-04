@@ -26,5 +26,17 @@ Then generate a python environment from ./gtap\_p\_20by5/environment.yml (we use
 
 
 
+## Supplementary and sensitivity analysis scripts
+
+The following scripts produce robustness checks and supplementary results:
+
+**Baseline energy mix sensitivity (2017 vs. 2024):** experiment\_set\_gen\_and\_commodity\_2017.R, extract\_baseline\_co2\_2017.R, and compare\_energy\_mix.R (which compares the 2024 and 2017 primary energy mixes) are used for sensitivity analysis to identify whether the change in electricity mix from the original 2017 baseline to the updated 2024 baseline meaningfully impacts our results. extract\_gdp\_gen\_and\_commodity.R pulls GDP results from those runs.
+
+**Elasticity sensitivity (+/- 50%):** gen\_elasticity\_sensitivity.R generates alternative .prm files with key elasticities varied by +/- 50% from the 2024 baseline. experiment\_set\_gen\_and\_commodity\_sensitivity.R then runs the experiments using those alternative .prm files.
+
+**Carbon tax scenarios:** The carbon\_tax\_simple\_Euler\_{integer}.R scripts (where {integer} is 69, 102, 160, or 266) create baselines with additional global carbon tax values. Note that the values shown in the scripts reflect 2017 dollars, while the figures in the paper reflect 2022 dollars. The experiment\_set\_gen\_and\_commodity\_ctax\_{integer}.R scripts run the corresponding simulations, and the extract\_baseline\_co2\_ctax\_{integer}.R scripts pull the baseline CO2 emissions values.
+
+**Individual shock decomposition:** experiment\_individual\_shocks\_medium.R decomposes the medium/medium/medium scenario by individual parameter shock.
+
 We encourage readers to consider alternative shock structures or the outcomes of changes to baseline data.
 

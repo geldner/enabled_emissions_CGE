@@ -3,79 +3,79 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load the results and baseline emissions
-df = pd.read_csv('results/experiment_gen_and_commodity_results.csv')
+df = pd.read_csv('results_final/experiment_gen_and_commodity_results.csv')
 baseline_df = pd.read_csv('baseline_co2.csv')
 
 # Merge with baseline emissions
 df = df.merge(baseline_df, left_on='REG', right_on='REG', how='left', suffixes=('', '_baseline'))
 
-# Convert percentage values to actual changes in millions of tons
-df['nominal_change_mt'] = (df['Value'] / 100) * df['Value_baseline']
+# Convert percentage values to actual changes in gigatons
+df['nominal_change_gt'] = (df['Value'] / 100) * df['Value_baseline'] / 1000
 
 # Sum values by sim_id (aggregating over REG)
 sim_totals = df.groupby('sim_id').agg({
-    'nominal_change_mt': 'sum',
+    'nominal_change_gt': 'sum',
     'renewable_level': 'first',
     'fossil_level': 'first',
-    'rest_of_economy_level': 'first'
+    'fuel_neutral_level': 'first'
 }).reset_index()
 
 # Extract values for renewable (fossil none, ROE none)
 renewable_low = sim_totals[
     (sim_totals['renewable_level'] == 'low') &
     (sim_totals['fossil_level'] == 'none') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 renewable_medium = sim_totals[
     (sim_totals['renewable_level'] == 'medium') &
     (sim_totals['fossil_level'] == 'none') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 renewable_high = sim_totals[
     (sim_totals['renewable_level'] == 'high') &
     (sim_totals['fossil_level'] == 'none') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 # Extract values for fossil (renewable none, ROE none)
 fossil_low = sim_totals[
     (sim_totals['renewable_level'] == 'none') &
     (sim_totals['fossil_level'] == 'low') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 fossil_medium = sim_totals[
     (sim_totals['renewable_level'] == 'none') &
     (sim_totals['fossil_level'] == 'medium') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 fossil_high = sim_totals[
     (sim_totals['renewable_level'] == 'none') &
     (sim_totals['fossil_level'] == 'high') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 # Extract values for net effect (low/low/none, medium/medium/none, high/high/none)
 net_low = sim_totals[
     (sim_totals['renewable_level'] == 'low') &
     (sim_totals['fossil_level'] == 'low') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 net_medium = sim_totals[
     (sim_totals['renewable_level'] == 'medium') &
     (sim_totals['fossil_level'] == 'medium') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 net_high = sim_totals[
     (sim_totals['renewable_level'] == 'high') &
     (sim_totals['fossil_level'] == 'high') &
-    (sim_totals['rest_of_economy_level'] == 'none')
-]['nominal_change_mt'].values[0]
+    (sim_totals['fuel_neutral_level'] == 'none')
+]['nominal_change_gt'].values[0]
 
 # Create bar chart
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -86,9 +86,9 @@ width = 0.6
 
 # Data for each category
 categories = ['Datacenters\n(1st order)', 'Renewable\n(2nd order)', 'Fossil\n(2nd order)', 'Net Effect\n(2nd order)', 'Net Effect\n(1st and 2nd order)']
-low_values = [180, renewable_low, fossil_low, net_low, net_low + 180]
-medium_values = [300, renewable_medium, fossil_medium, net_medium, net_medium + 300]
-high_values = [500, renewable_high, fossil_high, net_high, net_high + 500]
+low_values = [0.18, renewable_low, fossil_low, net_low, net_low + 0.18]
+medium_values = [0.30, renewable_medium, fossil_medium, net_medium, net_medium + 0.30]
+high_values = [0.50, renewable_high, fossil_high, net_high, net_high + 0.50]
 
 # For each bar, we'll create segments from 0 to low, low to medium, medium to high
 for i, (low, med, high) in enumerate(zip(low_values, medium_values, high_values)):
@@ -128,11 +128,11 @@ for i, (low, med, high) in enumerate(zip(low_values, medium_values, high_values)
     ax.bar(x[i], height_3, width, bottom=bottom_3, color=color_3, edgecolor='black', linewidth=1.5, label='High' if i == 0 else '')
 
     # Add text labels for each level
-    ax.text(x[i], low, f'{low:.1f}', ha='center', va='center', fontsize=10, fontweight='bold',
+    ax.text(x[i], low, f'{low:.1f}', ha='center', va='center', fontsize=12, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='black', linewidth=0.5))
-    ax.text(x[i], med, f'{med:.1f}', ha='center', va='center', fontsize=10, fontweight='bold',
+    ax.text(x[i], med, f'{med:.1f}', ha='center', va='center', fontsize=12, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='black', linewidth=0.5))
-    ax.text(x[i], high, f'{high:.1f}', ha='center', va='center', fontsize=10, fontweight='bold',
+    ax.text(x[i], high, f'{high:.1f}', ha='center', va='center', fontsize=12, fontweight='bold',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='black', linewidth=0.5))
 
 # Add vertical line separators
@@ -140,27 +140,27 @@ ax.axvline(x=0.75, color='black', linestyle='-', linewidth=2)  # After datacente
 ax.axvline(x=4.25, color='black', linestyle='-', linewidth=2)  # Before final net effect
 
 # Customize plot
-ax.set_ylabel('Change in CO₂ Emissions (Million Tons)', fontsize=14)
-ax.set_title('Emission Changes by Policy Level', fontsize=16, fontweight='bold')
+ax.set_ylabel('Change in CO₂ Emissions (Gt)', fontsize=16)
+ax.set_title('Emission Changes by Policy Level', fontsize=18, fontweight='bold')
 ax.set_xticks(x)
-ax.set_xticklabels(categories, fontsize=12)
+ax.set_xticklabels(categories, fontsize=14)
 ax.axhline(y=0, color='black', linestyle='-', linewidth=2)
 ax.grid(axis='y', alpha=0.3, linestyle='--')
-ax.legend(title='Policy Level', fontsize=10, title_fontsize=11)
+ax.legend(title='Policy Level', fontsize=12, title_fontsize=13)
 
 plt.tight_layout()
 plt.savefig('emission_decomposition_bars.png', dpi=300, bbox_inches='tight')
 
 # Print summary
-print("Emission Changes (Million Tons CO₂) - Fuel-Neutral Adoption: None")
+print("Emission Changes (Gt CO₂) - Fuel-Neutral Adoption: None")
 print("=" * 75)
 print(f"\n{'Category':<30} {'Low':>12} {'Medium':>12} {'High':>12}")
 print("-" * 75)
-print(f"{'Datacenters':<30} {180:>12.2f} {300:>12.2f} {500:>12.2f}")
+print(f"{'Datacenters':<30} {0.18:>12.1f} {0.30:>12.1f} {0.50:>12.1f}")
 print("-" * 75)
-print(f"{'Renewable':<30} {renewable_low:>12.2f} {renewable_medium:>12.2f} {renewable_high:>12.2f}")
-print(f"{'Fossil':<30} {fossil_low:>12.2f} {fossil_medium:>12.2f} {fossil_high:>12.2f}")
-print(f"{'Net Effect (2nd order)':<30} {net_low:>12.2f} {net_medium:>12.2f} {net_high:>12.2f}")
+print(f"{'Renewable':<30} {renewable_low:>12.1f} {renewable_medium:>12.1f} {renewable_high:>12.1f}")
+print(f"{'Fossil':<30} {fossil_low:>12.1f} {fossil_medium:>12.1f} {fossil_high:>12.1f}")
+print(f"{'Net Effect (2nd order)':<30} {net_low:>12.1f} {net_medium:>12.1f} {net_high:>12.1f}")
 print("-" * 75)
-print(f"{'Net Effect (1st and 2nd order)':<30} {net_low + 180:>12.2f} {net_medium + 300:>12.2f} {net_high + 500:>12.2f}")
+print(f"{'Net Effect (1st and 2nd order)':<30} {net_low + 0.18:>12.1f} {net_medium + 0.30:>12.1f} {net_high + 0.50:>12.1f}")
 print("=" * 75)

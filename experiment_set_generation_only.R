@@ -19,7 +19,7 @@
 library(data.table)
 
 # Set working directory to GTAP model location (20x5 aggregation with 2024 calibrated baseline)
-setwd("C:/Users/natha/Documents/Two Brothers/enabled emissions/enabled_emissions_cge/gtap_p_20by5/gtpv7AI")
+setwd("C:/Users/natha/Documents/Two Brothers/enabled emissions/gtap_p_20by5/gtpv7AI")
 
 ## UTILITY FUNCTIONS
 ####################
@@ -68,7 +68,7 @@ append_to_file <- function(input_file, output_file, strings_to_append) {
 ## EXPERIMENTAL DESIGN SETUP
 ############################
 
-exp_design_file <- "C:/Users/natha/Documents/Two Brothers/enabled emissions/enabled_emissions_cge/gtap_p_exp_design.csv"
+exp_design_file <- "C:/Users/natha/Documents/Two Brothers/enabled emissions/gtap_p_exp_design.csv"
 exp_design <- fread(exp_design_file)
 
 # Fix escape character issues with quotes in parameter names
@@ -280,7 +280,7 @@ for(i in 1:nrow(param_grid)) {
 
   # Progress indicator
   cat("Generated CMF", i, "of", nrow(param_grid), ":",
-      renewable_level, "/", fossil_level, "/", rest_of_economy_level, "\n")
+      renewable_level, "/", fossil_level, "/", fuel_neutral_level, "\n")
 }
 
 ## RUN SIMULATIONS

@@ -35,6 +35,29 @@ plotting_scripts = [
 
     # Decomposition bars
     "plot_decomposition_bars.py",
+    "plot_medium_scenario_decomposition.py",
+
+    # Energy mix invariance
+    "plot_energy_mix_invariance.py",
+
+    # Sensitivity and robustness
+    "plot_gen_and_commodity_sensitivity.py",
+    "plot_gen_and_commodity_cap_low.py",
+    "plot_gen_and_commodity_cap_high.py",
+    "plot_gen_and_commodity_type_low.py",
+    "plot_gen_and_commodity_type_high.py",
+
+    # Carbon tax scenarios
+    "plot_gen_and_commodity_ctax_69.py",
+    "plot_gen_and_commodity_ctax_102.py",
+    "plot_gen_and_commodity_ctax_160.py",
+    "plot_gen_and_commodity_ctax_266.py",
+
+    # Alternate baselines and GDP
+    "plot_gen_and_commodity_2017.py",
+    "plot_gen_and_commodity_gdp.py",
+    "plot_gen_and_commodity_gdp_per_co2.py",
+    "plot_gen_and_commodity_gdp_and_co2_bars.py",
 ]
 
 def main():

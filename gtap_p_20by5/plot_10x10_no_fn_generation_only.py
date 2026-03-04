@@ -7,18 +7,18 @@ import numpy as np
 from scipy.interpolate import griddata
 
 # Load the results and baseline emissions
-df = pd.read_csv('results/experiment_10x10_no_fn_generation_only_results.csv')
+df = pd.read_csv('results_final/experiment_10x10_no_fn_generation_only_results.csv')
 baseline_df = pd.read_csv('baseline_co2.csv')
 
 # Merge with baseline emissions
 df = df.merge(baseline_df, left_on='REG', right_on='REG', how='left', suffixes=('', '_baseline'))
 
-# Convert percentage values to actual changes in millions of tons
-df['nominal_change_mt'] = (df['Value'] / 100) * df['Value_baseline']
+# Convert percentage values to actual changes in gigatons
+df['nominal_change_gt'] = (df['Value'] / 100) * df['Value_baseline'] / 1000
 
 # Sum values by sim_id (aggregating over REG)
 sim_totals = df.groupby('sim_id').agg({
-    'nominal_change_mt': 'sum',
+    'nominal_change_gt': 'sum',
     'renewable_int': 'first',
     'fossil_int': 'first'
 }).reset_index()
@@ -31,7 +31,7 @@ sim_totals['fossil_shock_magnitude'] = sim_totals['fossil_int'] * 100
 fig, ax = plt.subplots(figsize=(12, 10))
 
 # Calculate symmetric bounds around zero
-max_abs_value = max(abs(sim_totals['nominal_change_mt'].min()), abs(sim_totals['nominal_change_mt'].max()))
+max_abs_value = max(abs(sim_totals['nominal_change_gt'].min()), abs(sim_totals['nominal_change_gt'].max()))
 
 # Get unique coordinates and create grid
 x_coords = sorted(sim_totals['renewable_shock_magnitude'].unique())
@@ -49,7 +49,7 @@ cmap = cm.get_cmap('RdYlGn_r')
 for _, row in sim_totals.iterrows():
     x = row['renewable_shock_magnitude']
     y = row['fossil_shock_magnitude']
-    value = row['nominal_change_mt']
+    value = row['nominal_change_gt']
 
     # Create rectangle centered at (x, y)
     rect = Rectangle((x - x_step/2, y - y_step/2), x_step, y_step,
@@ -63,20 +63,20 @@ scatter = ax.scatter([], [], c=[], cmap='RdYlGn_r', vmin=-max_abs_value, vmax=ma
 
 # Add colorbar
 cbar = plt.colorbar(scatter, ax=ax)
-cbar.set_label('Change in CO₂ Emissions (Million Tons)', rotation=270, labelpad=20)
+cbar.set_label('Change in CO₂ Emissions (Gt)', rotation=270, labelpad=20, fontsize=20)
 
 # Perform linear interpolation to find the zero level set
 x_fine = np.linspace(min(x_coords), max(x_coords), 200)
 y_fine = np.linspace(min(y_coords), max(y_coords), 200)
 X_fine, Y_fine = np.meshgrid(x_fine, y_fine)
 points = sim_totals[['renewable_shock_magnitude', 'fossil_shock_magnitude']].values
-values = sim_totals['nominal_change_mt'].values
+values = sim_totals['nominal_change_gt'].values
 Z_fine = griddata(points, values, (X_fine, Y_fine), method='linear')
 
 # Customize the plot
-ax.set_xlabel("Renewable Efficiency Gains (percent change)")
-ax.set_ylabel('Fossil Efficiency Gains (percent change)')
-ax.set_title('Change in CO₂ Emissions - No Fuel-Neutral Adoption, Generation Only\n(10×10 Grid, Each cell represents one simulation)')
+ax.set_xlabel("Renewable Efficiency Gains (%)", fontsize=20)
+ax.set_ylabel('Fossil Efficiency Gains (%)', fontsize=20)
+ax.set_title('Change in CO₂ Emissions (Gt) -\nFossil (Generation) and Renewables (Generation)', fontsize=22)
 
 # Set axis limits and ticks
 ax.set_xlim(min(x_coords) - x_step/2, max(x_coords) + x_step/2)
@@ -119,14 +119,14 @@ for level_idx, segments_at_level in enumerate(contour.allsegs):
 
 # Add text annotations for values on each cell (smaller font for 10x10 grid)
 for _, row in sim_totals.iterrows():
-    ax.annotate(f'{row["nominal_change_mt"]:.0f}',
+    ax.annotate(f'{row["nominal_change_gt"]:.1f}',
                 (row['renewable_shock_magnitude'], row['fossil_shock_magnitude']),
-                ha='center', va='center', fontsize=6, fontweight='bold', color='black', zorder=2)
+                ha='center', va='center', fontsize=13, fontweight='bold', color='black', zorder=2)
 
 
 # Add legend for the zero level set
 ax.plot([], [], color='grey', linewidth=2.5, linestyle='--', label='Breakeven / Net Zero')
-ax.legend(loc='upper right', fontsize=10, framealpha=0.9)
+ax.legend(loc='upper right', fontsize=17, framealpha=0.9)
 # Set aspect ratio to be equal for better visualization
 ax.set_aspect('equal', adjustable='box')
 
@@ -135,6 +135,6 @@ plt.savefig('experiment_10x10_no_fn_generation_only_emissions.png', dpi=300, bbo
 
 # Print summary statistics
 print(f"Total simulations: {len(sim_totals)}")
-print(f"Value range: {sim_totals['nominal_change_mt'].min():.2f} to {sim_totals['nominal_change_mt'].max():.2f} Mt CO₂")
+print(f"Value range: {sim_totals['nominal_change_gt'].min():.1f} to {sim_totals['nominal_change_gt'].max():.1f} Gt CO₂")
 print(f"Renewable shock magnitude range: {sim_totals['renewable_shock_magnitude'].min():.0f} to {sim_totals['renewable_shock_magnitude'].max():.0f}")
 print(f"Fossil shock magnitude range: {sim_totals['fossil_shock_magnitude'].min():.0f} to {sim_totals['fossil_shock_magnitude'].max():.0f}")

@@ -1,4 +1,4 @@
-## GENERATION AND COMMODITY EXPERIMENTAL DESIGN
+## GENERATION AND COMMODITY EXPERIMENTAL DESIGN - CTAX 102 VARIANT
 ## This R script implements a 4x4x4 experimental design with three dimensions:
 ## 1. Renewable technology shock level (none/low/medium/high)
 ## 2. Fossil fuel technology shock level (none/low/medium/high)
@@ -6,6 +6,8 @@
 ##
 ## This version INCLUDES fossil fuel commodity shocks (Coal, Oil, Gas afeall)
 ## in addition to fossil fuel generation technology shocks.
+##
+## CTAX 102 VARIANT: Uses basedata_ctax_102.har instead of basedata_2024.har
 ##
 ## Fuel-neutral shocks include:
 ## - none: No TnD, ats, or aoall(En_Int_ind) shocks
@@ -111,7 +113,7 @@ param_grid$is_no_shocks <- (param_grid$renewable_level == "none" &
                              param_grid$fossil_level == "none" &
                              param_grid$fuel_neutral_level == "none")
 
-cat("Created parameter grid with", nrow(param_grid), "combinations (4×4×4)\n")
+cat("Created parameter grid with", nrow(param_grid), "combinations (4x4x4)\n")
 cat("No-shocks case (none/none/none) will be handled synthetically\n")
 cat("Total simulations to run:", sum(!param_grid$is_no_shocks), "\n")
 
@@ -133,11 +135,10 @@ calculate_shock_value <- function(param_row, level) {
   }
 }
 
-# Base CMF template (2024 calibrated baseline)
-# The calibrated GTAPDATA file includes renewable efficiency shocks that achieve
-# a fossil fuel share of ~60%, matching 2024 real-world data
+# Base CMF template (CTAX 102 baseline)
+# Uses basedata_ctax_102.har instead of basedata_2024.har
 base_cmf_template <- c(
-  "! Experimental design CMF file (WITH commodity shocks) using 2024 calibrated baseline !",
+  "! Experimental design CMF file (WITH commodity shocks) using CTAX 102 baseline !",
   "auxiliary files = gtapv7-ep;",
   "check-on-read elements = warn;",
   "cpu=yes ;",
@@ -145,9 +146,9 @@ base_cmf_template <- c(
   "start with MMNZ = 200000000;",
   "!servants = 1;",
   "",
-  "! Input files - using 2024 calibrated baseline:",
+  "! Input files - using CTAX 102 baseline:",
   "File GTAPSETS = sets.har;",
-  "File GTAPDATA = basedata_2024.har;",
+  "File GTAPDATA = basedata_ctax_102.har;",
   "File GTAPPARM = default.prm;",
   "! Output files:",
   "File GTAPSUM = <cmf>-SUM.har;",
@@ -158,9 +159,10 @@ base_cmf_template <- c(
   "Solution file = <cmf>.sl4;",
   "",
   "! Solution method - maximum accuracy settings",
-  "method = gragg ;",
-  "steps = 2 4 6 ;",
-  "subintervals = 10;",
+  "method = Euler ;",
+  "steps = 30 60 90 ;",
+  #"steps = 10 20 30 ;",
+  #"subintervals = 10;",
   "automatic accuracy = yes;",
   "",
   "! Standard GTAP closure: psave varies by region, pfactwld is numeraire",
@@ -185,26 +187,26 @@ base_cmf_template <- c(
   "          ;",
   "Rest endogenous;",
   "",
-  "Verbal Description = Experimental design shock with commodity shocks ;"
+  "Verbal Description = Experimental design shock with commodity shocks (CTAX 102) ;"
 )
 
 ## GENERATE CMF FILES FOR EACH SIMULATION
 #########################################
 
 # Create CMF directory if it doesn't exist
-dir.create('../cmf_gen_and_commodity', recursive = TRUE, showWarnings = FALSE)
+dir.create('../cmf_gen_and_commodity_ctax_102', recursive = TRUE, showWarnings = FALSE)
 
 # Clear old output files from previous runs to avoid reading stale results
-cat("Cleaning up old output files from cmf_gen_and_commodity directory...\n")
-old_files <- list.files('../cmf_gen_and_commodity', pattern = "\\.(sl4|har|sol)$", full.names = TRUE, recursive = FALSE)
+cat("Cleaning up old output files from cmf_gen_and_commodity_ctax_102 directory...\n")
+old_files <- list.files('../cmf_gen_and_commodity_ctax_102', pattern = "\\.(sl4|har|sol)$", full.names = TRUE, recursive = FALSE)
 if(length(old_files) > 0) {
   file.remove(old_files)
   cat("Removed", length(old_files), "old output files\n")
 }
 
 # Clear old files from solfiles subdirectory
-if(dir.exists('../cmf_gen_and_commodity/solfiles')) {
-  old_solfiles <- list.files('../cmf_gen_and_commodity/solfiles', pattern = ".*", full.names = TRUE, recursive = FALSE)
+if(dir.exists('../cmf_gen_and_commodity_ctax_102/solfiles')) {
+  old_solfiles <- list.files('../cmf_gen_and_commodity_ctax_102/solfiles', pattern = ".*", full.names = TRUE, recursive = FALSE)
   if(length(old_solfiles) > 0) {
     file.remove(old_solfiles)
     cat("Removed", length(old_solfiles), "old files from solfiles subdirectory\n")
@@ -278,7 +280,7 @@ for(i in 1:nrow(param_grid)) {
   all_shocks <- c(renewable_shocks, fossil_shocks, fuel_neutral_shocks)
 
   # Create CMF file for this simulation
-  cmf_file <- paste0('../cmf_gen_and_commodity/', sim_id, '.cmf')
+  cmf_file <- paste0('../cmf_gen_and_commodity_ctax_102/', sim_id, '.cmf')
   writeLines(c(base_cmf_template, "", all_shocks), cmf_file)
 
   # Progress indicator
@@ -295,32 +297,18 @@ sims_to_run <- which(!param_grid$is_no_shocks)
 for(i in seq_along(sims_to_run)) {
   row_idx <- sims_to_run[i]
   sim_id <- param_grid$sim_id[row_idx]
-  cmf_file <- paste0('../cmf_gen_and_commodity/', sim_id, '.cmf')
+  cmf_file <- paste0('../cmf_gen_and_commodity_ctax_102/', sim_id, '.cmf')
 
   # Create output directory for this simulation
-  soldir.i <- paste0("../run_out_gen_and_commodity/", sim_id)
+  soldir.i <- paste0("../run_out_gen_and_commodity_ctax_102/", sim_id)
   dir.create(soldir.i, recursive = TRUE, showWarnings = FALSE)
 
   # Copy CMF file to simulation directory
   file.copy(from = cmf_file, to = soldir.i, overwrite = TRUE)
 
   # Run GTAP model
-  exp <- paste0('GTAPV7-EP.exe -cmf ../cmf_gen_and_commodity/', sim_id, '.cmf')
+  exp <- paste0('GTAPV7-EP.exe -cmf ../cmf_gen_and_commodity_ctax_102/', sim_id, '.cmf')
   system(exp, ignore.stdout = TRUE)
-
-  # Move output files to run_out_gen_and_commodity directory
-  # if(file.exists(paste0(sim_id, '.sl4'))) {
-  #   file.copy(paste0(sim_id, '.sl4'), paste0('../run_out_gen_and_commodity/', sim_id, '/', sim_id, '.sl4'), overwrite = TRUE)
-  # }
-  # if(file.exists(paste0(sim_id, '-VOL.har'))) {
-  #   file.copy(paste0(sim_id, '-VOL.har'), paste0('../run_out_gen_and_commodity/', sim_id, '/', sim_id, '-VOL.har'), overwrite = TRUE)
-  # }
-  # if(file.exists(paste0(sim_id, '-SUM.har'))) {
-  #   file.copy(paste0(sim_id, '-SUM.har'), paste0('../run_out_gen_and_commodity/', sim_id, '/', sim_id, '-SUM.har'), overwrite = TRUE)
-  # }
-  # if(file.exists(paste0(sim_id, '-WEL.har'))) {
-  #   file.copy(paste0(sim_id, '-WEL.har'), paste0('../run_out_gen_and_commodity/', sim_id, '/', sim_id, '-WEL.har'), overwrite = TRUE)
-  # }
 
   # Clean up GTAPDATA.UPD to avoid contaminating next simulation
   if(file.exists("GTAPDATA.UPD")) {
@@ -339,7 +327,7 @@ cat("All simulations completed!\n")
 cat("\nExtracting solution data...\n")
 
 # Create solfiles directory if it doesn't exist
-dir.create('../cmf_gen_and_commodity/solfiles', recursive = TRUE, showWarnings = FALSE)
+dir.create('../cmf_gen_and_commodity_ctax_102/solfiles', recursive = TRUE, showWarnings = FALSE)
 
 # Extract solution files for all simulations (skip no-shocks case)
 for(i in seq_along(sims_to_run)) {
@@ -347,9 +335,9 @@ for(i in seq_along(sims_to_run)) {
   sim_id <- param_grid$sim_id[row_idx]
 
   ext.status <- extractvar(
-    solution.dir = paste0("../cmf_gen_and_commodity"),
+    solution.dir = paste0("../cmf_gen_and_commodity_ctax_102"),
     solution.name = paste0("/", sim_id, ".sl4"),
-    solution.out = paste0("../cmf_gen_and_commodity/solfiles/", sim_id, ".sol")
+    solution.out = paste0("../cmf_gen_and_commodity_ctax_102/solfiles/", sim_id, ".sol")
   )
 
   if(i %% 10 == 0) {
@@ -375,12 +363,12 @@ for(i in 1:nrow(param_grid)) {
     # Get structure from any other simulation (use sim_02 as template)
     template_sim <- param_grid$sim_id[2]
     readsol(
-      paste0("../cmf_gen_and_commodity/solfiles/"),
+      paste0("../cmf_gen_and_commodity_ctax_102/solfiles/"),
       paste0(template_sim, ".sol"),
-      paste0("../cmf_gen_and_commodity/solfiles/", template_sim, "_gco2t.csv"),
+      paste0("../cmf_gen_and_commodity_ctax_102/solfiles/", template_sim, "_gco2t.csv"),
       "0038"
     )
-    template_results <- fread(paste0("../cmf_gen_and_commodity/solfiles/", template_sim, "_gco2t.csv"))
+    template_results <- fread(paste0("../cmf_gen_and_commodity_ctax_102/solfiles/", template_sim, "_gco2t.csv"))
 
     # Create zero-change version
     these_results <- copy(template_results)
@@ -399,14 +387,14 @@ for(i in 1:nrow(param_grid)) {
 
   # Read solution data for CO2 emissions
   readsol(
-    paste0("../cmf_gen_and_commodity/solfiles/"),
+    paste0("../cmf_gen_and_commodity_ctax_102/solfiles/"),
     paste0(sim_id, ".sol"),
-    paste0("../cmf_gen_and_commodity/solfiles/", sim_id, "_gco2t.csv"),
+    paste0("../cmf_gen_and_commodity_ctax_102/solfiles/", sim_id, "_gco2t.csv"),
     "0038"
   )
 
   # Load results and add metadata
-  these_results <- fread(paste0("../cmf_gen_and_commodity/solfiles/", sim_id, "_gco2t.csv"))
+  these_results <- fread(paste0("../cmf_gen_and_commodity_ctax_102/solfiles/", sim_id, "_gco2t.csv"))
   these_results$sim_id <- sim_id
   these_results$renewable_level <- param_grid$renewable_level[i]
   these_results$fossil_level <- param_grid$fossil_level[i]
@@ -423,23 +411,23 @@ for(i in 1:nrow(param_grid)) {
 res_table <- rbindlist(results_list)
 
 # Create results directory if needed
-dir.create('../results', recursive = TRUE, showWarnings = FALSE)
+dir.create('../results_ctax_102', recursive = TRUE, showWarnings = FALSE)
 
 # Save parameter grid for reference
-fwrite(param_grid, '../results/experiment_gen_and_commodity_parameter_grid.csv')
+fwrite(param_grid, '../results_ctax_102/experiment_gen_and_commodity_parameter_grid_ctax_102.csv')
 
 # Save compiled results
-fwrite(res_table, '../results/experiment_gen_and_commodity_results.csv')
+fwrite(res_table, '../results_ctax_102/experiment_gen_and_commodity_results_ctax_102.csv')
 
-cat("\nRefactored experiment (with commodity shocks) completed successfully!\n")
-cat("Parameter grid saved to: ../results/experiment_gen_and_commodity_parameter_grid.csv\n")
-cat("Results saved to: ../results/experiment_gen_and_commodity_results.csv\n")
+cat("\nRefactored experiment (with commodity shocks, CTAX 102) completed successfully!\n")
+cat("Parameter grid saved to: ../results_ctax_102/experiment_gen_and_commodity_parameter_grid.csv\n")
+cat("Results saved to: ../results_ctax_102/experiment_gen_and_commodity_results.csv\n")
 
 ## SUMMARY STATISTICS
 #####################
 
-cat("\nSummary of Generation and Commodity Experiment:\n")
-cat("Total parameter combinations:", nrow(param_grid), "(4×4×4)\n")
+cat("\nSummary of Generation and Commodity Experiment (CTAX 102):\n")
+cat("Total parameter combinations:", nrow(param_grid), "(4x4x4)\n")
 cat("Simulations actually run:", length(sims_to_run), "(excluding none/none/none)\n")
 cat("Renewable levels:", paste(unique(param_grid$renewable_level), collapse=", "), "\n")
 cat("Fossil fuel levels:", paste(unique(param_grid$fossil_level), collapse=", "), "\n")
@@ -450,3 +438,4 @@ cat("Number of fuel-neutral parameters:", nrow(fuel_neutral_params), "\n")
 cat("Total observations in results:", nrow(res_table), "\n")
 cat("\nNote: The none/none/none case has synthetic zero-change results\n")
 cat("Note: Fossil shocks include BOTH generation technology AND commodity shocks\n")
+cat("Note: Using basedata_ctax_102.har as baseline data\n")

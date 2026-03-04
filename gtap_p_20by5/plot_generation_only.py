@@ -5,21 +5,21 @@ import matplotlib.cm as cm
 import matplotlib.colors as colors
 
 # Load the results and baseline emissions
-df = pd.read_csv('results/experiment_generation_only_results.csv')
+df = pd.read_csv('results_final/experiment_generation_only_results.csv')
 baseline_df = pd.read_csv('baseline_co2.csv')
 
 # Merge with baseline emissions
 df = df.merge(baseline_df, left_on='REG', right_on='REG', how='left', suffixes=('', '_baseline'))
 
-# Convert percentage values to actual changes in millions of tons
-df['nominal_change_mt'] = (df['Value'] / 100) * df['Value_baseline']
+# Convert percentage values to actual changes in gigatons
+df['nominal_change_gt'] = (df['Value'] / 100) * df['Value_baseline'] / 1000
 
 # Sum values by sim_id (aggregating over REG)
 sim_totals = df.groupby('sim_id').agg({
-    'nominal_change_mt': 'sum',
+    'nominal_change_gt': 'sum',
     'renewable_level': 'first',
     'fossil_level': 'first',
-    'rest_of_economy_level': 'first'
+    'fuel_neutral_level': 'first'
 }).reset_index()
 
 # Create level mappings
@@ -27,12 +27,12 @@ level_mapping = {'none': 0, 'low': 1, 'medium': 2, 'high': 3}
 roe_levels = ['none', 'low', 'baseline', 'high']
 
 # Calculate symmetric bounds around zero for all data
-max_abs_value = max(abs(sim_totals['nominal_change_mt'].min()), abs(sim_totals['nominal_change_mt'].max()))
+max_abs_value = max(abs(sim_totals['nominal_change_gt'].min()), abs(sim_totals['nominal_change_gt'].max()))
 
 # Create 2x3 grid with the rightmost column for colorbar
 fig = plt.figure(figsize=(14, 12))
-gs = fig.add_gridspec(2, 3, width_ratios=[1, 1, 0.05], hspace=0.15, wspace=0.1,
-                      left=0.06, right=0.96, top=0.93, bottom=0.05)
+gs = fig.add_gridspec(2, 3, width_ratios=[1, 1, 0.05], hspace=0.25, wspace=0.15,
+                      left=0.08, right=0.94, top=0.88, bottom=0.08)
 
 # Create the 4 plot axes (2x2 on the left)
 plot_axes = [
@@ -46,7 +46,7 @@ for idx, roe_level in enumerate(roe_levels):
     ax = plot_axes[idx]
 
     # Filter data for this ROE level
-    roe_data = sim_totals[sim_totals['rest_of_economy_level'] == roe_level].copy()
+    roe_data = sim_totals[sim_totals['fuel_neutral_level'] == roe_level].copy()
 
     # Map categorical levels to numeric positions
     roe_data['x_pos'] = roe_data['renewable_level'].map(level_mapping)
@@ -61,7 +61,7 @@ for idx, roe_level in enumerate(roe_levels):
     for _, row in roe_data.iterrows():
         x = row['x_pos']
         y = row['y_pos']
-        value = row['nominal_change_mt']
+        value = row['nominal_change_gt']
 
         # Create rectangle centered at (x, y)
         rect = Rectangle((x - cell_size/2, y - cell_size/2), cell_size, cell_size,
@@ -71,23 +71,23 @@ for idx, roe_level in enumerate(roe_levels):
         ax.add_patch(rect)
 
     # Customize the plot
-    ax.set_xlabel('Renewable Level')
-    ax.set_ylabel('Fossil Level')
+    ax.set_xlabel('Renewables Level', fontsize=15)
+    ax.set_ylabel('Fossil Level', fontsize=15)
     # Map baseline to medium for display
     display_level = 'Medium' if roe_level == 'baseline' else roe_level.capitalize()
-    ax.set_title(f'Fuel-Neutral Adoption Level: {display_level}')
+    ax.set_title(f'Fuel-Neutral Adoption Level: {display_level}', fontsize=17)
 
     # Set tick labels
     ax.set_xticks([0, 1, 2, 3])
-    ax.set_xticklabels(['None', 'Low', 'Medium', 'High'])
+    ax.set_xticklabels(['None', 'Low', 'Medium', 'High'], fontsize=13)
     ax.set_yticks([0, 1, 2, 3])
-    ax.set_yticklabels(['None', 'Low', 'Medium', 'High'])
+    ax.set_yticklabels(['None', 'Low', 'Medium', 'High'], fontsize=13)
 
     # Add text annotations for values on each cell
     for _, row in roe_data.iterrows():
-        ax.annotate(f'{row["nominal_change_mt"]:.1f}',
+        ax.annotate(f'{row["nominal_change_gt"]:.1f}',
                     (row['x_pos'], row['y_pos']),
-                    ha='center', va='center', fontsize=9, fontweight='bold', color='black')
+                    ha='center', va='center', fontsize=13, fontweight='bold', color='black')
 
     # Set axis limits to show all squares properly
     ax.set_xlim(-0.5, 3.5)
@@ -100,17 +100,17 @@ for idx, roe_level in enumerate(roe_levels):
 cbar_ax = fig.add_subplot(gs[:, 2])
 scatter = plot_axes[0].scatter([], [], c=[], cmap='RdYlGn_r', vmin=-max_abs_value, vmax=max_abs_value)
 cbar = fig.colorbar(scatter, cax=cbar_ax, orientation='vertical')
-cbar.set_label('Change in CO₂ Emissions (Million Tons)', rotation=270, labelpad=20)
+cbar.set_label('Change in CO₂ Emissions (Gt)', rotation=270, labelpad=20, fontsize=15)
 
-fig.suptitle('Change in CO₂ Emissions - Generation Only\n(4×4 Grid for each Fuel-Neutral Adoption Level)',
-             fontsize=14, y=0.98)
+fig.suptitle('Change in CO₂ Emissions - Fossil (Generation) and Renewables (Generation)\n(4×4 Grid for each Fuel-Neutral Adoption Level)',
+             fontsize=20, y=0.98)
 
 plt.savefig('experiment_generation_only_emissions.png', dpi=300, bbox_inches='tight')
 
 # Print summary statistics
 print(f"Total simulations: {len(sim_totals)}")
-print(f"Value range: {sim_totals['nominal_change_mt'].min():.2f} to {sim_totals['nominal_change_mt'].max():.2f} Mt CO₂")
+print(f"Value range: {sim_totals['nominal_change_gt'].min():.1f} to {sim_totals['nominal_change_gt'].max():.1f} Gt CO₂")
 print(f"\nBy fuel-neutral adoption level:")
 for roe_level in roe_levels:
-    roe_data = sim_totals[sim_totals['rest_of_economy_level'] == roe_level]
-    print(f"  {roe_level}: {roe_data['nominal_change_mt'].min():.2f} to {roe_data['nominal_change_mt'].max():.2f} Mt CO₂")
+    roe_data = sim_totals[sim_totals['fuel_neutral_level'] == roe_level]
+    print(f"  {roe_level}: {roe_data['nominal_change_gt'].min():.1f} to {roe_data['nominal_change_gt'].max():.1f} Gt CO₂")

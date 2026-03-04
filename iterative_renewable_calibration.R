@@ -29,13 +29,13 @@
 library(data.table)
 
 # Set working directory to GTAP model location
-setwd("C:/Users/natha/Documents/Two Brothers/enabled emissions/enabled_emissions_cge/gtap_p_20by5/gtpv7AI")
+setwd("C:/Users/natha/Documents/Two Brothers/enabled emissions/gtap_p_20by5/gtpv7AI")
 
 ## CONFIGURATION
 ################
 
 # Read baseline data from CSV to calculate target shares
-baseline_csv <- "C:/Users/natha/Documents/Two Brothers/enabled emissions/enabled_emissions_cge/baseline_data.csv"
+baseline_csv <- "C:/Users/natha/Documents/Two Brothers/enabled emissions/baseline_data.csv"
 baseline_data <- fread(baseline_csv)
 
 # Get 2024 data (last row)
@@ -121,7 +121,7 @@ append_to_file <- function(input_file, output_file, strings_to_append) {
 ## LOAD EXPERIMENTAL DESIGN
 ###########################
 
-exp_design_file <- "C:/Users/natha/Documents/Two Brothers/enabled emissions/enabled_emissions_cge/gtap_p_exp_design.csv"
+exp_design_file <- "C:/Users/natha/Documents/Two Brothers/enabled emissions/gtap_p_exp_design.csv"
 exp_design <- fread(exp_design_file)
 
 # Fix escape character issues
@@ -282,23 +282,19 @@ while(!converged && iteration <= MAX_ITERATIONS) {
 
     # Extract consumption headers from gsdfvole.har
     # EDF: Electricity demand by fuel type (ERG*ACTS*REG)
-    # EMF: Electricity manufacturing by fuel type (ERG*ACTS*REG)
     # EDP: Electricity demand by peaking fuel type (ERG*REG)
-    # EMP: Electricity manufacturing by peaking fuel type (ERG*REG)
+    # EXI: Energy commodity volumes (ERG*REG)
     system(paste("har2csv", "gsdfvole.har", "../iterative_calibration/baseline_edf.csv", "EDF"),
-           ignore.stdout = TRUE)
-    system(paste("har2csv", "gsdfvole.har", "../iterative_calibration/baseline_emf.csv", "EMF"),
            ignore.stdout = TRUE)
     system(paste("har2csv", "gsdfvole.har", "../iterative_calibration/baseline_edp.csv", "EDP"),
            ignore.stdout = TRUE)
-    system(paste("har2csv", "gsdfvole.har", "../iterative_calibration/baseline_emp.csv", "EMP"),
+    system(paste("har2csv", "gsdfvole.har", "../iterative_calibration/baseline_exi.csv", "EXI"),
            ignore.stdout = TRUE)
 
     # Check if extraction worked
     if(!file.exists("../iterative_calibration/baseline_edf.csv") ||
-       !file.exists("../iterative_calibration/baseline_emf.csv") ||
        !file.exists("../iterative_calibration/baseline_edp.csv") ||
-       !file.exists("../iterative_calibration/baseline_emp.csv")) {
+       !file.exists("../iterative_calibration/baseline_exi.csv")) {
       cat("  ERROR: Failed to extract baseline volume data from gsdfvole.har\n")
       cat("  Current working directory:", getwd(), "\n")
       stop("Cannot proceed without baseline data")
@@ -312,28 +308,26 @@ while(!converged && iteration <= MAX_ITERATIONS) {
     stop("Cannot proceed without baseline data")
   }
 
-  # Read all four consumption headers
+  # Read all three consumption headers
   baseline_edf <- fread("../iterative_calibration/baseline_edf.csv")
-  baseline_emf <- fread("../iterative_calibration/baseline_emf.csv")
   baseline_edp <- fread("../iterative_calibration/baseline_edp.csv")
-  baseline_emp <- fread("../iterative_calibration/baseline_emp.csv")
+  baseline_exi <- fread("../iterative_calibration/baseline_exi.csv", check.names = TRUE)
 
   # Convert Value columns to numeric (har2csv may output as character)
   baseline_edf[, Value := as.numeric(Value)]
-  baseline_emf[, Value := as.numeric(Value)]
   baseline_edp[, Value := as.numeric(Value)]
-  baseline_emp[, Value := as.numeric(Value)]
+  baseline_exi[, Value := as.numeric(Value)]
 
-  # EDF and EMF have columns: ERG, ACTS, REG, Value
-  # EDP and EMP have columns: ERG, REG, Value
+  # EDF has columns: ERG, ACTS, REG, Value
+  # EDP has columns: ERG, REG, Value
+  # EXI has columns: ERG, ..., REG, Value
   # Sum all consumption by ERG and REG (keeping regional dimension)
   baseline_edf_sum <- baseline_edf[, .(consumption = sum(Value)), by = .(ERG, REG)]
-  baseline_emf_sum <- baseline_emf[, .(consumption = sum(Value)), by = .(ERG, REG)]
   baseline_edp_sum <- baseline_edp[, .(consumption = sum(Value)), by = .(ERG, REG)]
-  baseline_emp_sum <- baseline_emp[, .(consumption = sum(Value)), by = .(ERG, REG)]
+  baseline_exi_sum <- baseline_exi[, .(consumption = sum(Value)), by = .(ERG, REG)]
 
   # Combine all consumption sources by ERG and REG
-  baseline_volumes <- rbindlist(list(baseline_edf_sum, baseline_emf_sum, baseline_edp_sum, baseline_emp_sum))
+  baseline_volumes <- rbindlist(list(baseline_edf_sum, baseline_edp_sum, baseline_exi_sum))
   baseline_by_erg_reg <- baseline_volumes[, .(baseline_output = sum(consumption)), by = .(ERG, REG)]
 
   # Step 3: Handle baseline case (no shocks) vs shocked case differently
@@ -358,52 +352,51 @@ while(!converged && iteration <= MAX_ITERATIONS) {
     if(file.exists(upd_file)) {
       # Extract consumption headers from updated data (same process as baseline)
       # We'll extract to temporary files with iteration-specific names
-      # Note: Header names in .UPD files are EFD/EFM (not EDF/EMF)
+      # Note: Header name EDF becomes EFD in .UPD files; EDP and EXI stay the same
       updated_efd_csv <- paste0("../iterative_calibration/", sim_id, "_efd.csv")
-      updated_efm_csv <- paste0("../iterative_calibration/", sim_id, "_efm.csv")
       updated_edp_csv <- paste0("../iterative_calibration/", sim_id, "_edp.csv")
-      updated_emp_csv <- paste0("../iterative_calibration/", sim_id, "_emp.csv")
+      updated_exi_csv <- paste0("../iterative_calibration/", sim_id, "_exi.csv")
 
       system(paste("har2csv", upd_file, updated_efd_csv, "EFD"), ignore.stdout = FALSE)
-      system(paste("har2csv", upd_file, updated_efm_csv, "EFM"), ignore.stdout = FALSE)
       system(paste("har2csv", upd_file, updated_edp_csv, "EDP"), ignore.stdout = FALSE)
-      system(paste("har2csv", upd_file, updated_emp_csv, "EMP"), ignore.stdout = FALSE)
+      system(paste("har2csv", upd_file, updated_exi_csv, "EXI"), ignore.stdout = FALSE)
 
       # Read updated consumption data
       updated_efd <- fread(updated_efd_csv)
-      updated_efm <- fread(updated_efm_csv)
       updated_edp <- fread(updated_edp_csv)
-      updated_emp <- fread(updated_emp_csv)
+      updated_exi <- tryCatch(
+        fread(updated_exi_csv, check.names = TRUE),
+        error = function(e) {
+          cat("  EXI header not found in UPD file, using baseline EXI from basedata.har\n")
+          baseline_exi_fallback_csv <- paste0("../iterative_calibration/", sim_id, "_exi_baseline.csv")
+          system(paste("har2csv", "basedata.har", baseline_exi_fallback_csv, "EXI"), ignore.stdout = TRUE)
+          fread(baseline_exi_fallback_csv, check.names = TRUE)
+        }
+      )
 
       # Rename EGYVOL column to ERG to match baseline files
-      setnames(updated_efd, "EGYVOL", "ERG")
-      setnames(updated_efm, "EGYVOL", "ERG")
-      setnames(updated_edp, "EGYVOL", "ERG")
-      setnames(updated_emp, "EGYVOL", "ERG")
+      if("EGYVOL" %in% names(updated_efd)) setnames(updated_efd, "EGYVOL", "ERG")
+      if("EGYVOL" %in% names(updated_edp)) setnames(updated_edp, "EGYVOL", "ERG")
+      if("EGYVOL" %in% names(updated_exi)) setnames(updated_exi, "EGYVOL", "ERG")
 
       # Handle empty files (only header row) by creating proper column types from baseline
       if(nrow(updated_efd) == 0) {
         updated_efd <- baseline_edf[0, ]  # Empty table with correct structure
         updated_efd[, Value := 0]
       }
-      if(nrow(updated_efm) == 0) {
-        updated_efm <- baseline_emf[0, ]  # Empty table with correct structure
-        updated_efm[, Value := 0]
-      }
       if(nrow(updated_edp) == 0) {
         updated_edp <- baseline_edp[0, ]  # Empty table with correct structure
         updated_edp[, Value := 0]
       }
-      if(nrow(updated_emp) == 0) {
-        updated_emp <- baseline_emp[0, ]  # Empty table with correct structure
-        updated_emp[, Value := 0]
+      if(nrow(updated_exi) == 0) {
+        updated_exi <- baseline_exi[0, ]  # Empty table with correct structure
+        updated_exi[, Value := 0]
       }
 
       # Convert Value columns to numeric
       updated_efd[, Value := as.numeric(Value)]
-      updated_efm[, Value := as.numeric(Value)]
       updated_edp[, Value := as.numeric(Value)]
-      updated_emp[, Value := as.numeric(Value)]
+      updated_exi[, Value := as.numeric(Value)]
 
       # For each header, merge with baseline and replace zeros with baseline values
       # EFD header (ERG, ACTS, REG)
@@ -414,14 +407,6 @@ while(!converged && iteration <= MAX_ITERATIONS) {
       updated_efd_merged[is.na(Value_updated), Value_updated := 0]
       updated_efd_merged[, Value := ifelse(Value_updated == 0, Value_baseline, Value_updated)]
 
-      # EFM header (ERG, ACTS, REG)
-      updated_efm_merged <- merge(baseline_emf, updated_efm,
-                                   by = c("ERG", "ACTS", "REG"),
-                                   suffixes = c("_baseline", "_updated"),
-                                   all.x = TRUE)
-      updated_efm_merged[is.na(Value_updated), Value_updated := 0]
-      updated_efm_merged[, Value := ifelse(Value_updated == 0, Value_baseline, Value_updated)]
-
       # EDP header (ERG, REG)
       updated_edp_merged <- merge(baseline_edp, updated_edp,
                                    by = c("ERG", "REG"),
@@ -430,22 +415,22 @@ while(!converged && iteration <= MAX_ITERATIONS) {
       updated_edp_merged[is.na(Value_updated), Value_updated := 0]
       updated_edp_merged[, Value := ifelse(Value_updated == 0, Value_baseline, Value_updated)]
 
-      # EMP header (ERG, REG)
-      updated_emp_merged <- merge(baseline_emp, updated_emp,
-                                   by = c("ERG", "REG"),
+      # EXI header - detect merge keys dynamically
+      exi_merge_keys <- setdiff(names(baseline_exi), "Value")
+      updated_exi_merged <- merge(baseline_exi, updated_exi,
+                                   by = exi_merge_keys,
                                    suffixes = c("_baseline", "_updated"),
                                    all.x = TRUE)
-      updated_emp_merged[is.na(Value_updated), Value_updated := 0]
-      updated_emp_merged[, Value := ifelse(Value_updated == 0, Value_baseline, Value_updated)]
+      updated_exi_merged[is.na(Value_updated), Value_updated := 0]
+      updated_exi_merged[, Value := ifelse(Value_updated == 0, Value_baseline, Value_updated)]
 
       # Sum by ERG and REG (using corrected values)
       updated_efd_sum <- updated_efd_merged[, .(consumption = sum(Value)), by = .(ERG, REG)]
-      updated_efm_sum <- updated_efm_merged[, .(consumption = sum(Value)), by = .(ERG, REG)]
       updated_edp_sum <- updated_edp_merged[, .(consumption = sum(Value)), by = .(ERG, REG)]
-      updated_emp_sum <- updated_emp_merged[, .(consumption = sum(Value)), by = .(ERG, REG)]
+      updated_exi_sum <- updated_exi_merged[, .(consumption = sum(Value)), by = .(ERG, REG)]
 
       # Combine all updated consumption sources
-      updated_volumes <- rbindlist(list(updated_efd_sum, updated_efm_sum, updated_edp_sum, updated_emp_sum))
+      updated_volumes <- rbindlist(list(updated_efd_sum, updated_edp_sum, updated_exi_sum))
       output_by_erg_reg <- updated_volumes[, .(final_output = sum(consumption)), by = .(ERG, REG)]
 
       # Merge with baseline to add baseline_output column for reporting
@@ -751,7 +736,7 @@ non_empty_headers <- character()
 upd_row_counts <- list()
 
 # Create directory for temporary CSV files
-dir.create("../iterative_calibration/header_check", recursive = TRUE, showWarnings = FALSE)
+dir.create("../../iterative_calibration/header_check", recursive = TRUE, showWarnings = FALSE)
 
 for(header in headers_in_upd) {
   csv_file <- paste0("../iterative_calibration/header_check/", header, ".csv")
